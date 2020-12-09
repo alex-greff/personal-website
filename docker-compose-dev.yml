@@ -1,0 +1,15 @@
+# Sets up the development environment
+version: "3.2"
+services: 
+  client:
+    build: 
+      dockerfile: Dockerfile.dev
+      context: ./client
+    ports: 
+      - "3050:8080"
+    container_name: personal_website_client
+    volumes: 
+      - /app/node_modules
+      - ./client:/app
+    environment: 
+      - CHOKIDAR_USEPOLLING=true
