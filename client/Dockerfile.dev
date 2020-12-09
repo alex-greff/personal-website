@@ -1,0 +1,9 @@
+FROM node:alpine
+WORKDIR /app
+COPY ./package*.json ./
+RUN apk add --no-cache git autoconf automake libtool make tiff jpeg \
+                       zlib zlib-dev pkgconf nasm file gcc musl-dev
+RUN npm install -g gatsby-cli
+RUN npm install
+COPY . .
+CMD ["npm", "run", "develop"]
