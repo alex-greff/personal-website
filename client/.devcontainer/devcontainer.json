@@ -5,15 +5,12 @@
   "workspaceFolder": "/app",
   "shutdownAction": "none",
   "extensions": [
-    "ms-vscode.cpptools",
     "streetsidesoftware.code-spell-checker",
     "coenraads.bracket-pair-colorizer-2",
-    "dtsvet.vscode-wasm",
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
     "naumovs.color-highlight",
     "prisma.vscode-graphql",
     "wayou.vscode-todo-highlight",
-    "dtsvet.vscode-wasm"
   ]
 }
