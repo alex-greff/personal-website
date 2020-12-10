@@ -37,6 +37,13 @@ module.exports = {
         name: "experience",
         path: "./content/experience"
       }
+    },
+    {
+      resolve: "gatsby-source-filesystem",
+      options: {
+        name: "about",
+        path: "./content/about.mdx"
+      }
     }
   ],
 };

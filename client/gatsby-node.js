@@ -2,6 +2,11 @@ const { createFilePath } = require("gatsby-source-filesystem");
 const path = require("path");
 
 const PROJECTS_COLLECTION = "projects";
+const EXPERIENCE_COLLECTION = "experience";
+const ABOUT_COLLECTION = "about";
+
+// Collections to slug
+const SLUG_COLLECTIONS = [PROJECTS_COLLECTION];
 
 // References: 
 // - https://www.gatsbyjs.com/docs/mdx/programmatically-creating-pages/
@@ -10,20 +15,8 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions;
 
   if (node.internal.type === "Mdx") {
-    const slugBase = createFilePath({ node, getNode });
-
     const parent = getNode(node.parent);
     const collection = parent.sourceInstanceName;
-
-    // Construct the slug
-    const slug = `${collection}${slugBase}`;
-    
-    // Create slug field
-    createNodeField({
-      node, // The MDX node
-      name: "slug",
-      value: slug,
-    });
 
     // Create collection field
     createNodeField({
@@ -31,6 +24,24 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       name: "collection",
       value: collection,
     });
+
+    console.log("> collection:", collection); // TODO: remove
+
+    // Only add the slug if called for
+    if (SLUG_COLLECTIONS.includes(collection)) {
+      // Construct the slug
+      const slugBase = createFilePath({ node, getNode });
+      const slug = `${collection}${slugBase}`;
+
+      console.log("- slug:", slug); // TODO: remove
+      
+      // Create slug field
+      createNodeField({
+        node, // The MDX node
+        name: "slug",
+        value: slug,
+      });
+    }
   }
 };
 
