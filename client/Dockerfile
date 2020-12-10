@@ -1,8 +1,8 @@
 FROM node:alpine as builder
 WORKDIR /app
-COPY ./package*.json ./
 RUN apk add --no-cache git autoconf automake libtool make tiff jpeg \
                        zlib zlib-dev pkgconf nasm file gcc musl-dev
+COPY ./package*.json ./
 RUN npm install
 COPY . .
 RUN npm run build

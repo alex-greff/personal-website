@@ -1,7 +1,8 @@
 {
   "C_Cpp.clang_format_style": "LLVM",
   "files.associations": {
-    ".prettierrc": "json"
+    ".prettierrc": "json",
+    "*.mdx": "mdx"
   },
   "editor.tabSize": 2,
   "editor.rulers": [80],

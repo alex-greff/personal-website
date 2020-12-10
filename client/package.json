@@ -19,6 +19,7 @@
     "@mdx-js/mdx": "^1.6.22",
     "@mdx-js/react": "^1.6.22",
     "gatsby": "^2.26.1",
+    "gatsby-plugin-page-creator": "^2.6.0",
     "gatsby-plugin-image": "^0.3.1",
     "gatsby-plugin-mdx": "^1.6.0",
     "gatsby-plugin-netlify-cms": "^4.6.0",
@@ -33,5 +34,8 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-helmet": "^6.1.0"
+  },
+  "devDependencies": {
+    "@types/mdx-js__react": "^1.5.3"
   }
 }
