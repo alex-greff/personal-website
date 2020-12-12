@@ -1,0 +1,10 @@
+@function var-link($var-input) {
+  $prefix: "--";
+  $var-prefix: slice($var-input, 1, 2);
+  $var-full: $var-input;
+  // Prefix prepend needed
+  @if $var-prefix != $prefix {
+    $var-full: $prefix + $var-input;
+  }
+  @return var(unquote($var-full));
+}

@@ -1,0 +1,8 @@
+#Main {
+  background-color: var-link(some-var);
+
+  // TODO: remove
+  @include respond(phone) {
+    background-color: red;
+  }
+}

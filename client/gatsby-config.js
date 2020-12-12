@@ -1,13 +1,27 @@
+const path = require('path');
+
 module.exports = {
   plugins: [
     "gatsby-plugin-netlify-cms",
-    "gatsby-plugin-sass",
     "gatsby-plugin-image",
     "gatsby-plugin-react-helmet",
     "gatsby-plugin-sitemap",
     "gatsby-plugin-mdx",
     "gatsby-plugin-sharp",
     "gatsby-transformer-sharp",
+    {
+      resolve: `gatsby-plugin-sass`,
+      options: {
+        implementation: require('sass'),
+        data: `@import "${__dirname}/src/styles/global.scss";`,
+      }
+    },
+    {
+      resolve: 'gatsby-plugin-root-import',
+      options: {
+        "@": path.join(__dirname, 'src')
+      }
+    },
     {
       resolve: "gatsby-source-filesystem",
       options: {
