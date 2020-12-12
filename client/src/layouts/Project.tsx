@@ -1,6 +1,7 @@
 
 import React, { FunctionComponent } from "react";
 import { graphql, Link, PageProps } from "gatsby";
+import { ThemeProvider } from "@/contexts/theme-context";
 import { MDXProvider } from "@mdx-js/react";
 import { MDXRenderer } from "gatsby-plugin-mdx";
 
@@ -19,18 +20,20 @@ interface Props extends PageProps {
   };
 }
 
-const PageTemplate: FunctionComponent<Props> = ({ data: { mdx } }) => {
+const ProjectPage: FunctionComponent<Props> = ({ data: { mdx } }) => {
   return (
-    <div>
-      <h1>{mdx.frontmatter.title}</h1>
-      <MDXProvider components={shortcodes}>
-        <MDXRenderer>{mdx.body}</MDXRenderer>
-      </MDXProvider>
-    </div>
+    <ThemeProvider>
+      <div>
+        <h1>{mdx.frontmatter.title}</h1>
+        <MDXProvider components={shortcodes}>
+          <MDXRenderer>{mdx.body}</MDXRenderer>
+        </MDXProvider>
+      </div>
+    </ThemeProvider>
   );
 };
 
-export default PageTemplate;
+export default ProjectPage;
 
 export const pageQuery = graphql`
   query ProjectQuery($id: String) {

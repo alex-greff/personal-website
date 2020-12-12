@@ -1,0 +1,1 @@
+export type ThemeID = "theme-light" | "theme-dark";

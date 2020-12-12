@@ -1,14 +1,26 @@
 import "./index.scss";
-import * as React from "react";
+import React, { FunctionComponent, useContext } from "react";
 import "@/styles/main.scss";
+import ThemeContext, { ThemeProvider } from "@/contexts/theme-context";
 
-const HomePage = () => {
+const Main: FunctionComponent = () => {
+  const { theme, switchTheme } = useContext(ThemeContext);
+
   return (
     <main id="Main">
-      <title>Alexander Greff - Profile Website</title>
       <h1>Hello There</h1>
+      <button onClick={() => switchTheme("theme-light")}>Light</button>
+      <button onClick={() => switchTheme("theme-dark")}>Dark</button>
     </main>
   );
 };
- 
-export default HomePage;
+
+const index: FunctionComponent = () => {
+  return (
+    <ThemeProvider>
+      <Main />
+    </ThemeProvider>
+  );
+};
+
+export default index;

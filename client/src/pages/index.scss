@@ -1,5 +1,5 @@
 #Main {
-  background-color: var-link(some-var);
+  color: var-link(something);
 
   // TODO: remove
   @include respond(phone) {
