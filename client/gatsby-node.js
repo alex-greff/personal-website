@@ -74,7 +74,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     createPage({
       path: node.fields.slug,
       // Wrap the MDX content in the Project layout
-      component: path.resolve(`./src/layouts/Project.tsx`),
+      component: path.resolve(`./src/layouts/ProjectLayout.tsx`),
       context: { id: node.id },
     })
   });

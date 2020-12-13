@@ -1,8 +1,3 @@
 #Main {
-  color: var-link(something);
-
-  // TODO: remove
-  @include respond(phone) {
-    background-color: red;
-  }
+  width: 100%;
 }

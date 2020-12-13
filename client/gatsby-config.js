@@ -23,6 +23,12 @@ module.exports = {
       }
     },
     {
+      resolve: `gatsby-plugin-layout`,
+      options: {
+        component: require.resolve(`./src/layouts/BaseLayout.tsx`),
+      },
+    },
+    {
       resolve: "gatsby-source-filesystem",
       options: {
         name: "images",

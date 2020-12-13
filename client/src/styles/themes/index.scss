@@ -1,7 +1,45 @@
+.global-theme {
+  // Theme toggle icon colors
+  --bg-toggle-light: #BCBCBC;
+  --bg-toggle-dark: #65BFDC;
+  --icon-bg-toggle-light: #F9FFB6;
+  --icon-bg-toggle-dark: #424243;
+}
+
 .theme-light {
-  --something: red;
+  --bg-landing: #F8F9FF;
+  --bg-primary: #FFFFFF;
+  --bg-footer: #F8F9FF;
+  --bg-experience: #FFFFFF;
+  --bg-project: #FFFFFF;
+
+  --text-primary: #151515;
+  --text-secondary: #767676;
+  --text-tertiary: #606060;
+  --text-footer: #8C8C8C;
+
+  --accent: #00C2FF;
+
+  --resume-btn-text: #FFFFFF;
+  --resume-btn-gradient-1: #D699F2;
+  --resume-btn-gradient-2: #78C3ED;
 }
 
 .theme-dark {
-  --something: blue;
+  --bg-landing: #2F3037;
+  --bg-primary: #232323;
+  --bg-footer: #414141;
+  --bg-experience: #464646;
+  --bg-project: #393939;
+
+  --text-primary: #FFFFFF;
+  --text-secondary: #EBEBEB;
+  --text-tertiary: #969696;
+  --text-footer: #A6A6A6;
+
+  --accent: #00C2FF;
+
+  --resume-text: #FFFFFF;
+  --resume-gradient-1: #DA99F8;
+  --resume-gradient-2: #4CA7DB;
 }

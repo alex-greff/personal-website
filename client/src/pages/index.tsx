@@ -1,26 +1,25 @@
 import "./index.scss";
 import React, { FunctionComponent, useContext } from "react";
 import "@/styles/main.scss";
-import ThemeContext, { ThemeProvider } from "@/contexts/theme-context";
+import ThemeContext from "@/contexts/theme-context";
+
+import LandingSection from "@/sections/LandingSection/LandingSection";
+import AboutSection from "@/sections/AboutSection/AboutSection";
 
 const Main: FunctionComponent = () => {
   const { theme, switchTheme } = useContext(ThemeContext);
 
   return (
     <main id="Main">
-      <h1>Hello There</h1>
+      <LandingSection />
+      <AboutSection />
+
+      {/* TODO: remove */}
+      {/* <h1>Hello There</h1>
       <button onClick={() => switchTheme("theme-light")}>Light</button>
-      <button onClick={() => switchTheme("theme-dark")}>Dark</button>
+      <button onClick={() => switchTheme("theme-dark")}>Dark</button> */}
     </main>
   );
 };
 
-const index: FunctionComponent = () => {
-  return (
-    <ThemeProvider>
-      <Main />
-    </ThemeProvider>
-  );
-};
-
-export default index;
+export default Main;

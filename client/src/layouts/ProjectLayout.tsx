@@ -20,7 +20,7 @@ interface Props extends PageProps {
   };
 }
 
-const ProjectPage: FunctionComponent<Props> = ({ data: { mdx } }) => {
+const ProjectLayout: FunctionComponent<Props> = ({ data: { mdx } }) => {
   return (
     <ThemeProvider>
       <div>
@@ -33,7 +33,7 @@ const ProjectPage: FunctionComponent<Props> = ({ data: { mdx } }) => {
   );
 };
 
-export default ProjectPage;
+export default ProjectLayout;
 
 export const pageQuery = graphql`
   query ProjectQuery($id: String) {

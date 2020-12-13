@@ -10,7 +10,11 @@ html {
   font-size: 62.5%;
 }
 
-html, body {
+html, body, #___gatsby, #gatsby-focus-wrapper {
   width: 100%;
   height: 100%;
+}
+
+body {
+  font-size: 1.7rem;
 }
