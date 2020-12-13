@@ -1,3 +1,5 @@
+// Note: this component should be treated like App
+
 import React, { FunctionComponent, useContext } from "react";
 import "./BaseLayout.scss";
 import { Helmet } from "react-helmet";
@@ -12,7 +14,6 @@ import "overlayscrollbars/css/OverlayScrollbars.css";
 
 import NavBar from "@/components/nav/NavBar/NavBar";
 import FooterSection from "@/sections/FooterSection/FooterSection";
-
 
 const BaseLayoutInternal: FunctionComponent =  ({ children }) => {
   const { navState, setNavState } = useContext(NavContext);
