@@ -27,33 +27,25 @@ const BaseLayoutInternal: FunctionComponent =  ({ children }) => {
   };
 
   return (
-    <div id="BaseLayout">
-      <NavBar />
-      <div 
-        className="BaseLayout__sub-container"
-        style={{
-          marginTop: navState.height,
-          height: `calc(100% - ${navState.height}px)`
-        }}
-      >
-        <OverlayScrollbarsComponent
-          className="BaseLayout__overlay-container"
-          options={{
-            scrollbars: {
-              autoHide: "leave",
-            },
-            callbacks: {
-              onScroll: (args) => onScroll(args),
-            },
-          }}
-        >
-          <div className="BaseLayout__content">
-            {children}
-          </div>
-          <FooterSection />
-        </OverlayScrollbarsComponent>
+    <OverlayScrollbarsComponent
+      className="BaseLayout__overlay-container"
+      options={{
+        scrollbars: {
+          autoHide: "leave",
+        },
+        callbacks: {
+          onScroll: (args) => onScroll(args),
+        },
+      }}
+    >
+      <div id="BaseLayout">
+        <NavBar />
+        <div className="BaseLayout__content">
+          {children}
+        </div>
+        <FooterSection />
       </div>
-    </div>
+    </OverlayScrollbarsComponent>
   )
 };
 

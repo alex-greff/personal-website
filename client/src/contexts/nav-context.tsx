@@ -1,13 +1,10 @@
 import React, { FunctionComponent, useState } from "react";
 import * as Utilities from "@/utilities";
 
-export type NavbarDisplay = "flush" | "outset";
-
 interface NavContextState {
   isMobile: boolean;
   width: number;
   height: number;
-  display: NavbarDisplay;
   scrollAmount: number;
 }
 
@@ -21,7 +18,6 @@ const NavContext = React.createContext<NavContextValue>({
     isMobile: false,
     width: 0,
     height: 0,
-    display: "flush",
     scrollAmount: 0
   },
   setNavState: () => {}
@@ -37,7 +33,6 @@ export const NavProvider: FunctionComponent = ({ children }) => {
     isMobile: documentIsMobile(),
     width: 0,
     height: 0,
-    display: "flush",
     scrollAmount: 0
   });
 
