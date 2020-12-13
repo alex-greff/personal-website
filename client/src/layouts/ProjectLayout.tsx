@@ -1,9 +1,10 @@
 
 import React, { FunctionComponent } from "react";
+import "./ProjectLayout.scss"
 import { graphql, Link, PageProps } from "gatsby";
-import { ThemeProvider } from "@/contexts/theme-context";
 import { MDXProvider } from "@mdx-js/react";
 import { MDXRenderer } from "gatsby-plugin-mdx";
+import FullPageSection from "@/components/wrappers/FullPageSection/FullPageSection";
 
 // Provide common components here
 const shortcodes = { Link };
@@ -22,14 +23,16 @@ interface Props extends PageProps {
 
 const ProjectLayout: FunctionComponent<Props> = ({ data: { mdx } }) => {
   return (
-    <ThemeProvider>
-      <div>
-        <h1>{mdx.frontmatter.title}</h1>
-        <MDXProvider components={shortcodes}>
-          <MDXRenderer>{mdx.body}</MDXRenderer>
-        </MDXProvider>
-      </div>
-    </ThemeProvider>
+    <FullPageSection 
+      className="ProjectLayout" 
+      accountForNav={true}
+      accountForFooter={true}
+    >
+      <h1>{mdx.frontmatter.title}</h1>
+      <MDXProvider components={shortcodes}>
+        <MDXRenderer>{mdx.body}</MDXRenderer>
+      </MDXProvider>
+    </FullPageSection>
   );
 };
 

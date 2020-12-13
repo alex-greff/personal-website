@@ -1,24 +1,30 @@
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, { FunctionComponent, useState } from "react";
 import * as Utilities from "@/utilities";
 
 export type NavbarDisplay = "flush" | "outset";
 
-interface NavContextValue {
+interface NavContextState {
   isMobile: boolean;
+  width: number;
   height: number;
   display: NavbarDisplay;
-  setHeight: (newHeight: number) => void;
-  setIsMobile: (newIsMobile: boolean) => void;
-  setDisplay: (newState: NavbarDisplay) => void;
+  scrollAmount: number;
+}
+
+interface NavContextValue {
+  navState: NavContextState;
+  setNavState: (newState: NavContextState) => void;
 }
 
 const NavContext = React.createContext<NavContextValue>({
-  isMobile: false,
-  height: 0,
-  display: "flush",
-  setHeight: () => {},
-  setIsMobile: () => {},
-  setDisplay: () => {}
+  navState: {
+    isMobile: false,
+    width: 0,
+    height: 0,
+    display: "flush",
+    scrollAmount: 0
+  },
+  setNavState: () => {}
 });
 
 function documentIsMobile() {
@@ -27,23 +33,19 @@ function documentIsMobile() {
 }
 
 export const NavProvider: FunctionComponent = ({ children }) => {
-  const [isMobile, setIsMobile] = useState<boolean>(documentIsMobile());
-  // TODO: get the height of the nav element
-  const [height, setHeight] = useState<number>(0);
-  const [display, setDisplay] = useState<NavbarDisplay>("flush");
+  const [navState, setNavState] = useState<NavContextState>({
+    isMobile: documentIsMobile(),
+    width: 0,
+    height: 0,
+    display: "flush",
+    scrollAmount: 0
+  });
 
   return (
-    <NavContext.Provider 
-      value={{
-        isMobile,
-        height,
-        display,
-        setHeight,
-        setIsMobile,
-        setDisplay
-      }}
-    >
+    <NavContext.Provider value={{navState, setNavState}}>
       {children}
     </NavContext.Provider>
   )
 };
+
+export default NavContext;
