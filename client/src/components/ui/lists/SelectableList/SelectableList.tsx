@@ -3,7 +3,6 @@ import { BaseProps } from "@/types";
 import "./SelectableList.scss";
 import classnames from "classnames";
 import gsap from "gsap";
-import { SizeMeProps, withSize } from "react-sizeme";
 import useThrottledResizeObserver from "@/hooks/useThrottledResizeObserver";
 
 import SelectableListItem from "./SelectableListItem/SelectableListItem";
@@ -25,7 +24,7 @@ interface CursorState {
   top: number;
 }
 
-export interface Props extends BaseProps, SizeMeProps {
+export interface Props extends BaseProps {
   items: SelectionItem[];
   selectedIdx?: number;
   orientation?: "horizontal" | "vertical";
@@ -33,7 +32,7 @@ export interface Props extends BaseProps, SizeMeProps {
 };
 
 const SelectableList: FunctionComponent<Props> = (props) => {
-  const { items, orientation, selectedIdx, onClick, size } = props;
+  const { items, orientation, selectedIdx, onClick } = props;
   const { ref: rootRef, height: rootHeight } = useThrottledResizeObserver(50);
   const cursorRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<HTMLElement[]>([]);
@@ -43,11 +42,6 @@ const SelectableList: FunctionComponent<Props> = (props) => {
     top: 0,
     left: 0
   });
-
-  // Set the cursor to its initial position
-  useEffect(() => {
-    changeSelection(currSelectedIdx, false);
-  }, []);
 
   // Update the cursor's location everytime the root element's height changes
   useEffect(() => {
@@ -136,11 +130,13 @@ const SelectableList: FunctionComponent<Props> = (props) => {
     setCurrSelectedIdx(newSelectedIdx);
   };
 
-  // Update the cursor location everytime the selection changes
+  // // Update the cursor location everytime the selection changes
   useEffect(() => {
     if (selectedIdx != currSelectedIdx) {
       changeSelection(selectedIdx!);
     }
+
+    return () => gsap.killTweensOf(cursorRef.current!);
   }, [selectedIdx]);
 
   const renderSelectableItem = (item: SelectionItem, idx: number) => {
@@ -178,7 +174,4 @@ SelectableList.defaultProps = {
   orientation: "horizontal"
 } as Partial<Props>;
 
-export default withSize({
-  monitorHeight: true,
-  refreshRate: 50
-})(SelectableList);
+export default SelectableList;

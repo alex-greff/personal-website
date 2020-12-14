@@ -11,21 +11,55 @@
 
   transition: background-color 0.2s, box-shadow 0.2s;
 
-  & .NavBar__nav-items {
-    margin: 0 1rem 0 1rem;
+  & .NavBar__content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0 2rem 0 2rem;
+
+    & .NavBar__nav-items {
+      
+    }
+
+    & .NavBar__additional-items {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      & > *:not(:last-child) {
+        margin-right: 0.7rem;
+      }
+    }
   }
 
   // ---------------------
   // --- State classes ---
   // ---------------------
 
-  &.state-flush {
+  &.nav-state-flush {
     background-color: var-link("bg-landing");
     box-shadow: 0px 1px 4px 2px rgba(0,0,0,0);
   }
   
-  &.state-outset {
+  &.nav-state-outset {
     background-color: var-link("bg-primary");
     box-shadow: 0px 1px 4px 2px rgba(0,0,0,0.5);
+  }
+
+  // -----------------
+  // --- Modifiers ---
+  // -----------------
+
+  &.mobile {
+    & .NavBar__content {
+      flex-direction: row;
+      justify-content: flex-end;
+
+      & .NavBar__additional-items {
+        
+      }
+    }
   }
 }

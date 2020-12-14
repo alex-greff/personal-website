@@ -3,3 +3,15 @@
   color: inherit;
   cursor: inherit;
 }
+
+@mixin reset-button() {
+  // Clear default button styles
+  background: none;
+  outline: none;
+  border: none;
+  color: inherit;
+  font-weight: inherit;
+  font-size: inherit;
+
+  cursor: pointer;
+}

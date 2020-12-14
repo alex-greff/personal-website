@@ -23,8 +23,12 @@
   --accent: #00C2FF;
 
   --resume-btn-text: #FFFFFF;
-  --resume-btn-gradient-1: #D699F2;
-  --resume-btn-gradient-2: #78C3ED;
+  --resume-gradient-1: #DA99F8;
+  --resume-gradient-2: #4CA7DB;
+  --resume-gradient-selected-1: #e8b5ff;
+  --resume-gradient-selected-2: #66c4fa;
+  --resume-gradient-disabled-1: #cdb5d8;
+  --resume-gradient-disabled-2: #8cbad4;
 }
 
 .theme-dark {
@@ -46,4 +50,8 @@
   --resume-text: #FFFFFF;
   --resume-gradient-1: #DA99F8;
   --resume-gradient-2: #4CA7DB;
+  --resume-gradient-selected-1: #e8b5ff;
+  --resume-gradient-selected-2: #66c4fa;
+  --resume-gradient-disabled-1: #cdb5d8;
+  --resume-gradient-disabled-2: #8cbad4;
 }
