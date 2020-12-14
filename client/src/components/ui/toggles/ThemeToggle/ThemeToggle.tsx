@@ -1,26 +1,36 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useContext } from "react";
 import { BaseProps } from "@/types";
 import "./ThemeToggle.scss";
 import classnames from "classnames";
+import ThemeContext from "@/contexts/theme-context";
+import Brightness7Icon from '@material-ui/icons/Brightness7';
+import NightsStayIcon from '@material-ui/icons/NightsStay';
 
-export interface Props extends BaseProps {
+const ThemeToggle: FunctionComponent<BaseProps> = (props) => {
+  const { theme, switchTheme } = useContext(ThemeContext);
 
-};
+  const dark = theme === "theme-dark";
 
-const ThemeToggle: FunctionComponent<Props> = (props) => {
+  const toggleTheme = () => {
+    if (theme === "theme-light")
+      switchTheme("theme-dark");
+    else
+    switchTheme("theme-light");
+  };
+
   return (
     <div 
-      className={classnames("ThemeToggle", props.className)}
+      className={classnames("ThemeToggle", props.className, { dark })}
       style={props.style}
       id={props.id}
+      onClick={toggleTheme}
     >
-      theme toggle
+      <div className="ThemeToggle__handle">
+        <Brightness7Icon className="ThemeToggle__icon ThemeToggle__light-icon" />
+        <NightsStayIcon className="ThemeToggle__icon ThemeToggle__dark-icon" />
+      </div>
     </div>
   );
 };
-
-ThemeToggle.defaultProps = {
-
-} as Partial<Props>;
 
 export default ThemeToggle;

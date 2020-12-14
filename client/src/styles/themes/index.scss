@@ -1,9 +1,12 @@
+// These css variables will always be applied
 .global-theme {
   // Theme toggle icon colors
   --bg-toggle-light: #BCBCBC;
   --bg-toggle-dark: #65BFDC;
   --icon-bg-toggle-light: #F9FFB6;
   --icon-bg-toggle-dark: #424243;
+  --icon-color-toggle-light: #151515;
+  --icon-color-toggle-dark: #FFFFFF;
 }
 
 .theme-light {
@@ -22,11 +25,11 @@
 
   --accent: #00C2FF;
 
-  --resume-btn-text: #FFFFFF;
-  --resume-gradient-1: #DA99F8;
-  --resume-gradient-2: #4CA7DB;
-  --resume-gradient-selected-1: #e8b5ff;
-  --resume-gradient-selected-2: #66c4fa;
+  --resume-text: #FFFFFF;
+  --resume-gradient-1: #D699F2;
+  --resume-gradient-2: #78C3ED;
+  --resume-gradient-selected-1: #dfadf7;
+  --resume-gradient-selected-2: #93d2f7;
   --resume-gradient-disabled-1: #cdb5d8;
   --resume-gradient-disabled-2: #8cbad4;
 }

@@ -1,3 +1,91 @@
 .ThemeToggle {
+  $toggle-width: 4.2rem;
+  $toggle-height: 2rem;
+  $handle-offset: 0.4rem;
+  $handle-size: $toggle-height - $handle-offset;
+  $icon-offset: 0.4rem;
+  $icon-size: $handle-size - $icon-offset;
+  $toggle-speed: 0.4s;
 
+  position: relative;
+
+  cursor: pointer;
+
+  width: $toggle-width;
+  height: $toggle-height;
+
+  border-radius: 20rem;
+
+  transition: background-color $toggle-speed;
+
+  & .ThemeToggle__handle {
+    position: absolute;
+    top: calc(#{$handle-offset} / 2);
+    left: calc(#{$handle-offset} / 2);
+
+    height: $handle-size;
+    width: $handle-size;
+
+    border-radius: 20rem;
+
+    transition: left $toggle-speed, background-color $toggle-speed;
+
+    & .ThemeToggle__icon {
+      position: absolute;
+      top: calc(#{$icon-offset} / 2); 
+      left: calc(#{$icon-offset} / 2);
+      width: $icon-size;
+      height: $icon-size;
+
+      transition: opacity $toggle-speed;
+    }
+
+    & .ThemeToggle__light-icon {
+      color: var-link("icon-color-toggle-light");
+    }
+
+    & .ThemeToggle__dark-icon {
+      color: var-link("icon-color-toggle-dark");
+    }
+  }
+
+  // -----------------
+  // --- Modifiers ---
+  // -----------------
+
+  // Light theme
+  &:not(.dark) {
+    background-color: var-link("bg-toggle-light");
+
+    & .ThemeToggle__handle {
+      background-color: var-link("icon-bg-toggle-light");
+
+      & .ThemeToggle__light-icon {
+        opacity: 1;
+      }
+
+      & .ThemeToggle__dark-icon {
+        opacity: 0;
+      }
+    }
+  }
+
+  // Dark theme
+  &.dark {
+    background-color: var-link("bg-toggle-dark");
+
+    & .ThemeToggle__handle {
+      left: calc(#{$toggle-width} - #{$handle-size} - #{$handle-offset} / 2);
+
+      background-color: var-link("icon-bg-toggle-dark");
+
+      & .ThemeToggle__light-icon {
+        opacity: 0;
+      }
+
+      & .ThemeToggle__dark-icon {
+        opacity: 1;
+      }
+    }
+  }
 }
