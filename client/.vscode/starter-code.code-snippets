@@ -56,5 +56,15 @@
 			"export default $TM_FILENAME_BASE;",
 		],
 		"description": "The starter code for a functional component without props"
+	},
+	"SCSS Starter Code": {
+		"scope": "scss",
+		"prefix": "starter-code",
+		"body": [
+			".$TM_FILENAME_BASE {",
+			"",
+			"}"
+		],
+		"description": "The starter code for the SCSS part of a component"
 	}
 }

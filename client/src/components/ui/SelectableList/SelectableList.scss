@@ -1,0 +1,42 @@
+.SelectableList {
+  $cursor-height: 0.3rem;
+  // $cursor-gap: 0rem;
+
+  position: relative;
+  // padding-bottom: $cursor-height + $cursor-gap;
+
+  & .SelectableList__items {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  & .SelectableList__cursor {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    height: $cursor-height;
+    width: 2rem;
+    background-color: var-link("accent");
+  }
+  
+  // -----------------
+  // --- Modifiers ---
+  // -----------------
+
+  &.horizontal .SelectableList__items {
+    flex-direction: row;
+
+    & .SelectableList__item:not(:last-child) {
+      margin-right: 1.2rem;
+    }
+  }
+
+  &.vetical .SelectableList__items {
+    flex-direction: column;
+
+    & .SelectableList__item:not(:last-child) {
+      margin-bottom: 0.5rem;
+    }
+  }
+}

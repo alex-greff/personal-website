@@ -32,6 +32,7 @@
     "gatsby-plugin-sitemap": "^2.8.0",
     "gatsby-source-filesystem": "^2.7.0",
     "gatsby-transformer-sharp": "^2.8.0",
+    "gsap": "^3.5.1",
     "immutability-helper": "^3.1.1",
     "netlify-cms-app": "^2.14.4",
     "overlayscrollbars": "^1.13.0",
@@ -40,12 +41,17 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-helmet": "^6.1.0",
-    "react-sizeme": "^2.6.12"
+    "react-sizeme": "^2.6.12",
+    "throttle-debounce": "^3.0.1",
+    "use-resize-observer": "^7.0.0"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.11",
+    "@types/gsap": "^1.20.2",
     "@types/mdx-js__react": "^1.5.3",
     "@types/overlayscrollbars": "^1.12.0",
-    "@types/react-helmet": "^6.1.0"
+    "@types/react-helmet": "^6.1.0",
+    "@types/resize-observer-browser": "^0.1.4",
+    "@types/throttle-debounce": "^2.1.0"
   }
 }

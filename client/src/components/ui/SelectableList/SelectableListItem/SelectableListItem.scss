@@ -1,0 +1,19 @@
+.SelectableListItem {
+  @include reset-anchor();
+
+  cursor: pointer;
+  @include font-content-bold();
+  color: var-link("text-primary");
+  margin-bottom: 0.5rem;
+
+  transition: color 0.2s;
+
+  &:hover {
+    color: var-link("text-hover");
+  }
+
+  &.disabled {
+    pointer-events: none;
+    color: var-link("text-disabled");
+  }
+}
