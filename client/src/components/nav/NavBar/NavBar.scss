@@ -1,15 +1,15 @@
 #NavBar {
-  position: sticky;
-  // position: fixed; // TODO: not needed anymore
+  $state-change-speed: 0.2s;
+
+  // position: sticky;
+  position: fixed; // TODO: not needed anymore
   top: 0;
   left: 0;
   width: 100%;
 
-  background-color: var-link("bg-primary");
+  pointer-events: none;
 
-  padding: 1rem 0 1rem 0;
-
-  transition: background-color 0.2s, box-shadow 0.2s;
+  z-index: 1;
 
   & .NavBar__content {
     display: flex;
@@ -17,7 +17,17 @@
     justify-content: space-between;
     align-items: center;
 
-    padding: 0 2rem 0 2rem;
+    pointer-events: all;
+
+    background-color: inherit;
+
+    padding: 1rem 2rem 1rem 2rem;
+
+    background-color: var-link("bg-landing");
+
+    z-index: 1;
+
+    transition: background-color $state-change-speed, box-shadow $state-change-speed;
 
     & .NavBar__nav-items {
       
@@ -28,8 +38,112 @@
       flex-direction: row;
       align-items: center;
 
+      // Space between theme toggle and resume button
       & > *:not(:last-child) {
-        margin-right: 0.8rem;
+        margin-right: 1rem;
+      }
+    }
+  }
+
+  & .NavBar__dropdown-mobile {
+    $dropdown-open-speed: 0.3s;
+    $dropdown-gap-size: 5rem;
+    $dropdown-width: 30rem;
+    $dropdown-start-offset: 20px;
+
+    display: flex;
+    flex-direction: column;
+
+    position: relative;
+
+    width: 100%;
+    pointer-events: none;
+    z-index: -1;
+
+    & .NavBar__dropdown-content {
+      align-self: flex-end;
+  
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      background-color: var-link("bg-primary");
+  
+      flex-grow: 1;
+      max-width: calc(100% - #{$dropdown-gap-size});
+      width: $dropdown-width;
+
+      z-index: 1;
+  
+      transition: opacity $dropdown-open-speed, transform $dropdown-open-speed ease;
+
+      & .NavBar__dropdown-items {
+        margin-bottom: 2.5rem;
+
+        // Modify the dropdown items
+        & > * > * {
+          font-size: 2rem;
+
+          &:not(:last-child) {
+            margin-bottom: 1rem;
+          }
+        }
+      }
+
+      & .NavBar__resume-button {
+        font-size: 2rem;
+      }
+    }
+
+    & .NavBar__dropdown-blur {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+
+      background-color: rgba(0, 0, 0, 0.7);
+
+      $blur-amount: 2px;
+      @supports (backdrop-filter: blur($blur-amount)) {
+        &.NavBar__dropdown-blur {
+          backdrop-filter: blur($blur-amount);
+        }
+      }
+
+      transition: opacity $dropdown-open-speed;
+    }
+
+    // ----------------------
+    // --- Dropdown State ---
+    // ----------------------
+
+    // Handle state animation between dropdown states
+
+    &:not(.open) {
+      & .NavBar__dropdown-content {
+        transform: translateX($dropdown-start-offset);
+        pointer-events: none;
+        opacity: 0;
+      }
+
+      & .NavBar__dropdown-blur {
+        pointer-events: none;
+        opacity: 0;
+      }
+    }
+
+    &.open {
+      & .NavBar__dropdown-content {
+        transform: translateX(0);
+        pointer-events: all;
+        opacity: 1;
+      }
+
+      & .NavBar__dropdown-blur {
+        pointer-events: all;
+        opacity: 1;
       }
     }
   }
@@ -39,13 +153,17 @@
   // ---------------------
 
   &.nav-state-flush {
-    background-color: var-link("bg-landing");
-    box-shadow: 0px 1px 4px 2px rgba(0,0,0,0);
+    & .NavBar__content {
+      background-color: var-link("bg-landing");
+      box-shadow: 0px 1px 4px 2px rgba(0,0,0,0);
+    }
   }
   
   &.nav-state-outset {
-    background-color: var-link("bg-primary");
-    box-shadow: 0px 1px 4px 2px rgba(0,0,0,0.5);
+    & .NavBar__content {
+      background-color: var-link("bg-primary");
+      box-shadow: 0px 1px 4px 2px rgba(0,0,0,0.5);
+    }
   }
 
   // -----------------

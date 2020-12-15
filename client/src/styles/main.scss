@@ -24,9 +24,15 @@ body {
 
   // Setting the background color here avoids annoying
   // white flashes when resizing the webpage
-  background-color: var-link("bg-primary");
+  // background-color: var-link("bg-primary"); 
 }
 
 #gatsby-focus-wrapper {
   overflow: hidden;
+}
+
+// Preload transition to stop the annoying CSS flashing on page load
+// Source: https://css-tricks.com/transitions-only-after-page-load/
+.preload * {
+  transition: none !important;
 }

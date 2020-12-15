@@ -3,6 +3,7 @@ import * as Utilities from "@/utilities";
 
 interface NavContextState {
   isMobile: boolean;
+  mobileDropdownOpen: boolean;
   width: number;
   height: number;
   scrollAmount: number;
@@ -13,9 +14,15 @@ interface NavContextValue {
   setNavState: (newState: NavContextState) => void;
 }
 
+function documentIsMobile() {
+  const width = document.body.offsetWidth;
+  return Utilities.getBreakpoint(width) == Utilities.Breakpoint.phone;
+}
+
 const NavContext = React.createContext<NavContextValue>({
   navState: {
-    isMobile: false,
+    isMobile: documentIsMobile(),
+    mobileDropdownOpen: false,
     width: 0,
     height: 0,
     scrollAmount: 0
@@ -23,14 +30,10 @@ const NavContext = React.createContext<NavContextValue>({
   setNavState: () => {}
 });
 
-function documentIsMobile() {
-  const width = document.body.offsetWidth;
-  return Utilities.getBreakpoint(width) == Utilities.Breakpoint.phone;
-}
-
 export const NavProvider: FunctionComponent = ({ children }) => {
   const [navState, setNavState] = useState<NavContextState>({
     isMobile: documentIsMobile(),
+    mobileDropdownOpen: false,
     width: 0,
     height: 0,
     scrollAmount: 0

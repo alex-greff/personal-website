@@ -36,11 +36,21 @@ const BaseLayoutInternal: FunctionComponent =  ({ children }) => {
         callbacks: {
           onScroll: (args) => onScroll(args),
         },
+        // Disable scrolling when the navbar mobile dropdown is open
+        overflowBehavior: {
+          x: (navState.isMobile && navState.mobileDropdownOpen) ? "hidden" : "scroll",
+          y: (navState.isMobile && navState.mobileDropdownOpen) ? "hidden" : "scroll",
+        }
       }}
     >
       <div id="BaseLayout">
         <NavBar />
-        <div className="BaseLayout__content">
+        <div 
+          className="BaseLayout__content"
+          style={{
+            marginTop: `${navState.height}px`
+          }}
+        >
           {children}
         </div>
         <FooterSection />

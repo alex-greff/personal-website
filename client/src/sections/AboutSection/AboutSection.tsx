@@ -1,11 +1,17 @@
 import React, { FunctionComponent } from "react";
 import "./AboutSection.scss";
+import { BaseProps } from "@/types";
+import classnames from "classnames";
 import FullPageSection from "@/components/wrappers/FullPageSection/FullPageSection";
 
-const AboutSection: FunctionComponent = () => {
+export interface Props extends BaseProps {};
+
+const AboutSection: FunctionComponent<Props> = (props) => {
   return (
     <FullPageSection 
-      className="AboutSection"
+      className={classnames("AboutSection", props.className)}
+      style={props.style}
+      id={props.id}
     >
       About Section
     </FullPageSection>

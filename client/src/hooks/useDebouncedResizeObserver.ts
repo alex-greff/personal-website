@@ -1,13 +1,20 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, RefObject } from "react";
 import useResizeObserver from "use-resize-observer";
 import { debounce } from "throttle-debounce";
 
 // Source: https://codesandbox.io/s/8uvsg
 
-export default (wait: number) => {
+export default <T extends HTMLElement>(
+  wait: number,
+  ref?: RefObject<T> | T | null
+) => {
   const [size, setSize] = useState({ width: 0, height: 0 });
   const onResize = useMemo(() => debounce(wait, setSize), [wait]);
-  const { ref } = useResizeObserver({ onResize: onResize as any });
-
-  return { ref, ...size };
+  if (ref) {
+    useResizeObserver({ onResize: onResize as any, ref });
+    return { ref: null, ...size };
+  } else {
+    const { ref } = useResizeObserver({ onResize: onResize as any });
+    return { ref, ...size };
+  }
 };

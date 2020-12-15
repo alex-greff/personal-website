@@ -11,8 +11,11 @@ const Main: FunctionComponent = () => {
 
   return (
     <main id="Main">
-      <LandingSection />
-      <AboutSection />
+      <LandingSection/>
+      <AboutSection/>
+      {/* TODO: get the scrolling feature working */}
+      {/* <LandingSection id="home" />
+      <AboutSection id="about" /> */}
 
       {/* TODO: remove */}
       {/* <h1>Hello There</h1>

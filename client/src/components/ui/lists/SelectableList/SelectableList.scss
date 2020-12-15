@@ -32,8 +32,9 @@
     }
   }
 
-  &.vetical .SelectableList__items {
+  &.vertical .SelectableList__items {
     flex-direction: column;
+    align-items: center;
 
     & .SelectableList__item:not(:last-child) {
       margin-bottom: 0.5rem;
