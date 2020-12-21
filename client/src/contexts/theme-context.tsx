@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { ThemeID } from "@/types";
 import { defaultTheme } from "@/constants/themes";
@@ -17,11 +17,16 @@ const ThemeContext = React.createContext<ThemeContextValue>({
 
 export const ThemeProvider: FunctionComponent = ({ children }) => {
   const [theme, setTheme] = useLocalStorage("theme", null);
+  const [firstTime, setFirstTime] = useState<Boolean>(true);
+
   const switchTheme = (newTheme: string) => {
     // Add the theme change class to make the theme change to smoothly
     const gatsbyRoot = document.querySelector("#___gatsby");
-    gatsbyRoot?.classList.add("theme-change");
-
+    if (!firstTime)
+      gatsbyRoot?.classList.add("theme-change");
+    else
+      setFirstTime(false);
+    
     // Change the theme
     const root = document.body;
     root.classList.remove(theme);
@@ -37,7 +42,7 @@ export const ThemeProvider: FunctionComponent = ({ children }) => {
   // Set the current theme
   useEffect(() => {
     switchTheme(theme || defaultTheme);
-  });
+  }, []);
 
   return (
     <ThemeContext.Provider value={{ theme, switchTheme }}>

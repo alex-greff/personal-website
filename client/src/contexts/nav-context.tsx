@@ -15,7 +15,7 @@ interface NavContextValue {
 }
 
 function documentIsMobile() {
-  const width = document.body.offsetWidth;
+  const width = (typeof document !== "undefined") ? document.body.offsetWidth : 0;
   return Utilities.getBreakpoint(width) == Utilities.Breakpoint.phone;
 }
 
