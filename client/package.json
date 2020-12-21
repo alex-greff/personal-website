@@ -43,7 +43,9 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-helmet": "^6.1.0",
+    "react-scroll": "^1.8.1",
     "react-sizeme": "^2.6.12",
+    "react-waypoint": "^9.0.3",
     "throttle-debounce": "^3.0.1",
     "use-resize-observer": "^7.0.0"
   },
@@ -53,6 +55,7 @@
     "@types/mdx-js__react": "^1.5.3",
     "@types/overlayscrollbars": "^1.12.0",
     "@types/react-helmet": "^6.1.0",
+    "@types/react-scroll": "^1.8.2",
     "@types/resize-observer-browser": "^0.1.4",
     "@types/throttle-debounce": "^2.1.0"
   }

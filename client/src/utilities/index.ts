@@ -1,3 +1,5 @@
+import * as Constants from "@/constants";
+
 export enum Breakpoint {
   phone = 0,
   tabPort = 1,
@@ -23,4 +25,10 @@ export const getBreakpoint = (width: number): Breakpoint => {
   } else {
     return Breakpoint.bigDesktop;
   }
+};
+
+/* Converts a location hash to its corresponding section id tag. */
+export const hashToSectionId = (hash: string) => {
+  hash = hash.replace("#", "");
+  return `${Constants.SECTION_PREFIX}_${hash}`;
 };

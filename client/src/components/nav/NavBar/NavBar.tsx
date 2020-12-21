@@ -63,7 +63,21 @@ const NavBar: FunctionComponent<Props> = (props) => {
     () => getStateClass(navState.scrollAmount, navState.mobileDropdownOpen),
     [navState.scrollAmount, navState.mobileDropdownOpen]
   );
-  const [currSectionIdx, setCurrSectionIdx] = useState<number>(0);
+
+  const findInitSectionIdx = () => {
+    const hash = window.location.hash;
+    let sectionIdx = 0;
+    if (hash)
+      sectionIdx = Math.max(
+        0,
+        ITEMS.findIndex((item) => item.href === hash)
+      );
+    return sectionIdx;
+  };
+
+  const [currSectionIdx, setCurrSectionIdx] = useState<number>(
+    findInitSectionIdx()
+  );
 
   const toggleMobileDropdown = () => {
     setNavState(
@@ -78,6 +92,16 @@ const NavBar: FunctionComponent<Props> = (props) => {
       if (mobile) {
         toggleMobileDropdown();
       }
+
+      // Scroll to the target element
+      const targetQuery = `#${Utilities.hashToSectionId(item.href!)}`;
+      const targetEl = document.querySelector(targetQuery)! as HTMLElement;
+      if (targetEl) {
+        // Cancel any already running scrolls and start the new one
+        navState.osInstance?.scrollStop();
+        navState.osInstance?.scroll({ el: targetEl }, 500, "easeOutQuad");
+      }
+
       setCurrSectionIdx(idx);
     };
   };

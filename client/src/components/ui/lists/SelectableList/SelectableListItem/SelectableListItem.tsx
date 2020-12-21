@@ -23,6 +23,13 @@ const SelectableListItem: FunctionComponent<Props> = (props) => {
       props.handleRef(ref);
   }, []);
 
+  const handleOnClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent> | React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.preventDefault();
+
+    if (props.onClick) 
+      props.onClick(e);
+  };
+
   return (
     <Tag
       className={classnames(
@@ -34,7 +41,7 @@ const SelectableListItem: FunctionComponent<Props> = (props) => {
       id={props.id}
       href={href}
       ref={ref}
-      onClick={props.onClick}
+      onClick={handleOnClick}
     >
       {(typeof display === "function") ? display(id) : display}
     </Tag>

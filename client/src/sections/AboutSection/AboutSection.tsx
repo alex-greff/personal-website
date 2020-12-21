@@ -4,14 +4,14 @@ import { BaseProps } from "@/types";
 import classnames from "classnames";
 import FullPageSection from "@/components/wrappers/FullPageSection/FullPageSection";
 
-export interface Props extends BaseProps {};
+export interface Props extends Omit<BaseProps, "id"> {};
 
 const AboutSection: FunctionComponent<Props> = (props) => {
   return (
     <FullPageSection 
       className={classnames("AboutSection", props.className)}
       style={props.style}
-      id={props.id}
+      id="about"
     >
       About Section
     </FullPageSection>

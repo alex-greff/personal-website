@@ -1,4 +1,11 @@
 .FullPageSection {
   width: 100%;
   min-height: 100vh;
+
+  position: relative;
+
+  & .FullPageSection__id-dummy {
+    position: absolute;
+    pointer-events: none;
+  }
 }

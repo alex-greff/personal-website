@@ -7,6 +7,7 @@ interface NavContextState {
   width: number;
   height: number;
   scrollAmount: number;
+  osInstance: OverlayScrollbars | null;
 }
 
 interface NavContextValue {
@@ -25,7 +26,8 @@ const NavContext = React.createContext<NavContextValue>({
     mobileDropdownOpen: false,
     width: 0,
     height: 0,
-    scrollAmount: 0
+    scrollAmount: 0,
+    osInstance: null
   },
   setNavState: () => {}
 });
@@ -36,7 +38,8 @@ export const NavProvider: FunctionComponent = ({ children }) => {
     mobileDropdownOpen: false,
     width: 0,
     height: 0,
-    scrollAmount: 0
+    scrollAmount: 0,
+    osInstance: null
   });
 
   return (
