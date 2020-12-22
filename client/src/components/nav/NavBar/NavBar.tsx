@@ -75,6 +75,14 @@ const NavBar: FunctionComponent<Props> = (props) => {
     return sectionIdx;
   };
 
+  const findSectionIdx = (section: string) => {
+    const sectionIdx = Math.max(
+        0,
+        ITEMS.findIndex((item) => item.href === `#${section}`)
+      );
+    return sectionIdx;
+  };
+
   const [currSectionIdx, setCurrSectionIdx] = useState<number>(
     findInitSectionIdx()
   );
@@ -121,6 +129,11 @@ const NavBar: FunctionComponent<Props> = (props) => {
       })
     );
   }, [contentWidth, contentHeight]);
+
+  // Update the section index based off the current waypoint
+  useEffect(() => {
+    setCurrSectionIdx(findSectionIdx(siteState.currentWaypoint));
+  }, [siteState.currentWaypoint]);
 
   return (
     <nav

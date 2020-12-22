@@ -47,7 +47,6 @@ const BaseLayoutInternal: FunctionComponent = ({ children }) => {
   };
 
   const loadCompleted = () => {
-    console.log("Load completed");
     setSiteState((prevState) =>
       update(prevState, {
         loadCompleted: { $set: true },

@@ -11,6 +11,7 @@ interface SiteContextState {
   scrollAmount: number;
   osInstance: OverlayScrollbars | null;
   loadCompleted: boolean;
+  currentWaypoint: string;
 }
 
 interface SiteContextValue {
@@ -23,6 +24,10 @@ function documentIsMobile() {
   return Utilities.getBreakpoint(width) == Utilities.Breakpoint.phone;
 }
 
+function initialWaypoint() {
+  return (window.location.hash) ? window.location.hash.replace("#", "") : "home";
+}
+
 const SiteContext = React.createContext<SiteContextValue>({
   siteState: {
     isMobile: documentIsMobile(),
@@ -33,7 +38,8 @@ const SiteContext = React.createContext<SiteContextValue>({
     footerHeight: 0,
     scrollAmount: 0,
     osInstance: null,
-    loadCompleted: false
+    loadCompleted: false,
+    currentWaypoint: initialWaypoint()
   },
   setSiteState: () => {}
 });
@@ -48,7 +54,8 @@ export const SiteProvider: FunctionComponent = ({ children }) => {
     footerHeight: 0,
     scrollAmount: 0,
     osInstance: null,
-    loadCompleted: false
+    loadCompleted: false,
+    currentWaypoint: initialWaypoint()
   });
 
   return (
