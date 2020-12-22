@@ -80,8 +80,8 @@ const NavBar: FunctionComponent<Props> = (props) => {
   );
 
   const toggleMobileDropdown = () => {
-    setSiteState(
-      update(siteState, {
+    setSiteState((prevState) =>
+      update(prevState, {
         mobileDropdownOpen: { $set: !siteState.mobileDropdownOpen },
       })
     );
@@ -113,8 +113,8 @@ const NavBar: FunctionComponent<Props> = (props) => {
   useEffect(() => {
     const isMobile =
       Utilities.getBreakpoint(contentWidth!) <= Utilities.Breakpoint.phone;
-    setSiteState(
-      update(siteState, {
+    setSiteState((prevState) =>
+      update(prevState, {
         isMobile: { $set: isMobile },
         navWidth: { $set: contentRef.current!.offsetWidth },
         navHeight: { $set: contentRef.current!.offsetHeight },

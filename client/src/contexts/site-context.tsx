@@ -10,11 +10,12 @@ interface SiteContextState {
   footerHeight: number;
   scrollAmount: number;
   osInstance: OverlayScrollbars | null;
+  loadCompleted: boolean;
 }
 
 interface SiteContextValue {
   siteState: SiteContextState;
-  setSiteState: (newState: SiteContextState) => void;
+  setSiteState: (prevState: React.SetStateAction<SiteContextState>) => void;
 }
 
 function documentIsMobile() {
@@ -31,7 +32,8 @@ const SiteContext = React.createContext<SiteContextValue>({
     footerWidth: 0,
     footerHeight: 0,
     scrollAmount: 0,
-    osInstance: null
+    osInstance: null,
+    loadCompleted: false
   },
   setSiteState: () => {}
 });
@@ -45,7 +47,8 @@ export const SiteProvider: FunctionComponent = ({ children }) => {
     footerWidth: 0,
     footerHeight: 0,
     scrollAmount: 0,
-    osInstance: null
+    osInstance: null,
+    loadCompleted: false
   });
 
   return (

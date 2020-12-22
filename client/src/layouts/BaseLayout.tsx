@@ -1,6 +1,12 @@
 // Note: this component should be treated like App
 
-import React, { FunctionComponent, useContext, useEffect, useRef, useState } from "react";
+import React, {
+  FunctionComponent,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import "./BaseLayout.scss";
 import { Helmet } from "react-helmet";
 import update from "immutability-helper";
@@ -17,15 +23,14 @@ import FooterSection from "@/sections/FooterSection/FooterSection";
 import Loader from "@/components/Loader/Loader";
 
 const BaseLayoutInternal: FunctionComponent = ({ children }) => {
-  const [loadDone, setLoadDone] = useState(false);
   const { siteState, setSiteState } = useContext(SiteContext);
   const osRef = useRef<OverlayScrollbarsComponent>(null);
 
   const onScroll = (args?: UIEvent) => {
     const target = args?.target as HTMLElement;
 
-    setSiteState(
-      update(siteState, {
+    setSiteState((prevState) =>
+      update(prevState, {
         scrollAmount: { $set: target.scrollTop },
       })
     );
@@ -33,12 +38,21 @@ const BaseLayoutInternal: FunctionComponent = ({ children }) => {
 
   const updateOsInstance = () => {
     if (!siteState.osInstance) {
-      setSiteState(
-        update(siteState, {
+      setSiteState((prevState) =>
+        update(prevState, {
           osInstance: { $set: osRef.current?.osInstance()! },
         })
       );
     }
+  };
+
+  const loadCompleted = () => {
+    console.log("Load completed");
+    setSiteState((prevState) =>
+      update(prevState, {
+        loadCompleted: { $set: true },
+      })
+    );
   };
 
   useEffect(() => {
@@ -52,16 +66,14 @@ const BaseLayoutInternal: FunctionComponent = ({ children }) => {
         // Delay hack because it doesn't work when running instantly
         setTimeout(() => {
           osRef.current?.osInstance()!.scroll({ el: targetEl }, 0);
-        }, 100);
+        }, 10);
       }
     }
   }, []);
 
   return (
     <>
-      <Loader 
-        onFinishLoading={() => setLoadDone(true)}
-      />
+      <Loader onFinishLoading={loadCompleted} />
       <OverlayScrollbarsComponent
         className="BaseLayout__overlay-container"
         ref={osRef}
@@ -75,11 +87,11 @@ const BaseLayoutInternal: FunctionComponent = ({ children }) => {
           // Disable scrolling when the navbar mobile dropdown is open
           overflowBehavior: {
             x:
-            siteState.isMobile && siteState.mobileDropdownOpen
+              siteState.isMobile && siteState.mobileDropdownOpen
                 ? "hidden"
                 : "scroll",
             y:
-            siteState.isMobile && siteState.mobileDropdownOpen
+              siteState.isMobile && siteState.mobileDropdownOpen
                 ? "hidden"
                 : "scroll",
           },

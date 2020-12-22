@@ -22,6 +22,7 @@ const FullPageSection: FunctionComponent<Props> = (props) => {
   const footerMod = accountForFooter ? siteState.footerHeight : 0;
 
   const handleWaypointEnter = () => {
+    // if (updateHash && siteState.loadCompleted) {
     if (updateHash) {
       // Update the window hash whenever we enter a full page section
       window.location.hash = `#${props.id!}`;

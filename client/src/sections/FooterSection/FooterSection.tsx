@@ -5,24 +5,22 @@ import { SizeMeProps, withSize } from "react-sizeme";
 import update from "immutability-helper";
 
 export const FooterSection: FunctionComponent<SizeMeProps> = ({ size }) => {
-  const { siteState, setSiteState } = useContext(SiteContext);
+  const { setSiteState } = useContext(SiteContext);
 
   useEffect(() => {
-    setSiteState(update(siteState, {
-      footerWidth: { $set: size.width! },
-      footerHeight: { $set: size.height! }
-    }));
+    setSiteState((prevState) =>
+      update(prevState, {
+        footerWidth: { $set: size.width! },
+        footerHeight: { $set: size.height! },
+      })
+    );
   }, [size]);
 
-  return (
-    <div className="FooterSection">
-      Footer
-    </div>
-  )
+  return <div className="FooterSection">Footer</div>;
 };
 
 export default withSize({
   monitorWidth: true,
   monitorHeight: true,
-  refreshRate: 50
+  refreshRate: 50,
 })(FooterSection);
