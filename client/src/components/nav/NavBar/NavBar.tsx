@@ -8,7 +8,7 @@ import React, {
 } from "react";
 import { BaseProps } from "@/types";
 import "./NavBar.scss";
-import NavContext from "@/contexts/nav-context";
+import SiteContext from "@/contexts/site-context";
 import update from "immutability-helper";
 import classnames from "classnames";
 import * as Utilities from "@/utilities";
@@ -58,10 +58,10 @@ const NavBar: FunctionComponent<Props> = (props) => {
     height: contentHeight,
     width: contentWidth,
   } = useThrottledResizeObserver(RESIZE_TROTTLE, contentRef);
-  const { navState, setNavState } = useContext(NavContext);
+  const { siteState, setSiteState } = useContext(SiteContext);
   const stateClass = useMemo(
-    () => getStateClass(navState.scrollAmount, navState.mobileDropdownOpen),
-    [navState.scrollAmount, navState.mobileDropdownOpen]
+    () => getStateClass(siteState.scrollAmount, siteState.mobileDropdownOpen),
+    [siteState.scrollAmount, siteState.mobileDropdownOpen]
   );
 
   const findInitSectionIdx = () => {
@@ -80,9 +80,9 @@ const NavBar: FunctionComponent<Props> = (props) => {
   );
 
   const toggleMobileDropdown = () => {
-    setNavState(
-      update(navState, {
-        mobileDropdownOpen: { $set: !navState.mobileDropdownOpen },
+    setSiteState(
+      update(siteState, {
+        mobileDropdownOpen: { $set: !siteState.mobileDropdownOpen },
       })
     );
   };
@@ -98,8 +98,8 @@ const NavBar: FunctionComponent<Props> = (props) => {
       const targetEl = document.querySelector(targetQuery)! as HTMLElement;
       if (targetEl) {
         // Cancel any already running scrolls and start the new one
-        navState.osInstance?.scrollStop();
-        navState.osInstance?.scroll({ el: targetEl }, 500, "easeOutQuad");
+        siteState.osInstance?.scrollStop();
+        siteState.osInstance?.scroll({ el: targetEl }, 500, "easeOutQuad");
       }
 
       setCurrSectionIdx(idx);
@@ -113,11 +113,11 @@ const NavBar: FunctionComponent<Props> = (props) => {
   useEffect(() => {
     const isMobile =
       Utilities.getBreakpoint(contentWidth!) <= Utilities.Breakpoint.phone;
-    setNavState(
-      update(navState, {
+    setSiteState(
+      update(siteState, {
         isMobile: { $set: isMobile },
-        width: { $set: contentRef.current!.offsetWidth },
-        height: { $set: contentRef.current!.offsetHeight },
+        navWidth: { $set: contentRef.current!.offsetWidth },
+        navHeight: { $set: contentRef.current!.offsetHeight },
       })
     );
   }, [contentWidth, contentHeight]);
@@ -126,12 +126,12 @@ const NavBar: FunctionComponent<Props> = (props) => {
     <nav
       id="NavBar"
       className={classnames(props.className, stateClass, {
-        mobile: navState.isMobile,
+        mobile: siteState.isMobile,
       })}
       style={props.style}
     >
       <div className="NavBar__content" ref={contentRef}>
-        {!navState.isMobile ? (
+        {!siteState.isMobile ? (
           // Render regular navbar
           <>
             <div className="NavBar__nav-items">
@@ -154,21 +154,21 @@ const NavBar: FunctionComponent<Props> = (props) => {
           <div className="NavBar__additional-items">
             <ThemeToggle className="NavBar__theme-toggle" />
             <HamburgerMenu
-              open={navState.mobileDropdownOpen}
+              open={siteState.mobileDropdownOpen}
               onClick={toggleMobileDropdown}
             />
           </div>
         )}
       </div>
 
-      {navState.isMobile ? (
+      {siteState.isMobile ? (
         // Render mobile dropdown menu
         <div
           className={classnames("NavBar__dropdown-mobile", {
-            open: navState.mobileDropdownOpen,
+            open: siteState.mobileDropdownOpen,
           })}
           style={{
-            height: `calc(100vh - ${navState.height}px)`,
+            height: `calc(100vh - ${siteState.navWidth}px)`,
           }}
         >
           <div className="NavBar__dropdown-content">

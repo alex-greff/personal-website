@@ -1,39 +1,40 @@
 // Note: this component should be treated like App
 
-import React, { FunctionComponent, useContext, useEffect, useRef } from "react";
+import React, { FunctionComponent, useContext, useEffect, useRef, useState } from "react";
 import "./BaseLayout.scss";
 import { Helmet } from "react-helmet";
 import update from "immutability-helper";
 import * as Utilities from "@/utilities";
 
 import { ThemeProvider } from "@/contexts/theme-context";
-import NavContext, { NavProvider } from "@/contexts/nav-context";
-import { FooterProvider } from "@/contexts/footer-context";
+import SiteContext, { SiteProvider } from "@/contexts/site-context";
 
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
 import "overlayscrollbars/css/OverlayScrollbars.css";
 
 import NavBar from "@/components/nav/NavBar/NavBar";
 import FooterSection from "@/sections/FooterSection/FooterSection";
+import Loader from "@/components/Loader/Loader";
 
 const BaseLayoutInternal: FunctionComponent = ({ children }) => {
-  const { navState, setNavState } = useContext(NavContext);
+  const [loadDone, setLoadDone] = useState(false);
+  const { siteState, setSiteState } = useContext(SiteContext);
   const osRef = useRef<OverlayScrollbarsComponent>(null);
 
   const onScroll = (args?: UIEvent) => {
     const target = args?.target as HTMLElement;
 
-    setNavState(
-      update(navState, {
+    setSiteState(
+      update(siteState, {
         scrollAmount: { $set: target.scrollTop },
       })
     );
   };
 
   const updateOsInstance = () => {
-    if (!navState.osInstance) {
-      setNavState(
-        update(navState, {
+    if (!siteState.osInstance) {
+      setSiteState(
+        update(siteState, {
           osInstance: { $set: osRef.current?.osInstance()! },
         })
       );
@@ -51,48 +52,53 @@ const BaseLayoutInternal: FunctionComponent = ({ children }) => {
         // Delay hack because it doesn't work when running instantly
         setTimeout(() => {
           osRef.current?.osInstance()!.scroll({ el: targetEl }, 0);
-        }, 10);
+        }, 100);
       }
     }
   }, []);
 
   return (
-    <OverlayScrollbarsComponent
-      className="BaseLayout__overlay-container"
-      ref={osRef}
-      options={{
-        scrollbars: {
-          autoHide: "leave",
-        },
-        callbacks: {
-          onScroll: (args) => onScroll(args),
-        },
-        // Disable scrolling when the navbar mobile dropdown is open
-        overflowBehavior: {
-          x:
-            navState.isMobile && navState.mobileDropdownOpen
-              ? "hidden"
-              : "scroll",
-          y:
-            navState.isMobile && navState.mobileDropdownOpen
-              ? "hidden"
-              : "scroll",
-        },
-      }}
-    >
-      <div id="BaseLayout">
-        <NavBar />
-        <div
-          className="BaseLayout__content"
-          style={{
-            marginTop: `${navState.height}px`,
-          }}
-        >
-          {children}
+    <>
+      <Loader 
+        onFinishLoading={() => setLoadDone(true)}
+      />
+      <OverlayScrollbarsComponent
+        className="BaseLayout__overlay-container"
+        ref={osRef}
+        options={{
+          scrollbars: {
+            autoHide: "leave",
+          },
+          callbacks: {
+            onScroll: (args) => onScroll(args),
+          },
+          // Disable scrolling when the navbar mobile dropdown is open
+          overflowBehavior: {
+            x:
+            siteState.isMobile && siteState.mobileDropdownOpen
+                ? "hidden"
+                : "scroll",
+            y:
+            siteState.isMobile && siteState.mobileDropdownOpen
+                ? "hidden"
+                : "scroll",
+          },
+        }}
+      >
+        <div id="BaseLayout">
+          <NavBar />
+          <div
+            className="BaseLayout__content"
+            style={{
+              marginTop: `${siteState.navHeight}px`,
+            }}
+          >
+            {children}
+          </div>
+          <FooterSection />
         </div>
-        <FooterSection />
-      </div>
-    </OverlayScrollbarsComponent>
+      </OverlayScrollbarsComponent>
+    </>
   );
 };
 
@@ -103,11 +109,9 @@ const BaseLayout: FunctionComponent = ({ children }) => {
         <body className="global-theme" />
       </Helmet>
       <ThemeProvider>
-        <NavProvider>
-          <FooterProvider>
-            <BaseLayoutInternal>{children}</BaseLayoutInternal>
-          </FooterProvider>
-        </NavProvider>
+        <SiteProvider>
+          <BaseLayoutInternal>{children}</BaseLayoutInternal>
+        </SiteProvider>
       </ThemeProvider>
     </>
   );

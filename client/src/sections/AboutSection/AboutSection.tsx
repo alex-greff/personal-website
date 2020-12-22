@@ -13,7 +13,14 @@ const AboutSection: FunctionComponent<Props> = (props) => {
       style={props.style}
       id="about"
     >
-      About Section
+      <div
+        data-sal="entrance-up"
+        style={{
+          "--sal-duration": "1s"
+        }}
+      >
+        About Section
+      </div>
     </FullPageSection>
   );
 };

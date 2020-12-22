@@ -5,8 +5,7 @@ import classnames from "classnames";
 import { Waypoint } from 'react-waypoint';
 import * as Utilities from "@/utilities";
 
-import FooterContext from "@/contexts/footer-context";
-import NavContext from "@/contexts/nav-context";
+import SiteContext from "@/contexts/site-context";
 
 interface Props extends BaseProps {
   accountForNav?: boolean;
@@ -17,11 +16,10 @@ interface Props extends BaseProps {
 
 const FullPageSection: FunctionComponent<Props> = (props) => {
   const { accountForNav, accountForFooter, updateHash } = props;
-  const { navState } = useContext(NavContext);
-  const { footerState } = useContext(FooterContext);
+  const { siteState } = useContext(SiteContext);
 
-  const navMod = accountForNav ? navState.height : 0;
-  const footerMod = accountForFooter ? footerState.height : 0;
+  const navMod = accountForNav ? siteState.navHeight : 0;
+  const footerMod = accountForFooter ? siteState.footerHeight : 0;
 
   const handleWaypointEnter = () => {
     if (updateHash) {
@@ -48,7 +46,7 @@ const FullPageSection: FunctionComponent<Props> = (props) => {
         <div
           className="FullPageSection__id-dummy"
           id={Utilities.hashToSectionId(props.id)}
-          style={{ top: `-${navState.height}px`, height: `${navState.height}px` }}
+          style={{ top: `-${siteState.navHeight}px`, height: `${siteState.navHeight}px` }}
         ></div>
         {props.children}
       </div>

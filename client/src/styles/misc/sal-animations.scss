@@ -1,0 +1,40 @@
+// A collection of custom SAL CSS animations
+
+@mixin sal-start($anim-name) {
+  [data-sal|=#{$anim-name}] {
+    @content;
+  }
+}
+
+@mixin sal-variant($anim-name, $variant) {
+  [data-sal|=#{$anim-name}-#{$variant}] {
+    @content;
+  }
+}
+
+@mixin sal-end($anim-name) {
+  [data-sal|=#{$anim-name}].sal-animate, 
+  body.sal-disabled [data-sal|=#{$anim-name}] {
+    @content;
+  }
+}
+
+// -------------------------
+// --- Custom animations ---
+// -------------------------
+
+$offset: 10px;
+
+@include sal-start('entrance') {
+  opacity: 0;
+  transition-property: opacity, transform;
+}
+
+@include sal-variant('entrance', 'up') {
+  transform: translateY($offset);
+}
+
+@include sal-end('entrance') {
+  opacity: 1;
+  transform: none;
+}

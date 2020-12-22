@@ -1,0 +1,26 @@
+#Loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+
+  background-color: rgb(58, 58, 58);
+  z-index: 99;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  @include font-content-regular();
+  font-size: 2rem;
+
+  &.fading {
+    pointer-events: none;
+  }
+
+  &.loaded {
+    display: none;
+  }
+}

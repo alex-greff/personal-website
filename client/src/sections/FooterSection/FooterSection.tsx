@@ -1,16 +1,17 @@
 import "./FooterSection.scss";
 import React, { FunctionComponent, useContext, useEffect } from "react";
-import FooterContext from "@/contexts/footer-context";
+import SiteContext from "@/contexts/site-context";
 import { SizeMeProps, withSize } from "react-sizeme";
+import update from "immutability-helper";
 
 export const FooterSection: FunctionComponent<SizeMeProps> = ({ size }) => {
-  const { setFooterState } = useContext(FooterContext);
+  const { siteState, setSiteState } = useContext(SiteContext);
 
   useEffect(() => {
-    setFooterState({
-      width: size.width!,
-      height: size.height!
-    });
+    setSiteState(update(siteState, {
+      footerWidth: { $set: size.width! },
+      footerHeight: { $set: size.height! }
+    }));
   }, [size]);
 
   return (
