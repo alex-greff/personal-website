@@ -34,7 +34,7 @@ const LandingSection: FunctionComponent<Props> = (props) => {
     <FullPageSection
       className={classnames("LandingSection", props.className)}
       style={props.style}
-      id="home"
+      name="home"
     >
       {/* {(siteState.loadCompleted) ? (<div
         // data-sal="entrance-up"

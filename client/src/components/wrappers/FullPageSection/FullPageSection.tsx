@@ -11,12 +11,12 @@ import SectionWaypoint from "@/components/SectionWaypoint/SectionWaypoint";
 interface Props extends BaseProps {
   accountForNav?: boolean;
   accountForFooter?: boolean;
-  id: string;
+  name: string;
   updateHash?: boolean;
 }
 
 const FullPageSection: FunctionComponent<Props> = (props) => {
-  const { accountForNav, accountForFooter, updateHash } = props;
+  const { accountForNav, accountForFooter, updateHash, name } = props;
   const { siteState } = useContext(SiteContext);
 
   const navMod = accountForNav ? siteState.navHeight : 0;
@@ -30,22 +30,22 @@ const FullPageSection: FunctionComponent<Props> = (props) => {
         minHeight: `calc(100vh - ${footerMod}px - ${navMod}px)`,
       }}
     >
-    {/* A dummy used for attaching the ID tag to so that the scroll behavior
+      {/* A dummy used for attaching the ID tag to so that the scroll behavior
     accounts for the navbar */}
-    <div
-      className="FullPageSection__id-dummy"
-      id={Utilities.hashToSectionId(props.id)}
-      style={{
-        top: `-${siteState.navHeight}px`,
-        height: `${siteState.navHeight}px`,
-      }}
-    ></div>
+      <div
+        className="FullPageSection__id-dummy"
+        id={Utilities.hashToSectionId(name)}
+        style={{
+          top: `-${siteState.navHeight}px`,
+          height: `${siteState.navHeight}px`,
+        }}
+      ></div>
 
-    {/* The section waypoint injection */}
-    <SectionWaypoint name={props.id} />
+      {/* Update the hash with a section waypoint, if needed */}
+      {updateHash ? <SectionWaypoint name={name} /> : null}
 
-    {props.children}
-  </div>
+      {props.children}
+    </div>
   );
 };
 

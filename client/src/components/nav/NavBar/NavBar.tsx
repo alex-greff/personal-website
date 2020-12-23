@@ -32,7 +32,7 @@ const ITEMS: SelectionItem[] = [
     id: "experience",
     display: "Experience",
     href: "#experience",
-    disabled: true,
+    disabled: false,
   },
   { id: "projects", display: "Projects", href: "#projects" },
 ];
@@ -77,9 +77,9 @@ const NavBar: FunctionComponent<Props> = (props) => {
 
   const findSectionIdx = (section: string) => {
     const sectionIdx = Math.max(
-        0,
-        ITEMS.findIndex((item) => item.href === `#${section}`)
-      );
+      0,
+      ITEMS.findIndex((item) => item.href === `#${section}`)
+    );
     return sectionIdx;
   };
 
@@ -105,9 +105,24 @@ const NavBar: FunctionComponent<Props> = (props) => {
       const targetQuery = `#${Utilities.hashToSectionId(item.href!)}`;
       const targetEl = document.querySelector(targetQuery)! as HTMLElement;
       if (targetEl) {
+        // Set autoscrolling
+        setSiteState((prevState) =>
+          update(prevState, { autoScrolling: { $set: true } })
+        );
+
         // Cancel any already running scrolls and start the new one
         siteState.osInstance?.scrollStop();
-        siteState.osInstance?.scroll({ el: targetEl }, 500, "easeOutQuad");
+        siteState.osInstance?.scroll(
+          { el: targetEl },
+          500,
+          "easeOutQuad",
+          () => {
+            // Unset autoscrolling
+            setSiteState((prevState) =>
+              update(prevState, { autoScrolling: { $set: false } })
+            );
+          }
+        );
       }
 
       setCurrSectionIdx(idx);
@@ -132,7 +147,11 @@ const NavBar: FunctionComponent<Props> = (props) => {
 
   // Update the section index based off the current waypoint
   useEffect(() => {
-    setCurrSectionIdx(findSectionIdx(siteState.currentWaypoint));
+    // Do no update current section idx if an autoscrolling operation is running
+    // (since it already set the section index)
+    if (!siteState.autoScrolling) {
+      setCurrSectionIdx(findSectionIdx(siteState.currentWaypoint));
+    }
   }, [siteState.currentWaypoint]);
 
   return (

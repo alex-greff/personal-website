@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useRef } from "react";
-import "./AboutSection.scss";
+import "./ProjectsSection.scss";
 import { BaseProps } from "@/types";
 import classnames from "classnames";
 import FullPageSection from "@/components/wrappers/FullPageSection/FullPageSection";
@@ -7,13 +7,13 @@ import * as Utilities from "@/utilities";
 
 export interface Props extends Omit<BaseProps, "id"> {};
 
-const AboutSection: FunctionComponent<Props> = (props) => {
+const ProjectsSection: FunctionComponent<Props> = (props) => {
 
   return (
     <FullPageSection 
-      className={classnames("AboutSection", props.className)}
+      className={classnames("ProjectsSection", props.className)}
       style={props.style}
-      name="about"
+      name="projects"
     >
       <div
         data-sal="entrance-up"
@@ -21,10 +21,10 @@ const AboutSection: FunctionComponent<Props> = (props) => {
           "--sal-duration": "1s"
         }}
       >
-        About Section
+        Projects Section
       </div>
     </FullPageSection>
   );
 };
 
-export default AboutSection;
+export default ProjectsSection;

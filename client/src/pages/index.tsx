@@ -1,26 +1,25 @@
 import "./index.scss";
-import React, { FunctionComponent, useContext } from "react";
+import React, { FunctionComponent } from "react";
 import "@/styles/main.scss";
-import ThemeContext from "@/contexts/theme-context";
-import SectionWaypoint from "@/components/SectionWaypoint/SectionWaypoint";
 
 import LandingSection from "@/sections/LandingSection/LandingSection";
 import AboutSection from "@/sections/AboutSection/AboutSection";
+import ExperienceSection from "@/sections/ExperienceSection/ExperienceSection";
+import ProjectsSection from "@/sections/ProjectsSection/ProjectsSection";
 
 const Main: FunctionComponent = () => {
-  const { theme, switchTheme } = useContext(ThemeContext);
-
   return (
     <main id="Main">
-      <LandingSection/>
-      <AboutSection/>
+      <LandingSection />
+      <AboutSection />
+      <ExperienceSection />
+      <ProjectsSection />
+      
 
       {/* TODO: remove */}
       {/* <h1>Hello There</h1>
       <button onClick={() => switchTheme("theme-light")}>Light</button>
-      <button onClick={() => switchTheme("theme-dark")}>Dark</button> */}
-
-      
+      <button onClick={() => switchTheme("theme-dark")}>Dark</button> */}      
     </main>
   );
 };

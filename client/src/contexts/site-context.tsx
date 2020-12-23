@@ -18,6 +18,7 @@ interface SiteContextState {
   osInstance: OverlayScrollbars | null;
   loadStatus: LoadStatus;
   currentWaypoint: string;
+  autoScrolling: boolean; // Scrolling from an osInstance.scroll() call
 }
 
 interface SiteContextValue {
@@ -46,7 +47,8 @@ const SiteContext = React.createContext<SiteContextValue>({
     scrollAmount: 0,
     osInstance: null,
     loadStatus: LoadStatus.LOADING,
-    currentWaypoint: initialWaypoint()
+    currentWaypoint: initialWaypoint(),
+    autoScrolling: false
   },
   setSiteState: () => {}
 });
@@ -62,7 +64,8 @@ export const SiteProvider: FunctionComponent = ({ children }) => {
     scrollAmount: 0,
     osInstance: null,
     loadStatus: LoadStatus.LOADING,
-    currentWaypoint: initialWaypoint()
+    currentWaypoint: initialWaypoint(),
+    autoScrolling: false
   });
 
   return (
