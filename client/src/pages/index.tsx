@@ -2,6 +2,7 @@ import "./index.scss";
 import React, { FunctionComponent, useContext } from "react";
 import "@/styles/main.scss";
 import ThemeContext from "@/contexts/theme-context";
+import SectionWaypoint from "@/components/SectionWaypoint/SectionWaypoint";
 
 import LandingSection from "@/sections/LandingSection/LandingSection";
 import AboutSection from "@/sections/AboutSection/AboutSection";
@@ -13,14 +14,13 @@ const Main: FunctionComponent = () => {
     <main id="Main">
       <LandingSection/>
       <AboutSection/>
-      {/* TODO: get the scrolling feature working */}
-      {/* <LandingSection id="home" />
-      <AboutSection id="about" /> */}
 
       {/* TODO: remove */}
       {/* <h1>Hello There</h1>
       <button onClick={() => switchTheme("theme-light")}>Light</button>
       <button onClick={() => switchTheme("theme-dark")}>Dark</button> */}
+
+      
     </main>
   );
 };

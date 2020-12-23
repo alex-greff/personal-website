@@ -13,7 +13,7 @@ import update from "immutability-helper";
 import * as Utilities from "@/utilities";
 
 import { ThemeProvider } from "@/contexts/theme-context";
-import SiteContext, { SiteProvider } from "@/contexts/site-context";
+import SiteContext, { LoadStatus, SiteProvider } from "@/contexts/site-context";
 
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
 import "overlayscrollbars/css/OverlayScrollbars.css";
@@ -46,33 +46,43 @@ const BaseLayoutInternal: FunctionComponent = ({ children }) => {
     }
   };
 
-  const loadCompleted = () => {
-    setSiteState((prevState) =>
-      update(prevState, {
-        loadCompleted: { $set: true },
-      })
-    );
-  };
-
   useEffect(() => {
     updateOsInstance();
 
-    // Set the initial location of the page
-    if (window.location.hash) {
-      const targetQuery = `#${Utilities.hashToSectionId(window.location.hash)}`;
-      const targetEl = document.querySelector(targetQuery) as HTMLElement;
-      if (targetEl) {
-        // Delay hack because it doesn't work when running instantly
-        setTimeout(() => {
+    // TODO: remove
+    // // Set the initial location of the page
+    // if (window.location.hash) {
+    //   const targetQuery = `#${Utilities.hashToSectionId(window.location.hash)}`;
+    //   const targetEl = document.querySelector(targetQuery) as HTMLElement;
+    //   if (targetEl) {
+    //     // Delay hack because it doesn't work when running instantly
+    //     setTimeout(() => {
+    //       osRef.current?.osInstance()!.scroll({ el: targetEl }, 0);
+    //     }, 50);
+    //   }
+    // }
+  }, []);
+
+  useEffect(() => {
+    if (siteState.loadStatus >= LoadStatus.FADING) {
+      // Set the initial location of the page
+      if (window.location.hash) {
+        const targetQuery = `#${Utilities.hashToSectionId(window.location.hash)}`;
+        const targetEl = document.querySelector(targetQuery) as HTMLElement;
+        if (targetEl) {
           osRef.current?.osInstance()!.scroll({ el: targetEl }, 0);
-        }, 10);
+          // Delay hack because it doesn't work when running instantly
+          // setTimeout(() => {
+          //   osRef.current?.osInstance()!.scroll({ el: targetEl }, 0);
+          // }, 50);
+        }
       }
     }
-  }, []);
+  }, [siteState.loadStatus])
 
   return (
     <>
-      <Loader onFinishLoading={loadCompleted} />
+      <Loader />
       <OverlayScrollbarsComponent
         className="BaseLayout__overlay-container"
         ref={osRef}
@@ -104,6 +114,7 @@ const BaseLayoutInternal: FunctionComponent = ({ children }) => {
               marginTop: `${siteState.navHeight}px`,
             }}
           >
+            {/* {(siteState.loadStatus >= LoadStatus.FADING) ? (children) : null} */}
             {children}
           </div>
           <FooterSection />

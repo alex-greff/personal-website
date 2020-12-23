@@ -1,33 +1,45 @@
-import React, { FunctionComponent, useRef, useEffect, useState } from "react";
+import React, {
+  FunctionComponent,
+  useRef,
+  useEffect,
+  useState,
+  useContext,
+} from "react";
 import { BaseProps } from "@/types";
 import "./Loader.scss";
 import classnames from "classnames";
 import gsap from "gsap";
+import SiteContext, { LoadStatus } from "@/contexts/site-context";
+import update from "immutability-helper";
 
-export interface Props extends Omit<BaseProps, "id"> {
-  onFinishLoading: () => void;
-}
+export interface Props extends Omit<BaseProps, "id"> {}
 
 const Loader: FunctionComponent<Props> = (props) => {
-  const { onFinishLoading } = props;
+  const { setSiteState } = useContext(SiteContext);
   const loaderRef = useRef(null);
   const [fading, setFading] = useState(false);
   const [loaded, setloaded] = useState(false);
 
-  const timelineComplete = () => {
-    setloaded(true);
-    onFinishLoading();
-  };
-
   const runTimeline = () => {
     const tl = gsap.timeline();
-    tl.to(loaderRef.current, { duration: 1 });
+    tl.to(loaderRef.current, {
+      duration: 1,
+      onComplete: () => {
+        setSiteState((prevState) =>
+          update(prevState, { loadStatus: { $set: LoadStatus.FADING } })
+        );
+      },
+    });
+    // Fade out the loader
     tl.to(loaderRef.current, {
       opacity: 0,
       duration: 0.3,
       onStart: () => setFading(true),
-      onComplete: () => {
-        timelineComplete();
+      onComplete: () => { 
+        setSiteState((prevState) =>
+          update(prevState, { loadStatus: { $set: LoadStatus.COMPLETED } })
+        );  
+        setloaded(true); 
       },
     });
   };

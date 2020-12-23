@@ -13,14 +13,14 @@ const LandingSection: FunctionComponent<Props> = (props) => {
   const { siteState } = useContext(SiteContext);
   const revealRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    console.log("Here");
-    ScrollReveal().reveal(revealRef.current!, Utilities.srConfig());
-    // if (revealRef.current) {
-    //   console.log("Here");
-    //   ScrollReveal().reveal(revealRef.current!, Utilities.srConfig());
-    // }
-  }, []);
+  // useEffect(() => {
+  //   console.log("Here");
+  //   ScrollReveal().reveal(revealRef.current!, Utilities.srConfig());
+  //   // if (revealRef.current) {
+  //   //   console.log("Here");
+  //   //   ScrollReveal().reveal(revealRef.current!, Utilities.srConfig());
+  //   // }
+  // }, []);
 
   // const test = (el: HTMLDivElement | null) => {
   //   // revealRef = el!;
@@ -47,11 +47,11 @@ const LandingSection: FunctionComponent<Props> = (props) => {
       </div>) : null} */}
 
       <div
-        // data-sal="entrance-up"
-        // style={{
-        //   "--sal-duration": "1s",
-        // }}
-        ref={revealRef}
+        data-sal="entrance-up"
+        style={{
+          "--sal-duration": "1s",
+        }}
+        // ref={revealRef}
       >
         Landing Section
       </div>

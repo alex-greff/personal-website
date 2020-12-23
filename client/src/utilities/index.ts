@@ -50,5 +50,5 @@ export const srConfig = (delay = 200, viewFactor = 0.25) => ({
   viewOffset: { top: 0, right: 0, bottom: 0, left: 0 },
 });
 
-// export const isSSR = typeof window === 'undefined';
+export const isSSR = typeof window === 'undefined';
 // export const sr = (typeof window === 'undefined') ? null : ScrollReveal();

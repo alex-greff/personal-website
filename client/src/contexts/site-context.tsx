@@ -1,6 +1,12 @@
 import React, { FunctionComponent, useState } from "react";
 import * as Utilities from "@/utilities";
 
+export enum LoadStatus {
+  LOADING = 0,
+  FADING = 1,
+  COMPLETED = 2,
+}
+
 interface SiteContextState {
   isMobile: boolean;
   mobileDropdownOpen: boolean;
@@ -10,7 +16,7 @@ interface SiteContextState {
   footerHeight: number;
   scrollAmount: number;
   osInstance: OverlayScrollbars | null;
-  loadCompleted: boolean;
+  loadStatus: LoadStatus;
   currentWaypoint: string;
 }
 
@@ -25,6 +31,7 @@ function documentIsMobile() {
 }
 
 function initialWaypoint() {
+  if (Utilities.isSSR) return "home";
   return (window.location.hash) ? window.location.hash.replace("#", "") : "home";
 }
 
@@ -38,7 +45,7 @@ const SiteContext = React.createContext<SiteContextValue>({
     footerHeight: 0,
     scrollAmount: 0,
     osInstance: null,
-    loadCompleted: false,
+    loadStatus: LoadStatus.LOADING,
     currentWaypoint: initialWaypoint()
   },
   setSiteState: () => {}
@@ -54,7 +61,7 @@ export const SiteProvider: FunctionComponent = ({ children }) => {
     footerHeight: 0,
     scrollAmount: 0,
     osInstance: null,
-    loadCompleted: false,
+    loadStatus: LoadStatus.LOADING,
     currentWaypoint: initialWaypoint()
   });
 
