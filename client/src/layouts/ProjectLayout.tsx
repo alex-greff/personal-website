@@ -26,6 +26,8 @@ const ProjectLayout: FunctionComponent<Props> = ({ data: { mdx } }) => {
     <FullPageSection 
       className="ProjectLayout" 
       accountForNav={true}
+      name="project-info"
+      updateHash={false}
     >
       <h1>{mdx.frontmatter.title}</h1>
       <MDXProvider components={shortcodes}>

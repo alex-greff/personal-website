@@ -11,6 +11,7 @@ import "./BaseLayout.scss";
 import { Helmet } from "react-helmet";
 import update from "immutability-helper";
 import * as Utilities from "@/utilities";
+import useRouteWatcher from "@/hooks/useRouteWatcher";
 
 import { ThemeProvider } from "@/contexts/theme-context";
 import SiteContext, { LoadStatus, SiteProvider } from "@/contexts/site-context";
@@ -22,9 +23,27 @@ import NavBar from "@/components/nav/NavBar/NavBar";
 import FooterSection from "@/sections/FooterSection/FooterSection";
 import Loader from "@/components/Loader/Loader";
 
-const BaseLayoutInternal: FunctionComponent = ({ children }) => {
+import { globalHistory } from "@reach/router";
+
+const BaseLayoutInternal: FunctionComponent = (props) => {
+  const { children } = props;
   const { siteState, setSiteState } = useContext(SiteContext);
   const osRef = useRef<OverlayScrollbarsComponent>(null);
+
+  useRouteWatcher((location) => {
+    console.log("ROUTE CHANGE", location);
+    // if (location.pathname === "/") {
+    //   const targetQuery = `#${Utilities.hashToSectionId(window.location.hash)}`;
+    //   const targetEl = document.querySelector(targetQuery) as HTMLElement;
+    //   if (targetEl) {
+    //     osRef.current?.osInstance()!.scroll({ el: targetEl }, 0);
+    //     // Delay hack because it doesn't work when running instantly
+    //     // setTimeout(() => {
+    //     //   osRef.current?.osInstance()!.scroll({ el: targetEl }, 0);
+    //     // }, 50);
+    //   }
+    // }
+  });
 
   const onScroll = (args?: UIEvent) => {
     const target = args?.target as HTMLElement;
@@ -45,6 +64,17 @@ const BaseLayoutInternal: FunctionComponent = ({ children }) => {
       );
     }
   };
+
+  // TODO: remove
+  // // A nice hack to find the route change...
+  // // https://stackoverflow.com/questions/61274365/allow-component-to-detect-route-change-in-gatsby
+  // useEffect(() => {
+  //   return globalHistory.listen((listener) => {
+  //     if (listener.action === 'PUSH') {
+  //       console.log("b> ROUTE CHANGE", listener);
+  //     }
+  //   })
+  // }, [])
 
   useEffect(() => {
     updateOsInstance();

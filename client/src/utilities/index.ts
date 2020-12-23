@@ -30,7 +30,7 @@ export const getBreakpoint = (width: number): Breakpoint => {
 
 /* Converts a location hash to its corresponding section id tag. */
 export const hashToSectionId = (hash: string) => {
-  hash = hash.replace("#", "");
+  hash = hash.replace("#", "").replace("/", "");
   return `${Constants.SECTION_PREFIX}_${hash}`;
 };
 

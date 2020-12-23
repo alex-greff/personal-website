@@ -28,6 +28,7 @@ export interface Props extends BaseProps {
   items: SelectionItem[];
   selectedIdx?: number;
   orientation?: "horizontal" | "vertical";
+  useLink?: boolean;
   onClick?: (item: SelectionItem, idx: number) => unknown;
 };
 
@@ -145,6 +146,7 @@ const SelectableList: FunctionComponent<Props> = (props) => {
         key={idx}
         className="SelectableList__item"
         item={item} 
+        useLink={props.useLink}
         handleRef={(itemRef) => itemRefs.current[idx] = itemRef.current!}
         onClick={() => (onClick) ? onClick(item, idx) : null}
       />
@@ -171,7 +173,8 @@ const SelectableList: FunctionComponent<Props> = (props) => {
 
 SelectableList.defaultProps = {
   selectedIdx: 0,
-  orientation: "horizontal"
+  orientation: "horizontal",
+  useLink: false
 } as Partial<Props>;
 
 export default SelectableList;
