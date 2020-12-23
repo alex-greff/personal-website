@@ -114,6 +114,7 @@ const BaseLayoutInternal: FunctionComponent = ({ children }) => {
               marginTop: `${siteState.navHeight}px`,
             }}
           >
+            {/* TODO: remove */}
             {/* {(siteState.loadStatus >= LoadStatus.FADING) ? (children) : null} */}
             {children}
           </div>

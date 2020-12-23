@@ -13,6 +13,7 @@ const LandingSection: FunctionComponent<Props> = (props) => {
   const { siteState } = useContext(SiteContext);
   const revealRef = useRef<HTMLDivElement>(null);
 
+  // TODO: figure out
   // useEffect(() => {
   //   console.log("Here");
   //   ScrollReveal().reveal(revealRef.current!, Utilities.srConfig());

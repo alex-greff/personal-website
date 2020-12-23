@@ -44,7 +44,6 @@ const FullPageSection: FunctionComponent<Props> = (props) => {
     {/* The section waypoint injection */}
     <SectionWaypoint name={props.id} />
 
-    {/* {(siteState.loadCompleted) ? (props.children) : null} */}
     {props.children}
   </div>
   );

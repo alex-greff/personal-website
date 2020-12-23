@@ -181,7 +181,7 @@ const NavBar: FunctionComponent<Props> = (props) => {
             open: siteState.mobileDropdownOpen,
           })}
           style={{
-            height: `calc(100vh - ${siteState.navWidth}px)`,
+            height: `calc(100vh - ${siteState.navHeight}px)`,
           }}
         >
           <div className="NavBar__dropdown-content">
