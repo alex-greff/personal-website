@@ -4,6 +4,7 @@ import { BaseProps } from "@/types";
 import classnames from "classnames";
 import FullPageSection from "@/components/wrappers/FullPageSection/FullPageSection";
 import * as Utilities from "@/utilities";
+import { Link } from "gatsby";
 
 export interface Props extends Omit<BaseProps, "id"> {};
 
@@ -22,6 +23,8 @@ const ProjectsSection: FunctionComponent<Props> = (props) => {
         }}
       >
         Projects Section
+        <br />
+        <Link to="/projects/shabam">Shabam</Link>
       </div>
     </FullPageSection>
   );

@@ -1,8 +1,9 @@
-import React, { FunctionComponent, useContext } from "react";
+import React, { FunctionComponent, useContext, useState } from "react";
 import "./SectionWaypoint.scss";
 import { Waypoint } from "react-waypoint";
 import update from "immutability-helper";
 import SiteContext, { LoadStatus } from "@/contexts/site-context";
+import * as Utilities from "@/utilities";
 
 export interface Props {
   name: string;
@@ -19,16 +20,25 @@ export interface Props {
   //       |                 |
   //       |-----------------|
   triggerLocation?: string;
-};
+}
 
 const SectionWaypoint: FunctionComponent<Props> = (props) => {
   const { name, disable, triggerLocation } = props;
   const { siteState, setSiteState } = useContext(SiteContext);
+  const [initPage] = useState(Utilities.getPageType(window.location.pathname));
 
   const onWaypointEnter = () => {
-    // Only register a section entrance when not disabled and the site 
-    // isn't loading
-    if (!disable && siteState.loadStatus >= LoadStatus.COMPLETED) {
+    // Only register a section entrance when:
+    // - not disabled
+    // - the site isn't loading
+    // - an autoscrolling operation is not running
+    // - the current page is the same as the page it belongs to
+    if (
+      !disable &&
+      siteState.loadStatus >= LoadStatus.COMPLETED &&
+      !siteState.autoScrolling &&
+      Utilities.getPageType(window.location.pathname) === initPage
+    ) {
       const waypoint = name;
 
       // Update the window hash whenever we enter a full page section
@@ -41,22 +51,20 @@ const SectionWaypoint: FunctionComponent<Props> = (props) => {
   };
 
   return (
-    <div 
+    <div
       className="SectionWaypoint"
       style={{
-        height: `calc(100% - 2 * ${triggerLocation})`
+        height: `calc(100% - 2 * ${triggerLocation})`,
       }}
     >
-      <Waypoint 
-        onEnter={onWaypointEnter}
-      />
+      <Waypoint onEnter={onWaypointEnter} />
     </div>
   );
 };
 
 SectionWaypoint.defaultProps = {
   disable: false,
-  triggerLocation: "50%"
+  triggerLocation: "50%",
 } as Partial<Props>;
 
 export default SectionWaypoint;

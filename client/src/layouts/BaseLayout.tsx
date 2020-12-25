@@ -11,7 +11,7 @@ import "./BaseLayout.scss";
 import { Helmet } from "react-helmet";
 import update from "immutability-helper";
 import * as Utilities from "@/utilities";
-import useRouteWatcher from "@/hooks/useRouteWatcher";
+import useRouteWatcher, { RouteWatcherMode } from "@/hooks/useRouteWatcher";
 
 import { ThemeProvider } from "@/contexts/theme-context";
 import SiteContext, { LoadStatus, SiteProvider } from "@/contexts/site-context";
@@ -23,27 +23,85 @@ import NavBar from "@/components/nav/NavBar/NavBar";
 import FooterSection from "@/sections/FooterSection/FooterSection";
 import Loader from "@/components/Loader/Loader";
 
-import { globalHistory } from "@reach/router";
-
 const BaseLayoutInternal: FunctionComponent = (props) => {
   const { children } = props;
   const { siteState, setSiteState } = useContext(SiteContext);
   const osRef = useRef<OverlayScrollbarsComponent>(null);
 
+  // ----------------------------
+  // --- Scrollbar Management ---
+  // ----------------------------
+
+  // Set scroll position to initial section
+  useEffect(() => {
+    if (siteState.loadStatus >= LoadStatus.FADING) {
+      const pageType = Utilities.getPageType(window.location.pathname);
+
+      // Set the initial location of the page
+      if (pageType === Utilities.PageType.ROOT) {
+        const targetQuery = `#${Utilities.hashToSectionId(
+          window.location.hash
+        )}`;
+        const targetEl = document.querySelector(targetQuery) as HTMLElement;
+        if (targetEl) {
+          osRef.current?.osInstance()!.scroll({ el: targetEl }, 0);
+        }
+      }
+    }
+  }, [siteState.loadStatus]);
+
+  // React to page changes
   useRouteWatcher((location) => {
-    console.log("ROUTE CHANGE", location);
-    // if (location.pathname === "/") {
-    //   const targetQuery = `#${Utilities.hashToSectionId(window.location.hash)}`;
-    //   const targetEl = document.querySelector(targetQuery) as HTMLElement;
-    //   if (targetEl) {
-    //     osRef.current?.osInstance()!.scroll({ el: targetEl }, 0);
-    //     // Delay hack because it doesn't work when running instantly
-    //     // setTimeout(() => {
-    //     //   osRef.current?.osInstance()!.scroll({ el: targetEl }, 0);
-    //     // }, 50);
-    //   }
-    // }
-  });
+    const pageType = Utilities.getPageType(location.pathname);
+
+    if (pageType === Utilities.PageType.ROOT) {
+      // Delay hack because it doesn't work when running instantly
+      setTimeout(() => {
+        const targetQuery = `#${Utilities.hashToSectionId(location.hash)}`;
+        const targetEl = document.querySelector(targetQuery) as HTMLElement;
+        if (targetEl) {
+          osRef.current?.osInstance()!.scroll({ el: targetEl }, 0);
+        }
+      }, 10);
+    } else if (pageType === Utilities.PageType.PROJECT) {
+      // Scroll to top
+      osRef.current?.osInstance()?.scroll({ y: 0 });
+    }
+  }, RouteWatcherMode.PATHNAME);
+
+  // React to hash changes
+  useRouteWatcher((location) => {
+    const pageType = Utilities.getPageType(window.location.pathname);
+
+    if (pageType === Utilities.PageType.ROOT) {
+      const targetQuery = `#${Utilities.hashToSectionId(location.hash)}`;
+      const targetEl = document.querySelector(targetQuery)! as HTMLElement;
+
+      if (targetEl) {
+        const osInstance = osRef.current?.osInstance();
+
+        // Set autoscrolling
+        setSiteState((prevState) =>
+          update(prevState, { autoScrolling: { $set: true } })
+        );
+
+        // Cancel any already running scrolls and start the new one
+        osInstance?.scrollStop();
+        osInstance?.scroll({ el: targetEl }, 500, "easeOutQuad", () => {
+          window.location.hash = location.hash;
+
+          // Unset autoscrolling
+          setSiteState((prevState) =>
+            update(prevState, { autoScrolling: { $set: false } })
+          );
+        });
+      }
+    }
+  }, RouteWatcherMode.HASH);
+
+  // -------------------
+  // --- Other Stuff ---
+  // -------------------
 
   const onScroll = (args?: UIEvent) => {
     const target = args?.target as HTMLElement;
@@ -65,50 +123,9 @@ const BaseLayoutInternal: FunctionComponent = (props) => {
     }
   };
 
-  // TODO: remove
-  // // A nice hack to find the route change...
-  // // https://stackoverflow.com/questions/61274365/allow-component-to-detect-route-change-in-gatsby
-  // useEffect(() => {
-  //   return globalHistory.listen((listener) => {
-  //     if (listener.action === 'PUSH') {
-  //       console.log("b> ROUTE CHANGE", listener);
-  //     }
-  //   })
-  // }, [])
-
   useEffect(() => {
     updateOsInstance();
-
-    // TODO: remove
-    // // Set the initial location of the page
-    // if (window.location.hash) {
-    //   const targetQuery = `#${Utilities.hashToSectionId(window.location.hash)}`;
-    //   const targetEl = document.querySelector(targetQuery) as HTMLElement;
-    //   if (targetEl) {
-    //     // Delay hack because it doesn't work when running instantly
-    //     setTimeout(() => {
-    //       osRef.current?.osInstance()!.scroll({ el: targetEl }, 0);
-    //     }, 50);
-    //   }
-    // }
   }, []);
-
-  useEffect(() => {
-    if (siteState.loadStatus >= LoadStatus.FADING) {
-      // Set the initial location of the page
-      if (window.location.hash) {
-        const targetQuery = `#${Utilities.hashToSectionId(window.location.hash)}`;
-        const targetEl = document.querySelector(targetQuery) as HTMLElement;
-        if (targetEl) {
-          osRef.current?.osInstance()!.scroll({ el: targetEl }, 0);
-          // Delay hack because it doesn't work when running instantly
-          // setTimeout(() => {
-          //   osRef.current?.osInstance()!.scroll({ el: targetEl }, 0);
-          // }, 50);
-        }
-      }
-    }
-  }, [siteState.loadStatus])
 
   return (
     <>
@@ -144,8 +161,6 @@ const BaseLayoutInternal: FunctionComponent = (props) => {
               marginTop: `${siteState.navHeight}px`,
             }}
           >
-            {/* TODO: remove */}
-            {/* {(siteState.loadStatus >= LoadStatus.FADING) ? (children) : null} */}
             {children}
           </div>
           <FooterSection />

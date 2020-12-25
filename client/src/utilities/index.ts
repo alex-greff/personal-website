@@ -52,3 +52,19 @@ export const srConfig = (delay = 200, viewFactor = 0.25) => ({
 
 export const isSSR = typeof window === 'undefined';
 // export const sr = (typeof window === 'undefined') ? null : ScrollReveal();
+
+export enum PageType {
+  ROOT,
+  PROJECT
+}
+
+export const getPageType = (pathname: string) => {
+  const projectPageRegex = /^\/projects\/(.+)\/?$/g;
+
+  if (pathname === '/') 
+    return PageType.ROOT;
+  else if (projectPageRegex.test(pathname))
+    return PageType.PROJECT;
+  
+  throw "Should not reach here";
+};
