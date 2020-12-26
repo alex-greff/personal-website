@@ -22,6 +22,7 @@ import "overlayscrollbars/css/OverlayScrollbars.css";
 import NavBar from "@/components/nav/NavBar/NavBar";
 import FooterSection from "@/sections/FooterSection/FooterSection";
 import Loader from "@/components/Loader/Loader";
+import useLocation from "@/hooks/useLocation";
 
 const BaseLayoutInternal: FunctionComponent = (props) => {
   const { children } = props;
@@ -174,7 +175,9 @@ const BaseLayout: FunctionComponent = ({ children }) => {
   return (
     <>
       <Helmet>
-        <body className="global-theme" />
+        <html className="global-theme" />
+        {/* TODO: get from data */}
+        <title>Alexander Greff</title> 
       </Helmet>
       <ThemeProvider>
         <SiteProvider>
