@@ -5,6 +5,8 @@ import classnames from "classnames";
 import FullPageSection from "@/components/wrappers/FullPageSection/FullPageSection";
 import * as Utilities from "@/utilities";
 
+import ContentWrapper from "@/components/wrappers/ContentWrapper/ContentWrapper";
+
 export interface Props extends Omit<BaseProps, "id"> {};
 
 const AboutSection: FunctionComponent<Props> = (props) => {
@@ -15,14 +17,16 @@ const AboutSection: FunctionComponent<Props> = (props) => {
       style={props.style}
       name="about"
     >
-      <div
-        data-sal="entrance-up"
-        style={{
-          "--sal-duration": "1s"
-        }}
-      >
-        About Section
-      </div>
+      <ContentWrapper>
+        <div
+          data-sal="entrance-up"
+          style={{
+            "--sal-duration": "1s"
+          }}
+        >
+          About Section
+        </div>
+      </ContentWrapper>
     </FullPageSection>
   );
 };

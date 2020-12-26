@@ -1,4 +1,47 @@
 .LandingSection {
   color: var-link("text-primary");
   background-color: var-link("bg-landing");
+
+  & .LandingSection__name {
+    max-width: 100%;
+
+    margin-bottom: 0.3rem;
+
+    @include font-header();
+    font-size: 4rem;
+
+    letter-spacing: 0.1rem;
+
+    text-align: center;
+  }
+
+  & .LandingSection__divider {
+    width: 100% !important;
+  }
+
+  & .LandingSection__descriptive-words-list {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    margin-top: 1rem;
+
+    & .LandingSection__word-divider {
+      align-self: stretch;
+
+      margin: 0.3rem 0.8rem;
+
+      width: 1px;
+      background-color: var-link("text-secondary");
+    }
+
+    & .LandingSection__descriptive-word {
+      @include font-content-regular();
+      font-size: 2.1rem;
+
+      color: var-link("text-secondary");
+
+      text-align: center;
+    }
+  }
 }

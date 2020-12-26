@@ -1,5 +1,5 @@
 import * as Constants from "@/constants";
-import ScrollReveal from "scrollreveal";
+import ScrollReveal, { sync } from "scrollreveal";
 
 export enum Breakpoint {
   phone = 0,
@@ -50,21 +50,37 @@ export const srConfig = (delay = 200, viewFactor = 0.25) => ({
   viewOffset: { top: 0, right: 0, bottom: 0, left: 0 },
 });
 
-export const isSSR = typeof window === 'undefined';
+export const isSSR = typeof window === "undefined";
 // export const sr = (typeof window === 'undefined') ? null : ScrollReveal();
 
 export enum PageType {
   ROOT,
-  PROJECT
+  PROJECT,
 }
 
 export const getPageType = (pathname: string) => {
   const projectPageRegex = /^\/projects\/(.+)\/?$/g;
 
-  if (pathname === '/') 
-    return PageType.ROOT;
-  else if (projectPageRegex.test(pathname))
-    return PageType.PROJECT;
-  
+  if (pathname === "/") return PageType.ROOT;
+  else if (projectPageRegex.test(pathname)) return PageType.PROJECT;
+
   throw "Should not reach here";
+};
+
+interface SalConfig {
+  duration?: string;
+  delay?: string;
+  easing?: string;
+}
+
+export const salConfig = ({ duration, delay, easing }: SalConfig) => {
+  let style: {
+    "--sal-duration"?: string;
+    "--sal-delay"?: string;
+    "--sal-easing"?: string;
+  } = {};
+  if (duration) style = { ...style, "--sal-duration": duration };
+  if (delay) style = { ...style, "--sal-delay": delay };
+  if (easing) style = { ...style, "--sal-easing": easing };
+  return style;
 };

@@ -1,6 +1,9 @@
 const path = require('path');
 
 module.exports = {
+  siteMetadata: {
+    title: `Alexander Greff`,
+  },
   plugins: [
     "gatsby-plugin-netlify-cms",
     "gatsby-plugin-image",

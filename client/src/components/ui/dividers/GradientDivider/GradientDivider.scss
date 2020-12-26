@@ -1,0 +1,14 @@
+.GradientDivider {
+  background-color: red;
+
+  background: var-link("divider-gradient-1");
+  background: linear-gradient(135deg, var-link("divider-gradient-2") 0%, var-link("divider-gradient-1") 20%, var-link("divider-gradient-1") 80%, var-link("divider-gradient-2") 100%);
+
+  &.vertical {
+    height: 100vh;
+  }
+
+  &.horizontal {
+    width: 100vh;
+  }
+}

@@ -4,6 +4,9 @@
 
   position: relative;
 
+  display: flex;
+  flex-direction: column;
+
   & .FullPageSection__id-dummy {
     position: absolute;
     pointer-events: none;

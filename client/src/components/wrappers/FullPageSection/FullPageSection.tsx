@@ -3,7 +3,6 @@ import { BaseProps } from "@/types";
 import "./FullPageSection.scss";
 import classnames from "classnames";
 import * as Utilities from "@/utilities";
-
 import SiteContext from "@/contexts/site-context";
 
 import SectionWaypoint from "@/components/SectionWaypoint/SectionWaypoint";
@@ -23,7 +22,7 @@ const FullPageSection: FunctionComponent<Props> = (props) => {
   const footerMod = accountForFooter ? siteState.footerHeight : 0;
 
   return (
-    <div
+    <section
       className={classnames("FullPageSection", props.className)}
       style={{
         ...props.style,
@@ -45,7 +44,7 @@ const FullPageSection: FunctionComponent<Props> = (props) => {
       {updateHash ? <SectionWaypoint name={name} /> : null}
 
       {props.children}
-    </div>
+    </section>
   );
 };
 

@@ -5,3 +5,7 @@ export interface BaseProps {
   style?: React.CSSProperties;
   id?: string;
 }
+
+export interface DataProps {
+  data: any;
+}

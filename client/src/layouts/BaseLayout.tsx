@@ -4,8 +4,7 @@ import React, {
   FunctionComponent,
   useContext,
   useEffect,
-  useRef,
-  useState,
+  useRef
 } from "react";
 import "./BaseLayout.scss";
 import { Helmet } from "react-helmet";
@@ -22,7 +21,6 @@ import "overlayscrollbars/css/OverlayScrollbars.css";
 import NavBar from "@/components/nav/NavBar/NavBar";
 import FooterSection from "@/sections/FooterSection/FooterSection";
 import Loader from "@/components/Loader/Loader";
-import useLocation from "@/hooks/useLocation";
 
 const BaseLayoutInternal: FunctionComponent = (props) => {
   const { children } = props;
@@ -63,7 +61,7 @@ const BaseLayoutInternal: FunctionComponent = (props) => {
         if (targetEl) {
           osRef.current?.osInstance()!.scroll({ el: targetEl }, 0);
         }
-      }, 10);
+      }, 0);
     } else if (pageType === Utilities.PageType.PROJECT) {
       // Scroll to top
       osRef.current?.osInstance()?.scroll({ y: 0 });
@@ -177,7 +175,7 @@ const BaseLayout: FunctionComponent = ({ children }) => {
       <Helmet>
         <html className="global-theme" />
         {/* TODO: get from data */}
-        <title>Alexander Greff</title> 
+        {/* <title>Alexander Greff</title>  */}
       </Helmet>
       <ThemeProvider>
         <SiteProvider>

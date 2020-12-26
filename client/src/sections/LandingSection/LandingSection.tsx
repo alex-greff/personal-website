@@ -1,53 +1,67 @@
-import React, { FunctionComponent, useEffect, useRef, useContext } from "react";
+import React, { FunctionComponent } from "react";
 import "./LandingSection.scss";
-import { BaseProps } from "@/types";
+import { BaseProps, DataProps } from "@/types";
 import classnames from "classnames";
 import FullPageSection from "@/components/wrappers/FullPageSection/FullPageSection";
-import ScrollReveal from "scrollreveal";
 import * as Utilities from "@/utilities";
-import SiteContext from "@/contexts/site-context";
+import { graphql, useStaticQuery } from "gatsby";
+
+import ContentWrapper from "@/components/wrappers/ContentWrapper/ContentWrapper";
+import GradientDivider from "@/components/ui/dividers/GradientDivider/GradientDivider";
 
 export interface Props extends Omit<BaseProps, "id"> {}
 
 const LandingSection: FunctionComponent<Props> = (props) => {
-  const { siteState } = useContext(SiteContext);
-  const revealRef = useRef<HTMLDivElement>(null);
+  const query = useStaticQuery(graphql`
+    query MyQuery {
+      allMdx(filter: { fields: { collection: { eq: "about" } } }) {
+        edges {
+          node {
+            frontmatter {
+              name
+              descriptive_words
+            }
+          }
+        }
+      }
+    }
+  `);
 
-  // TODO: figure out
-  // useEffect(() => {
-  //   console.log("Here");
-  //   ScrollReveal().reveal(revealRef.current!, Utilities.srConfig());
-  //   // if (revealRef.current) {
-  //   //   console.log("Here");
-  //   //   ScrollReveal().reveal(revealRef.current!, Utilities.srConfig());
-  //   // }
-  // }, []);
-
-  // const test = (el: HTMLDivElement | null) => {
-  //   // revealRef = el!;
-  //   console.log("Here", el);
-  //   ScrollReveal().reveal(el!, Utilities.srConfig());
-  //   // ScrollReveal().reveal(revealRef.current!, Utilities.srConfig());
-  // };
+  const data = query.allMdx.edges[0].node;
 
   return (
     <FullPageSection
       className={classnames("LandingSection", props.className)}
       style={props.style}
       name="home"
+      accountForNav={true}
     >
-      {/* {(siteState.loadCompleted) ? (<div
-        // data-sal="entrance-up"
-        // style={{
-        //   "--sal-duration": "1s"
-        // }}
-        // ref={revealRef}
-        ref={test}
-      >
-        Landing Section
-      </div>) : null} */}
+      <ContentWrapper accountForNav={true}>
+        <div className="LandingSection__name">{data.frontmatter.name}</div>
+        <GradientDivider
+          className="LandingSection__divider"
+          orientation="horizontal"
+          length="70rem"
+        />
+        <div className="LandingSection__descriptive-words-list">
+          {data.frontmatter.descriptive_words.map(
+            (word: string, idx: number) => {
+              const firstItem = idx === 0;
+              return (
+                <>
+                  {firstItem ? null : (
+                    <div className="LandingSection__word-divider"></div>
+                  )}
+                  <div className="LandingSection__descriptive-word">{word}</div>
+                </>
+              );
+            }
+          )}
+        </div>
+      </ContentWrapper>
 
-      <div
+      {/* TODO: remove */}
+      {/* <div
         data-sal="entrance-up"
         style={{
           "--sal-duration": "1s",
@@ -55,7 +69,7 @@ const LandingSection: FunctionComponent<Props> = (props) => {
         // ref={revealRef}
       >
         Landing Section
-      </div>
+      </div> */}
     </FullPageSection>
   );
 };

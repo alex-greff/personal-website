@@ -5,6 +5,8 @@ import classnames from "classnames";
 import FullPageSection from "@/components/wrappers/FullPageSection/FullPageSection";
 import * as Utilities from "@/utilities";
 
+import ContentWrapper from "@/components/wrappers/ContentWrapper/ContentWrapper";
+
 export interface Props extends Omit<BaseProps, "id"> {};
 
 const ExperienceSection: FunctionComponent<Props> = (props) => {
@@ -15,14 +17,16 @@ const ExperienceSection: FunctionComponent<Props> = (props) => {
       style={props.style}
       name="experience"
     >
-      <div
-        data-sal="entrance-up"
-        style={{
-          "--sal-duration": "1s"
-        }}
-      >
-        Experience Section
-      </div>
+      <ContentWrapper>
+        <div
+          data-sal="entrance-up"
+          style={{
+            "--sal-duration": "1s"
+          }}
+        >
+          Experience Section
+        </div>
+      </ContentWrapper>
     </FullPageSection>
   );
 };
