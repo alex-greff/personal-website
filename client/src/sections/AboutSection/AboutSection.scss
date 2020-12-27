@@ -1,4 +1,108 @@
 .AboutSection {
   color: var-link("text-primary");
   background-color: var-link("bg-primary");
+
+  & .AboutSection__main-content {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas: 
+      "pic header"
+      "pic bio";
+    column-gap: 1.5rem;
+    row-gap: 0;
+
+    width: 100%;
+
+    @include respond(phone) {
+      grid-template-columns: auto;
+      grid-template-rows: auto auto auto;
+      grid-template-areas: 
+        "header"
+        "pic"
+        "bio";
+      column-gap: 0;
+    }
+
+    & .AboutSection__profile-pic-container {
+      grid-area: pic;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      & .AboutSection__profile-pic-subcontainer {
+        width: 20rem;
+        height: 20rem;
+
+        border-radius: 50%;
+        box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.5);
+
+        & > * {
+          clip-path: circle(50%);
+        }
+      }
+    }
+
+    & .AboutSection__header-container {
+      grid-area: header;
+
+      display: flex;
+      flex-direction: column;
+
+      & .AboutSection__header-subcontainer {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        @include respond(phone) {
+          flex-direction: column;
+          justify-content: flex-start;
+        }
+
+        & .AboutSection__title {
+          @include font-title();
+        }
+      }
+
+      & .AboutSection__divider {
+        width: 100%;
+
+        margin: 0.5rem 0;
+
+        @include respond(phone) {
+          margin: 1rem 0;
+        }
+      }
+
+      & .AboutSection__divider-desktop {
+        display: initial;
+      }
+
+      & .AboutSection__divider-mobile {
+        display: none;
+      }
+
+      @include respond(phone) {
+        & .AboutSection__divider-desktop {
+          display: none;
+        }
+  
+        & .AboutSection__divider-mobile {
+          display: initial;
+        }
+      }
+    }
+
+    & .AboutSection__bio {
+      @include font-content-regular();
+      font-size: 1.8rem;
+      color: var-link("text-secondary");
+
+      @include respond(phone) {
+        margin-top: 1rem;
+      }
+    }
+  }
 }

@@ -13,7 +13,7 @@ export interface Props extends Omit<BaseProps, "id"> {}
 
 const LandingSection: FunctionComponent<Props> = (props) => {
   const query = useStaticQuery(graphql`
-    query MyQuery {
+    query {
       allMdx(filter: { fields: { collection: { eq: "about" } } }) {
         edges {
           node {
@@ -48,12 +48,12 @@ const LandingSection: FunctionComponent<Props> = (props) => {
             (word: string, idx: number) => {
               const firstItem = idx === 0;
               return (
-                <>
+                <React.Fragment key={idx}>
                   {firstItem ? null : (
                     <div className="LandingSection__word-divider"></div>
                   )}
                   <div className="LandingSection__descriptive-word">{word}</div>
-                </>
+                </React.Fragment>
               );
             }
           )}

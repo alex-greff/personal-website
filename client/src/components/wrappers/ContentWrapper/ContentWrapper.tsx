@@ -6,16 +6,17 @@ import SiteContext from "@/contexts/site-context";
 
 interface Props extends BaseProps {
   style?: Omit<React.CSSProperties, "marginBottom">;
+  wideness?: "wide" | "normal" | "thin";
   accountForNav?: boolean;
 }
 
 const ContentWrapper: FunctionComponent<Props> = (props) => {
-  const { accountForNav } = props;
+  const { accountForNav, wideness } = props;
   const { siteState } = useContext(SiteContext);
 
   return (
     <div 
-      className={classnames("ContentWrapper", props.className)}
+      className={classnames("ContentWrapper", props.className, `wideness-${wideness}`)}
       style={{ 
         marginBottom: (accountForNav) ? `${siteState.navHeight}px` : 0,
         ...props.style,
@@ -28,5 +29,9 @@ const ContentWrapper: FunctionComponent<Props> = (props) => {
     </div>
   );
 };
+
+ContentWrapper.defaultProps = {
+  wideness: "normal"
+} as Partial<Props>;
 
 export default ContentWrapper;
