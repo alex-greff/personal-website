@@ -84,3 +84,92 @@ export const salConfig = ({ duration, delay, easing }: SalConfig) => {
   if (easing) style = { ...style, "--sal-easing": easing };
   return style;
 };
+
+/**
+ * Sorts an array by start and end date fields, with the most recent
+ * items first.
+ * Note: the fields at the start and end date keys must be Date Objects.
+ *
+ * @param items The array to sort
+ * @param nameKey The key of the name item
+ * @param startDateKey The key of the start date field
+ * @param endDateKey The key of the end date field
+ */
+export const dateSortArray = (
+  items: any[],
+  nameKey = "title",
+  startDateKey = "startDate",
+  endDateKey = "endDate"
+) => {
+  // Make a copy
+  let sortedItems = [...items];
+
+  // Sort the items by date and sub-sorted by name, when needed
+  sortedItems.sort((itemA, itemB) => {
+    const nameA = itemA[nameKey] as string;
+    const startDateA = itemA[startDateKey] as Date | null;
+    const endDateA = itemA[endDateKey] as Date | null;
+
+    const nameB = itemB[nameKey] as string;
+    const startDateB = itemB[startDateKey] as Date | null;
+    const endDateB = itemB[endDateKey] as Date | null;
+
+    // Case 1: both end dates are defined
+    if (endDateA && endDateB) {
+      // Case 1a: end dates are the same
+      if (endDateA.getTime() === endDateB.getTime()) {
+        // Sort by name
+        return `${nameA}`.localeCompare(nameB);
+      }
+      // Case 1b: end dates are different
+      else {
+        // Sort by end date
+        return (endDateB as any) - (endDateA as any);
+      }
+    }
+    // Case 2: A's end date is not defined but B's is
+    else if (!endDateA && endDateB) {
+      // Sort A in front of B
+      return -1;
+    }
+    // Case 3: B's end date is not defined but A's is
+    else if (endDateA && !endDateB) {
+      // Sort B in front of A
+      return 1;
+    }
+    // Case 4: both end dates are not defined but both their start dates are
+    else if (startDateA && startDateB) {
+      // const dStartDateA = new Date(sStartDateA);
+      // const dStartDateB = new Date(sStartDateB);
+
+      // Case 4a: start dates are the same
+      if (startDateA.getTime() === startDateB.getTime()) {
+        // Sort by name
+        return `${nameA}`.localeCompare(nameB);
+      }
+      // Case 4b: start dates are different
+      else {
+        // Sort by start date
+        return (startDateB as any) - (startDateA as any);
+      }
+    }
+    // Case 5: both end dates are not defined and A's start date is not defined but B's is
+    else if (!startDateA && startDateB) {
+      // Sort A in front of B
+      return -1;
+    }
+    // Case 6: both end dates are not defined and B's end date is not defined but A's is
+    else if (startDateA && !startDateB) {
+      // Sort B in front of A
+      return 1;
+    }
+    // Case 5: both start and end dates are not defined
+    else {
+      // Sort by name
+      return `${nameA}`.localeCompare(nameB);
+    }
+  });
+
+  // Return the sorted items list
+  return sortedItems;
+};

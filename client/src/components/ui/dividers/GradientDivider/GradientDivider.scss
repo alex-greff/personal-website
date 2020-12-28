@@ -1,20 +1,20 @@
 .GradientDivider {
   background-color: red;
 
-  background: var-link("divider-gradient-1");
+  background: color-link("divider-gradient-1");
 
   $fade-start: 20rem;
 
   &.fade-left-right {
-    background: linear-gradient(135deg, var-link("divider-gradient-2") 0%, var-link("divider-gradient-1") $fade-start, var-link("divider-gradient-1") calc(100% - #{$fade-start}), var-link("divider-gradient-2") 100%);
+    background: linear-gradient(135deg, color-link("divider-gradient-2") 0%, color-link("divider-gradient-1") $fade-start, color-link("divider-gradient-1") calc(100% - #{$fade-start}), color-link("divider-gradient-2") 100%);
   }
 
   &.fade-right {
-    background: linear-gradient(135deg, var-link("divider-gradient-1") 0%, var-link("divider-gradient-1") calc(100% - #{$fade-start}), var-link("divider-gradient-2") 100%);
+    background: linear-gradient(135deg, color-link("divider-gradient-1") 0%, color-link("divider-gradient-1") calc(100% - #{$fade-start}), color-link("divider-gradient-2") 100%);
   }
 
   &.fade-left {
-    background: linear-gradient(135deg, var-link("divider-gradient-2") 0%, var-link("divider-gradient-1") $fade-start, var-link("divider-gradient-1") 100%);
+    background: linear-gradient(135deg, color-link("divider-gradient-2") 0%, color-link("divider-gradient-1") $fade-start, color-link("divider-gradient-1") 100%);
   }
 
   &.vertical {

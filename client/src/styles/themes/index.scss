@@ -1,66 +1,68 @@
+@import "../utils.scss";
+
 // These css variables will always be applied
 .global-theme {
   // Theme toggle icon colors
-  --bg-toggle-light: #BCBCBC;
-  --bg-toggle-dark: #65BFDC;
-  --icon-bg-toggle-light: #F9FFB6;
-  --icon-bg-toggle-dark: #424243;
-  --icon-color-toggle-light: #151515;
-  --icon-color-toggle-dark: #FFFFFF;
+  --bg-toggle-light: #{rgb-str(#BCBCBC)};
+  --bg-toggle-dark: #{rgb-str(#65BFDC)};
+  --icon-bg-toggle-light: #{rgb-str(#F9FFB6)};
+  --icon-bg-toggle-dark: #{rgb-str(#424243)};
+  --icon-color-toggle-light: #{rgb-str(#151515)};
+  --icon-color-toggle-dark: #{rgb-str(#FFFFFF)};
 }
 
 .theme-light {
-  --bg-landing: #F8F9FF;
-  --bg-primary: #FFFFFF;
-  --bg-footer: #F8F9FF;
-  --bg-experience: #FFFFFF;
-  --bg-project: #FFFFFF;
+  --bg-landing: #{rgb-str(#F8F9FF)};
+  --bg-primary: #{rgb-str(#FFFFFF)};
+  --bg-footer: #{rgb-str(#F8F9FF)};
+  --bg-experience: #{rgb-str(#FFFFFF)};
+  --bg-project: #{rgb-str(#FFFFFF)};
 
-  --text-primary: #151515;
-  --text-secondary: #767676;
-  --text-tertiary: #606060;
-  --text-footer: #8C8C8C;
-  --text-hover: #1d3033;
-  --text-disabled: #464646;
+  --text-primary: #{rgb-str(#151515)};
+  --text-secondary: #{rgb-str(#767676)};
+  --text-tertiary: #{rgb-str(#606060)};
+  --text-footer: #{rgb-str(#8C8C8C)};
+  --text-hover: #{rgb-str(#1d3033)};
+  --text-disabled: #{rgb-str(#464646)};
 
-  --divider-gradient-1: #00C2FF;
-  --divider-gradient-2: #00c3ff00;
+  --divider-gradient-1: #{rgb-str(#00C2FF)};
+  --divider-gradient-2: #{rgb-str(#00c3ff00)};
 
-  --accent: #00C2FF;
+  --accent: #{rgb-str(#00C2FF)};
 
-  --resume-text: #FFFFFF;
-  --resume-gradient-1: #D699F2;
-  --resume-gradient-2: #78C3ED;
-  --resume-gradient-selected-1: #dfadf7;
-  --resume-gradient-selected-2: #93d2f7;
-  --resume-gradient-disabled-1: #cdb5d8;
-  --resume-gradient-disabled-2: #8cbad4;
+  --resume-text: #{rgb-str(#FFFFFF)};
+  --resume-gradient-1: #{rgb-str(#D699F2)};
+  --resume-gradient-2: #{rgb-str(#78C3ED)};
+  --resume-gradient-selected-1: #{rgb-str(#dfadf7)};
+  --resume-gradient-selected-2: #{rgb-str(#93d2f7)};
+  --resume-gradient-disabled-1: #{rgb-str(#cdb5d8)};
+  --resume-gradient-disabled-2: #{rgb-str(#8cbad4)};
 }
 
 .theme-dark {
-  --bg-landing: #2F3037;
-  --bg-primary: #232323;
-  --bg-footer: #414141;
-  --bg-experience: #464646;
-  --bg-project: #393939;
+  --bg-landing: #{rgb-str(#2F3037)};
+  --bg-primary: #{rgb-str(#232323)};
+  --bg-footer: #{rgb-str(#414141)};
+  --bg-experience: #{rgb-str(#464646)};
+  --bg-project: #{rgb-str(#393939)};
 
-  --text-primary: #FFFFFF;
-  --text-secondary: #cecece;
-  --text-tertiary: #969696;
-  --text-footer: #A6A6A6;
-  --text-hover: #a3eaff;
-  --text-disabled: #afafaf;
+  --text-primary: #{rgb-str(#FFFFFF)};
+  --text-secondary: #{rgb-str(#cecece)};
+  --text-tertiary: #{rgb-str(#969696)};
+  --text-footer: #{rgb-str(#A6A6A6)};
+  --text-hover: #{rgb-str(#a3eaff)};
+  --text-disabled: #{rgb-str(#afafaf)};
 
-  --divider-gradient-1: #00C2FF;
-  --divider-gradient-2: #00c3ff00;
+  --divider-gradient-1: #{rgb-str(#00C2FF)};
+  --divider-gradient-2: #{rgb-str(#00c3ff00)};
 
-  --accent: #00C2FF;
+  --accent: #{rgb-str(#00C2FF)};
 
-  --resume-text: #FFFFFF;
-  --resume-gradient-1: #DA99F8;
-  --resume-gradient-2: #4CA7DB;
-  --resume-gradient-selected-1: #e8b5ff;
-  --resume-gradient-selected-2: #66c4fa;
-  --resume-gradient-disabled-1: #cdb5d8;
-  --resume-gradient-disabled-2: #8cbad4;
+  --resume-text: #{rgb-str(#FFFFFF)};
+  --resume-gradient-1: #{rgb-str(#DA99F8)};
+  --resume-gradient-2: #{rgb-str(#4CA7DB)};
+  --resume-gradient-selected-1: #{rgb-str(#e8b5ff)};
+  --resume-gradient-selected-2: #{rgb-str(#66c4fa)};
+  --resume-gradient-disabled-1: #{rgb-str(#cdb5d8)};
+  --resume-gradient-disabled-2: #{rgb-str(#8cbad4)};
 }

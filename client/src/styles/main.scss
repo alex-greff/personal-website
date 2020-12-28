@@ -27,7 +27,7 @@ body {
 
   // Setting the background color here avoids annoying
   // white flashes when resizing the webpage
-  background-color: var-link("bg-primary"); 
+  background-color: color-link("bg-primary"); 
 }
 
 #gatsby-focus-wrapper {

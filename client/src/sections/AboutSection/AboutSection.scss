@@ -1,6 +1,6 @@
 .AboutSection {
-  color: var-link("text-primary");
-  background-color: var-link("bg-primary");
+  color: color-link("text-primary");
+  background-color: color-link("bg-primary");
 
   & .AboutSection__main-content {
     display: grid;
@@ -98,7 +98,7 @@
     & .AboutSection__bio {
       @include font-content-regular();
       font-size: 1.8rem;
-      color: var-link("text-secondary");
+      color: color-link("text-secondary");
 
       @include respond(phone) {
         margin-top: 1rem;

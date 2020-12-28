@@ -1,4 +1,4 @@
-@function var-link($var-input) {
+@function color-link($var-input, $opacity: 1) {
   $prefix: "--";
   $var-prefix: slice($var-input, 1, 2);
   $var-full: $var-input;
@@ -6,5 +6,5 @@
   @if $var-prefix != $prefix {
     $var-full: $prefix + $var-input;
   }
-  @return var(unquote($var-full));
+  @return rgba(var(unquote($var-full)), $opacity);
 }

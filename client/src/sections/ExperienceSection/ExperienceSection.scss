@@ -1,4 +1,21 @@
 .ExperienceSection {
-  color: var-link("text-primary");
-  background-color: var-link("bg-primary");
+  // color: color-link("text-primary");
+  color: color-link("test");
+  background-color: color-link("bg-primary");
+
+  & .ExperienceSection__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+
+    & .ExperienceSection__title {
+      @include font-title();
+    }
+
+    & .ExperienceSection__divider {
+      margin: 1rem 0;
+    }
+  }
 }

@@ -41,11 +41,11 @@
     }
 
     & .ThemeToggle__light-icon {
-      color: var-link("icon-color-toggle-light");
+      color: color-link("icon-color-toggle-light");
     }
 
     & .ThemeToggle__dark-icon {
-      color: var-link("icon-color-toggle-dark");
+      color: color-link("icon-color-toggle-dark");
     }
   }
 
@@ -55,10 +55,10 @@
 
   // Light theme
   &:not(.dark) {
-    background-color: var-link("bg-toggle-light");
+    background-color: color-link("bg-toggle-light");
 
     & .ThemeToggle__handle {
-      background-color: var-link("icon-bg-toggle-light");
+      background-color: color-link("icon-bg-toggle-light");
 
       & .ThemeToggle__light-icon {
         opacity: 1;
@@ -72,12 +72,12 @@
 
   // Dark theme
   &.dark {
-    background-color: var-link("bg-toggle-dark");
+    background-color: color-link("bg-toggle-dark");
 
     & .ThemeToggle__handle {
       left: calc(#{$toggle-width} - #{$handle-size} - #{$handle-offset} / 2);
 
-      background-color: var-link("icon-bg-toggle-dark");
+      background-color: color-link("icon-bg-toggle-dark");
 
       & .ThemeToggle__light-icon {
         opacity: 0;

@@ -12,7 +12,7 @@
 #BaseLayout {
   // Default global stylings
   @include font-content-regular();
-  color: var-link("text-primary");
+  color: color-link("text-primary");
 
   width: 100vw;
   height: 100%;
