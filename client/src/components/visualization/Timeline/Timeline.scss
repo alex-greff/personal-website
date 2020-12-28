@@ -1,3 +1,51 @@
 .Timeline {
+  // Defined CSS-vars:
+  // --col-gap
+  // --row-gap
+  // --backbone-width
+  // --backbone-extension
+  // --backbone-fade-start
+
   width: 100%;
+
+  margin: var-link("backbone-extension") 0;
+
+  display: grid;
+  grid-template-columns: [left-start] 1fr [left-end backbone-start] var-link("backbone-width") [backbone-end right-start] 1fr [right-end];
+
+  column-gap: var-link("col-gap");
+  row-gap: var-link("row-gap");
+
+  & .Timeline__backbone {
+    position: relative;
+
+    width: var-link("backbone-width");
+
+    grid-column: backbone-start / backbone-end;
+
+    &::before {
+      content: "";
+
+      position: absolute;
+      top: calc(-1 * #{var-link("backbone-extension")});
+
+      width: 100%;
+      height: calc(100% + 2 * #{var-link("backbone-extension")});
+
+      background: color-link("timeline-backbone");
+        background: linear-gradient(0deg, color-link("timeline-backbone", 0) 0%, color-link("timeline-backbone") var-link("backbone-fade-start"), color-link("timeline-backbone") calc(100% - #{var-link("backbone-fade-start")}), color-link("timeline-backbone", 0) 100%);
+    }
+  }
+
+  & .Timeline__item-left {
+    grid-column: left-start / left-end;
+  }
+
+  & .Timeline__item-right {
+    grid-column: right-start / right-end;
+  }
+
+  & .Timeline__item {
+    background-color: royalblue;
+  }
 }

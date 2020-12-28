@@ -1,5 +1,6 @@
 import * as Constants from "@/constants";
 import ScrollReveal, { sync } from "scrollreveal";
+import Color from "color";
 
 export enum Breakpoint {
   phone = 0,
@@ -84,6 +85,20 @@ export const salConfig = ({ duration, delay, easing }: SalConfig) => {
   if (easing) style = { ...style, "--sal-easing": easing };
   return style;
 };
+
+/**
+ * Returns a standardized version of the given color.
+ * Ex: "rgb(30, 56, 60)" -> "30, 56, 60"
+ *
+ * @param color The color.
+ */
+export function standardizeColor(color: string) {
+  let aColorRgb = Color(color).rgb().array();
+  aColorRgb = aColorRgb.slice(0, 3); // Remove alpha value, if it exists
+  const sColorString = aColorRgb.join(", ");
+
+  return sColorString;
+}
 
 /**
  * Sorts an array by start and end date fields, with the most recent

@@ -1,0 +1,16 @@
+.TimelineItem {
+  // Defined CSS-vars:
+  // --col-gap
+  // --row-gap
+  // --backbone-width
+
+  background-color: aquamarine;
+
+  &.side-left {
+    height: 150px;
+  }
+
+  &.side-right {
+    height: 100px;
+  }
+}

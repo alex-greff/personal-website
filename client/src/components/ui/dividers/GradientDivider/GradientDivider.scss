@@ -1,27 +1,37 @@
 .GradientDivider {
-  background-color: red;
-
   background: color-link("accent");
 
   $fade-start: 20rem;
 
-  &.fade-left-right {
-    background: linear-gradient(135deg, color-link("accent", 0) 0%, color-link("accent") $fade-start, color-link("accent") calc(100% - #{$fade-start}), color-link("accent", 0) 100%);
-  }
-
-  &.fade-right {
-    background: linear-gradient(135deg, color-link("accent") 0%, color-link("accent") calc(100% - #{$fade-start}), color-link("accent", 0) 100%);
-  }
-
-  &.fade-left {
-    background: linear-gradient(135deg, color-link("accent", 0) 0%, color-link("accent") $fade-start, color-link("accent") 100%);
-  }
-
   &.vertical {
     height: 100vh;
+
+    &.fade-left-right {
+      background: linear-gradient(0deg, color-link("accent", 0) 0%, color-link("accent") $fade-start, color-link("accent") calc(100% - #{$fade-start}), color-link("accent", 0) 100%);
+    }
+  
+    &.fade-right {
+      background: linear-gradient(0deg, color-link("accent") 0%, color-link("accent") calc(100% - #{$fade-start}), color-link("accent", 0) 100%);
+    }
+  
+    &.fade-left {
+      background: linear-gradient(0deg, color-link("accent", 0) 0%, color-link("accent") $fade-start, color-link("accent") 100%);
+    }
   }
 
   &.horizontal {
     width: 100vh;
+
+    &.fade-left-right {
+      background: linear-gradient(90deg, color-link("accent", 0) 0%, color-link("accent") $fade-start, color-link("accent") calc(100% - #{$fade-start}), color-link("accent", 0) 100%);
+    }
+  
+    &.fade-right {
+      background: linear-gradient(90deg, color-link("accent") 0%, color-link("accent") calc(100% - #{$fade-start}), color-link("accent", 0) 100%);
+    }
+  
+    &.fade-left {
+      background: linear-gradient(90deg, color-link("accent", 0) 0%, color-link("accent") $fade-start, color-link("accent") 100%);
+    }
   }
 }
