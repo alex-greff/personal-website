@@ -1,0 +1,23 @@
+@mixin mdx-timeline-content() {
+  font-size: 1.6rem;
+  color: color-link("text-primary");
+
+  $base-indent: 20px;
+  $incr-indent: 10px;
+
+  // TODO: customize bullet points
+
+  & ul{
+    margin-left: $base-indent;
+  }
+  
+  /* Second Level */
+  & ul ul{
+    margin-left: $base-indent + $incr-indent;
+  }
+  
+  /* Third Level */
+  & ul ul ul{
+    margin-left: $base-indent + $incr-indent + $incr-indent;
+  }
+}

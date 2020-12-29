@@ -34,7 +34,7 @@ const Timeline: FunctionComponent<Props> = (props) => {
       "title",
       "startDate",
       "endDate"
-    );
+    ).reverse();
   }, [timelineData]);
 
   const numRows = sortedTimelineData.length;

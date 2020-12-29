@@ -16,8 +16,6 @@
     grid-template-areas: 
       "content accent";
 
-    height: 150px;
-
     & .TimelineItem__pointer {
       right: calc(-1 * #{var-link("pointer-size")} / 2 - (#{var-link("backbone-gap")} + #{var-link("backbone-width")} / 2));
     }
@@ -28,8 +26,6 @@
     grid-template-areas: 
       "accent content";
 
-    height: 100px;
-
     & .TimelineItem__pointer {
       left: calc(-1 * #{var-link("pointer-size")} / 2 - (#{var-link("backbone-gap")} + #{var-link("backbone-width")} / 2));
     }
@@ -38,10 +34,69 @@
   & .TimelineItem__content {
     grid-area: content;
 
-    padding: 0.5rem;
+    padding: 2rem;
 
     background-color: color-link("timeline-background");
     box-shadow: 0px 4px 6px 0px rgba(0,0,0,0.5);
+
+    display: flex;
+    flex-direction: column;
+
+    @include font-content-regular();
+
+    @include respond(phone) {
+      padding: 1.5rem;
+    }
+
+    & .TimelineItem__title-header {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+
+      & .TimelineItem__title {
+        flex-grow: 1;
+        flex-shrink: 1;
+
+        @include font-content-bold();
+
+        font-size: 1.8rem;
+        color: color-link("text-primary");
+
+        margin-right: 0.5rem;
+      }
+
+      & .TimelineItem__date {
+        flex-grow: 0;
+        flex-shrink: 3;
+
+        font-size: 1.6rem;
+        color: color-link("text-tertiary");
+
+        text-align: right;
+      }
+
+      @include respond(phone) {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+
+        & .TimelineItem__date {
+          text-align: left;
+        }
+      }
+    }
+
+    & .TimelineItem__subtitle {
+      font-size: 1.6rem;
+      color: color-link("text-secondary");
+    }
+
+    & .TimelineItem__body {
+      margin-top: 1rem;
+    
+      @include mdx-timeline-content();
+    }
   }
 
   & .TimelineItem__accent {
