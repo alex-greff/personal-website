@@ -63,6 +63,11 @@
 
         & .AboutSection__title {
           @include font-title();
+          text-align: right;
+
+          @include respond(phone) {
+            text-align: center;
+          }
         }
       }
 
