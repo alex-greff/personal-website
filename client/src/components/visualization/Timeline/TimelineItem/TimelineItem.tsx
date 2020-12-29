@@ -7,15 +7,16 @@ import * as Utilities from "@/utilities";
 import { TimelineItemData } from "@/components/visualization/Timeline/Timeline";
 
 export interface Props extends BaseProps {
-  colGap: string;
-  rowGap: string;
+  backboneGap: string;
   backboneWidth: string;
+  accentWidth?: string;
+  pointerSize?: string;
   itemData: TimelineItemData;
   side: "right" | "left";
 }
 
 const TimelineItem: FunctionComponent<Props> = (props) => {
-  const { colGap, rowGap, backboneWidth, itemData, side } = props;
+  const { backboneGap, backboneWidth, itemData, accentWidth, pointerSize, side } = props;
 
   return (
     <div
@@ -23,20 +24,27 @@ const TimelineItem: FunctionComponent<Props> = (props) => {
       style={{
         ...props.style,
         ...{
-          "--col-gap": colGap,
-          "--row-gap": rowGap,
+          "--backbone-gap": backboneGap,
           "--backbone-width": backboneWidth,
+          "--accent-width": accentWidth,
+          "--pointer-size": pointerSize,
           "--accent-color": Utilities.standardizeColor(itemData.accentColor)
         },
       }}
       id={props.id}
     >
-      {/* TODO: implement */}
-      {side} 
+      <div className="TimelineItem__accent"></div>
+      <div className="TimelineItem__content">{side}</div>
+      <div className="TimelineItem__pointer">
+        <div className="TimelineItem__pointer-diamond"></div>
+      </div>
     </div>
   );
 };
 
-TimelineItem.defaultProps = {} as Partial<Props>;
+TimelineItem.defaultProps = {
+  accentWidth: "0.5rem",
+  pointerSize: "1.2rem"
+} as Partial<Props>;
 
 export default TimelineItem;

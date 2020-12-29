@@ -46,8 +46,7 @@ const Timeline: FunctionComponent<Props> = (props) => {
         side={side}
         className={`Timeline__item Timeline__item-${side}`}
         style={{ gridRow: rowNum }}
-        colGap={colGap!}
-        rowGap={rowGap!}
+        backboneGap={colGap!}
         backboneWidth={backboneWidth!}
         itemData={itemData}
       />
@@ -81,7 +80,7 @@ const Timeline: FunctionComponent<Props> = (props) => {
 };
 
 Timeline.defaultProps = {
-  colGap: "1rem",
+  colGap: "1.5rem",
   rowGap: "1.5rem",
   backboneWidth: "4px",
   backboneExtension: "40px",

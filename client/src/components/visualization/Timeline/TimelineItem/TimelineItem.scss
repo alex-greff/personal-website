@@ -1,16 +1,75 @@
 .TimelineItem {
   // Defined CSS-vars:
-  // --col-gap
-  // --row-gap
+  // --backbone-gap
   // --backbone-width
+  // --accent-color
+  // --accent-width
+  // --pointer-size
 
-  background-color: aquamarine;
+  position: relative;
+  display: grid;
+  grid-template-rows: auto;
+  
 
   &.side-left {
+    grid-template-columns: 1fr var-link("accent-width");
+    grid-template-areas: 
+      "content accent";
+
     height: 150px;
+
+    & .TimelineItem__pointer {
+      right: calc(-1 * #{var-link("pointer-size")} / 2 - (#{var-link("backbone-gap")} + #{var-link("backbone-width")} / 2));
+    }
   }
 
   &.side-right {
+    grid-template-columns: var-link("accent-width") 1fr;
+    grid-template-areas: 
+      "accent content";
+
     height: 100px;
+
+    & .TimelineItem__pointer {
+      left: calc(-1 * #{var-link("pointer-size")} / 2 - (#{var-link("backbone-gap")} + #{var-link("backbone-width")} / 2));
+    }
+  }
+
+  & .TimelineItem__content {
+    grid-area: content;
+
+    padding: 0.5rem;
+
+    background-color: color-link("timeline-background");
+    box-shadow: 0px 4px 6px 0px rgba(0,0,0,0.5);
+  }
+
+  & .TimelineItem__accent {
+    grid-area: accent;
+
+    background-color: color-link("accent-color");
+    box-shadow: 0px 4px 6px 0px color-link("accent-color", 0.5);
+  }
+
+  // Reference: https://css-tricks.com/the-shapes-of-css/#diamond-square-shape-via-joseph-silber
+  & .TimelineItem__pointer {
+    position: absolute;
+
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: var-link("pointer-size");
+    height: var-link("pointer-size");
+
+    // Reference: https://css-tricks.com/using-box-shadows-and-clip-path-together/
+    filter: drop-shadow(0px 3px 1px rgba(0, 0, 0, 0.5));
+  }
+
+  & .TimelineItem__pointer-diamond {
+    width: 100%;
+    height: 100%;
+
+    background-color: color-link("accent-color");
+    clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
   }
 }
