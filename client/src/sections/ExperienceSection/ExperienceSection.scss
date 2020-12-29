@@ -15,11 +15,13 @@
     }
 
     & .ExperienceSection__divider {
-      margin: 1rem 0;
+      $base-gap: 1rem;
+      margin-top: $base-gap;
+      margin-bottom: $base-gap + 3rem;
     }
 
     & .ExperienceSection__timeline {
-      // margin-top: 1rem;
+      
     }
   }
 }

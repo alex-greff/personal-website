@@ -18,19 +18,19 @@
     flex-direction: column;
     align-items: center;
 
-    $padding-vert: 3rem;
+    $padding-vert: 10rem;
     $padding-horiz: 2rem;
     padding: $padding-vert $padding-horiz;
 
     @include respond(phone) {
-      $padding-vert: 1rem;
+      $padding-vert: 5rem;
       $padding-horiz: 2.5rem;
       padding: $padding-vert $padding-horiz;
     }
   }
 
   &.wideness-wide .ContentWrapper__content {
-    max-width: 130rem;
+    max-width: 120rem;
   }
 
   &.wideness-normal .ContentWrapper__content {

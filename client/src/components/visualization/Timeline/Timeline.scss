@@ -16,6 +16,13 @@
   column-gap: var-link("col-gap");
   row-gap: var-link("row-gap");
 
+  // Mobile single-side layout
+  &.mobile {
+    grid-template-columns: [backbone-start] var-link("backbone-width") [backbone-end right-start] 1fr [right-end];
+
+    max-width: 60rem;
+  }
+
   & .Timeline__backbone {
     position: relative;
 

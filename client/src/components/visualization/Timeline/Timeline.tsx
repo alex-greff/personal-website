@@ -1,8 +1,9 @@
-import React, { FunctionComponent, useMemo } from "react";
+import React, { FunctionComponent, useMemo, useEffect } from "react";
 import { BaseProps } from "@/types";
 import "./Timeline.scss";
 import classnames from "classnames";
 import * as Utilities from "@/utilities";
+import useWindowSize from "@/hooks/useWindowSize";
 
 import TimelineItem from "@/components/visualization/Timeline/TimelineItem/TimelineItem";
 
@@ -25,7 +26,16 @@ export interface Props extends BaseProps {
 }
 
 const Timeline: FunctionComponent<Props> = (props) => {
-  const { timelineData, colGap, rowGap, backboneWidth, backboneExtension, backboneFadeStart } = props;
+  const {
+    timelineData,
+    colGap,
+    rowGap,
+    backboneWidth,
+    backboneExtension,
+    backboneFadeStart,
+  } = props;
+
+  const windowSize = useWindowSize();
 
   // Sort the timeline data
   const sortedTimelineData = useMemo(() => {
@@ -39,9 +49,15 @@ const Timeline: FunctionComponent<Props> = (props) => {
 
   const numRows = sortedTimelineData.length;
 
-  const renderItem = (itemData: TimelineItemData, rowNum: number, side: "left" | "right") => {
+  const isMobile = (Utilities.getBreakpoint(windowSize.width!) <= Utilities.Breakpoint.tabPort);
+
+  const renderItem = (
+    itemData: TimelineItemData,
+    rowNum: number,
+    side: "left" | "right"
+  ) => {
     return (
-      <TimelineItem 
+      <TimelineItem
         key={rowNum}
         side={side}
         className={`Timeline__item Timeline__item-${side}`}
@@ -55,7 +71,7 @@ const Timeline: FunctionComponent<Props> = (props) => {
 
   return (
     <div
-      className={classnames("Timeline", props.className)}
+      className={classnames("Timeline", props.className, { mobile: isMobile })}
       style={{
         ...props.style,
         ...{
@@ -63,7 +79,7 @@ const Timeline: FunctionComponent<Props> = (props) => {
           "--row-gap": rowGap,
           "--backbone-width": backboneWidth,
           "--backbone-extension": backboneExtension,
-          "--backbone-fade-start": backboneFadeStart
+          "--backbone-fade-start": backboneFadeStart,
         },
       }}
       id={props.id}
@@ -73,7 +89,9 @@ const Timeline: FunctionComponent<Props> = (props) => {
         style={{ gridRow: `1/${numRows + 1}` }}
       ></div>
       {sortedTimelineData.map((item, idx) => {
-        return renderItem(item, idx + 1, (idx % 2 == 0) ? "right" : "left");
+        if (isMobile)
+          return renderItem(item, idx + 1, "right");
+        return renderItem(item, idx + 1, idx % 2 == 0 ? "right" : "left");
       })}
     </div>
   );
@@ -84,7 +102,7 @@ Timeline.defaultProps = {
   rowGap: "1.5rem",
   backboneWidth: "4px",
   backboneExtension: "40px",
-  backboneFadeStart: "60px"
+  backboneFadeStart: "60px",
 } as Partial<Props>;
 
 export default Timeline;
