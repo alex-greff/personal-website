@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useMemo, useEffect } from "react";
+import React, { FunctionComponent, useMemo } from "react";
 import { BaseProps } from "@/types";
 import "./Timeline.scss";
 import classnames from "classnames";
@@ -38,7 +38,7 @@ const Timeline: FunctionComponent<Props> = (props) => {
   const windowSize = useWindowSize();
 
   // Sort the timeline data
-  const sortedTimelineData = useMemo(() => {
+  const sortedTimelineData = useMemo<TimelineItemData[]>(() => {
     return Utilities.dateSortArray(
       timelineData,
       "title",

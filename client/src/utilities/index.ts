@@ -296,3 +296,12 @@ export function getFormattedStartDate(startDate: Date | null, showDay = false) {
 export function getFormattedEndDate(endDate: Date | null, showDay = false) {
   return endDate ? getFormattedDate(endDate, showDay) : "Present";
 }
+
+// Source: https://stackoverflow.com/questions/36532307/rem-px-in-javascript
+/**
+ * Converts the given rem value to its corresponding pixel length.
+ */
+export function remToPixel(rem: number) {    
+  const BASE_FONT_SIZE = 10;
+  return rem * BASE_FONT_SIZE;
+}

@@ -1,4 +1,22 @@
 .ProjectsSection {
   color: color-link("text-primary");
   background-color: color-link("bg-primary");
+
+  & .ProjectsSection__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+
+    & .ProjectsSection__title {
+      @include font-title();
+    }
+
+    & .ProjectsSection__divider {
+      $base-gap: 1rem;
+      margin-top: $base-gap;
+      margin-bottom: $base-gap;
+    }
+  }
 }

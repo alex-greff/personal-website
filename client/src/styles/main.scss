@@ -12,9 +12,14 @@
   box-sizing: border-box;
 }
 
+:root {
+  font-size: 10px;
+}
+
 html {
   // Definition of 1rem
-  font-size: 62.5%;
+  // font-size: 62.5%;
+  font-size: 10px;
 }
 
 html, body, #___gatsby, #gatsby-focus-wrapper {
