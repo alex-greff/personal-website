@@ -28,27 +28,29 @@ export interface Props extends BaseProps {
   items: SelectionItem[];
   selectedIdx?: number;
   orientation?: "horizontal" | "vertical";
+  alignItems?: "start" | "center" | "end";
   useLink?: boolean;
   onClick?: (item: SelectionItem, idx: number) => unknown;
-};
+}
 
 const SelectableList: FunctionComponent<Props> = (props) => {
-  const { items, orientation, selectedIdx, onClick } = props;
+  const { items, orientation, alignItems, selectedIdx, onClick } = props;
   const { ref: rootRef, height: rootHeight } = useThrottledResizeObserver(50);
   const cursorRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<HTMLElement[]>([]);
-  const [currSelectedIdx, setCurrSelectedIdx] = useState<number>(props.selectedIdx!);
+  const [currSelectedIdx, setCurrSelectedIdx] = useState<number>(
+    props.selectedIdx!
+  );
   const [cursorState, setCursorState] = useState<CursorState>({
     width: 0,
     top: 0,
-    left: 0
+    left: 0,
   });
 
   // Update the cursor's location everytime the root element's height changes
   useEffect(() => {
     changeSelection(currSelectedIdx, false);
   }, [rootHeight]);
-
 
   // Updates the location of the cursor
   const changeSelection = (newSelectedIdx: number, animate = true) => {
@@ -65,9 +67,9 @@ const SelectableList: FunctionComponent<Props> = (props) => {
       gsap.set(cursorElem, {
         width: newWidth,
         top: newTop,
-        left: newLeft
+        left: newLeft,
       });
-    } else { 
+    } else {
       // The target location is below the current cursor location:
       // Slide out right and come in left
       if (newTop > cursorState.top) {
@@ -81,14 +83,14 @@ const SelectableList: FunctionComponent<Props> = (props) => {
               left: newLeft + CURSOR_ANIM_OFFSET,
               top: newTop,
               width: newWidth,
-              opacity: 0
+              opacity: 0,
             });
-          }
+          },
         });
         tl.to(cursorElem, {
           duration: 0.3,
           left: newLeft,
-          opacity: 1
+          opacity: 1,
         });
       }
       // The target location is above the current cursor location:
@@ -104,14 +106,14 @@ const SelectableList: FunctionComponent<Props> = (props) => {
               left: newLeft - CURSOR_ANIM_OFFSET,
               top: newTop,
               width: newWidth,
-              opacity: 0
+              opacity: 0,
             });
-          }
+          },
         });
         tl.to(cursorElem, {
           duration: 0.3,
           left: newLeft,
-          opacity: 1
+          opacity: 1,
         });
       }
       // The target location is on the same level as the current location:
@@ -121,7 +123,7 @@ const SelectableList: FunctionComponent<Props> = (props) => {
           duration: 0.3,
           width: newWidth,
           top: newTop,
-          left: newLeft
+          left: newLeft,
         });
       }
     }
@@ -142,31 +144,31 @@ const SelectableList: FunctionComponent<Props> = (props) => {
 
   const renderSelectableItem = (item: SelectionItem, idx: number) => {
     return (
-      <SelectableListItem 
+      <SelectableListItem
         key={idx}
         className="SelectableList__item"
-        item={item} 
+        item={item}
         useLink={props.useLink}
-        handleRef={(itemRef) => itemRefs.current[idx] = itemRef.current!}
-        onClick={() => (onClick) ? onClick(item, idx) : null}
+        handleRef={(itemRef) => (itemRefs.current[idx] = itemRef.current!)}
+        onClick={() => (onClick ? onClick(item, idx) : null)}
       />
     );
   };
 
   return (
-    <div 
+    <div
       className={classnames("SelectableList", props.className, orientation)}
       style={props.style}
       id={props.id}
       ref={rootRef}
     >
-      <div className="SelectableList__items">
+      <div
+        className="SelectableList__items"
+        style={{ justifyContent: alignItems }}
+      >
         {items.map((item, idx) => renderSelectableItem(item, idx))}
       </div>
-      <div 
-        className="SelectableList__cursor" 
-        ref={cursorRef}
-      ></div>
+      <div className="SelectableList__cursor" ref={cursorRef}></div>
     </div>
   );
 };
@@ -174,7 +176,8 @@ const SelectableList: FunctionComponent<Props> = (props) => {
 SelectableList.defaultProps = {
   selectedIdx: 0,
   orientation: "horizontal",
-  useLink: false
+  useLink: false,
+  alignItems: "start",
 } as Partial<Props>;
 
 export default SelectableList;

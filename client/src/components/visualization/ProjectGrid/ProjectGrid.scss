@@ -1,6 +1,10 @@
 .ProjectGrid {
   width: 100%;
 
+  & .ProjectGrid__category-filter {
+    margin-bottom: 1rem;
+  }
+
   & .ProjectGrid__item-wrapper {
     
   }

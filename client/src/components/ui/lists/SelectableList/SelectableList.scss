@@ -1,9 +1,7 @@
 .SelectableList {
   $cursor-height: 0.3rem;
-  // $cursor-gap: 0rem;
 
   position: relative;
-  // padding-bottom: $cursor-height + $cursor-gap;
 
   & .SelectableList__items {
     display: flex;
