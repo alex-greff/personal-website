@@ -20,7 +20,12 @@
   }
 
   &.horizontal {
-    width: 100vh;
+    $horiz-padding: 0.5rem;
+
+    width: 100vw;
+
+    margin-right: $horiz-padding;
+    margin-left: $horiz-padding;
 
     &.fade-left-right {
       background: linear-gradient(90deg, color-link("accent", 0) 0%, color-link("accent") $fade-start, color-link("accent") calc(100% - #{$fade-start}), color-link("accent", 0) 100%);

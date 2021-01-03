@@ -1,0 +1,82 @@
+.ProjectGridItem {
+  // Defined CSS-vars:
+  // --item-color
+
+  @include reset-anchor();
+
+  width: 100%;
+  
+  cursor: pointer;
+
+  z-index: 1;
+
+  & .ProjectGridItem__content {
+    position: relative;
+
+    transform: translateY(0px);
+
+    width: 100%;
+    height: 100%;
+
+    box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.5);
+
+    transition: box-shadow 0.3s, transform 0.2s ease-in-out;
+
+    // Fixes text twitching issue
+    will-change: transform;
+
+    & .ProjectGridItem__image-container {
+      & .ProjectGridItem__image {
+        
+      }
+    }
+  
+    & .ProjectGridItem__info-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+  
+      background-color: color-link("bg-project");
+  
+      & .ProjectGridItem__title {
+        @include font-content-bold();
+  
+        padding: 1rem 0;
+
+        color: color-link("text-primary");
+
+        transition: color 0.3s;
+      }
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+  
+      background-color: color-link("item-color", 0);
+      backdrop-filter: brightness(100%);
+  
+      z-index: 2;
+
+      transition: background-color 0.3s, backdrop-filter 0.3s;
+    }
+  }
+
+  &:hover {
+    & .ProjectGridItem__content {
+      transform: translateY(-5px);
+
+      box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.5);
+
+      &::before {
+        background-color: color-link("item-color", 0.3);
+        backdrop-filter: brightness(50%);
+      }
+    }
+  }
+}

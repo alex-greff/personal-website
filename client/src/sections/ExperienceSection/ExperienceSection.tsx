@@ -75,6 +75,7 @@ const ExperienceSection: FunctionComponent<Props> = (props) => {
           <GradientDivider
             className="ExperienceSection__divider"
             gradientFade="left-right"
+            length="80rem"
           />
           <Timeline
             className="ExperienceSection__timeline"

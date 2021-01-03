@@ -3,12 +3,16 @@ import { BaseProps } from "@/types";
 import "./ProjectGrid.scss";
 import classnames from "classnames";
 import * as Utilities from "@/utilities";
-import { CSSGrid as Grid } from "react-stonecutter";
+import { CSSGrid, SpringGrid, layout, measureItems  } from "react-stonecutter";
 import useThrottledResizeObserver from "@/hooks/useThrottledResizeObserver";
 import useWindowSize from "@/hooks/useWindowSize";
 import { useBreakpoint } from "@/hooks/useBreakpoint";
 
+import ProjectGridItem from "./ProjectGridItem/ProjectGridItem";
+
 const RESIZE_TROTTLE = 100;
+
+const Grid = measureItems(CSSGrid, { measureImages: true });
 
 export interface ProjectItem {
   title: string;
@@ -18,9 +22,11 @@ export interface ProjectItem {
   accentColor: string;
   categories: string[];
   tags: string[];
-  thumbnailImage: string;
   links: { type: string; link: string }[];
   mdxContent: any;
+  thumbnail: any;
+  thumbnailHeight?: string;
+  slug: string;
 }
 
 export interface Props extends BaseProps {
@@ -49,6 +55,12 @@ const ProjectGrid: FunctionComponent<Props> = (props) => {
 
   const isMobile = breakpoint <= Utilities.Breakpoint.phone;
 
+  const numCols = (isMobile) ? 1 : 2;
+  const gutterHeight = (isMobile) ? 15 : 20;
+  const gutterWidth = (isMobile) ? 15 : 20;
+  const availableWidth = rootWidth - gutterWidth * (numCols - 1);
+  const colWidth = availableWidth / numCols;
+
   return (
     <div
       className={classnames("ProjectGrid", props.className)}
@@ -58,14 +70,20 @@ const ProjectGrid: FunctionComponent<Props> = (props) => {
     >
       <Grid
         component="div"
-        columns={isMobile ? 1 : 2}
-        columnWidth={isMobile ? rootWidth : rootWidth / 2}
+        columns={numCols}
+        columnWidth={colWidth}
         duration={200}
+        layout={layout.pinterest}
+        gutterHeight={gutterHeight}
+        gutterWidth={gutterWidth}
       >
         {sortedProjectItems.map((item, idx) => (
-          <div key={idx}>
-            {item.title}
-            <br />
+          <div 
+            key={idx}
+            className="ProjectGrid__item-wrapper" 
+            style={{width: `${colWidth}px`}}
+          >
+            <ProjectGridItem projectItem={item} key={idx} />
           </div>
         ))}
       </Grid>

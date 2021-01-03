@@ -28,14 +28,20 @@ const ProjectsSection: FunctionComponent<Props> = (props) => {
               endDate
               accentColor
               categories
-              thumbnailImage
               tags
               links {
                 link
                 type
               }
+              thumbnail {
+                childImageSharp {
+                  gatsbyImageData(maxWidth: 2048, layout: FLUID, placeholder: TRACED_SVG)
+                }
+              }
+              thumbnailHeight
             }
             body
+            slug
           }
         }
       }
@@ -61,8 +67,10 @@ const ProjectsSection: FunctionComponent<Props> = (props) => {
           categories: currRawData.frontmatter.categories,
           tags: currRawData.frontmatter.tags,
           links: currRawData.frontmatter.links,
-          thumbnailImage: currRawData.frontmatter.categories,
           mdxContent: currRawData.body,
+          thumbnail: currRawData.frontmatter.thumbnail,
+          thumbnailHeight: currRawData.frontmatter.thumbnailHeight,
+          slug: currRawData.slug
         };
 
         return [...acc, currProjectItem];
@@ -85,10 +93,12 @@ const ProjectsSection: FunctionComponent<Props> = (props) => {
           <GradientDivider
             className="ProjectsSection__divider"
             gradientFade="left-right"
+            length="80rem"
           />
           <ProjectGrid
             projectItems={projectItems}
             className="ProjectsSection__project-grid"
+            
           />
         </div>
         {/* <div
