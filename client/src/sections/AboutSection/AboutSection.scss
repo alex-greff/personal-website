@@ -61,6 +61,16 @@
           justify-content: flex-start;
         }
 
+        & .AboutSection__links {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+
+          & > *:not(:last-child) {
+            margin-right: 0.8rem;
+          }
+        }
+
         & .AboutSection__title {
           @include font-title();
           text-align: right;

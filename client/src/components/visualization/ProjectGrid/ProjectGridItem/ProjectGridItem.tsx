@@ -1,10 +1,9 @@
 import React, { FunctionComponent } from "react";
-import { BaseProps } from "@/types";
+import { BaseProps, ProjectItem } from "@/types";
 import "./ProjectGridItem.scss";
 import classnames from "classnames";
 import { graphql, useStaticQuery } from "gatsby";
 import * as Utilities from "@/utilities";
-import { ProjectItem } from "../ProjectGrid";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { Link } from "gatsby";
 

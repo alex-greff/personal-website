@@ -8,4 +8,13 @@
   & .ProjectGrid__item-wrapper {
     
   }
+
+  & .ProjectGrid__no-projects {
+    width: 100%;
+    text-align: center;
+
+    @include font-content-regular();
+    color: color-link("text-tertiary");
+    font-style: italic;
+  }
 }

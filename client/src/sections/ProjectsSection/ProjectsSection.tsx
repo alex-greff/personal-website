@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useMemo } from "react";
 import "./ProjectsSection.scss";
-import { BaseProps } from "@/types";
+import { BaseProps, ProjectItem } from "@/types";
 import classnames from "classnames";
 import FullPageSection from "@/components/wrappers/FullPageSection/FullPageSection";
 import * as Utilities from "@/utilities";
@@ -9,9 +9,7 @@ import { graphql, useStaticQuery } from "gatsby";
 
 import ContentWrapper from "@/components/wrappers/ContentWrapper/ContentWrapper";
 import GradientDivider from "@/components/ui/dividers/GradientDivider/GradientDivider";
-import ProjectGrid, {
-  ProjectItem,
-} from "@/components/visualization/ProjectGrid/ProjectGrid";
+import ProjectGrid from "@/components/visualization/ProjectGrid/ProjectGrid";
 
 export interface Props extends Omit<BaseProps, "id"> {}
 

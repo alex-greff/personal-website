@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useMemo, useRef, useState } from "react";
-import { BaseProps } from "@/types";
+import { BaseProps, ProjectItem } from "@/types";
 import "./ProjectGrid.scss";
 import classnames from "classnames";
 import * as Utilities from "@/utilities";
@@ -21,21 +21,6 @@ const Grid = measureItems(CSSGrid, { measureImages: true });
 const projectCategoryItems: SelectionItem[] = projectCategories.map((category) => {
   return { id: category, display: category };
 });
-
-export interface ProjectItem {
-  title: string;
-  subtitle: string;
-  startDate: Date | null;
-  endDate: Date | null;
-  accentColor: string;
-  categories: string[];
-  tags: string[];
-  links: { type: string; link: string }[];
-  mdxContent: any;
-  thumbnail: any;
-  thumbnailHeight?: string;
-  slug: string;
-}
 
 export interface Props extends BaseProps {
   projectItems: ProjectItem[];
@@ -80,8 +65,9 @@ const ProjectGrid: FunctionComponent<Props> = (props) => {
   };
 
   const isMobile = breakpoint <= Utilities.Breakpoint.phone;
+  const hasProjects = filteredProjectItems.length > 0;
 
-  const numCols = isMobile ? 1 : 2;
+  const numCols = (hasProjects) ? isMobile ? 1 : 2 : 1;
   const gutterHeight = isMobile ? 15 : 20;
   const gutterWidth = isMobile ? 15 : 20;
   const availableWidth = rootWidth - gutterWidth * (numCols - 1);
@@ -112,15 +98,22 @@ const ProjectGrid: FunctionComponent<Props> = (props) => {
         gutterHeight={gutterHeight}
         gutterWidth={gutterWidth}
       >
-        {filteredProjectItems.map((item, idx) => (
+        {(filteredProjectItems.length > 0) ? filteredProjectItems.map((item, idx) => (
           <div
-            key={idx}
+            key={`project-${item.title}`}
             className="ProjectGrid__item-wrapper"
             style={{ width: `${colWidth}px` }}
           >
             <ProjectGridItem projectItem={item} key={idx} />
           </div>
-        ))}
+        )) : (
+          <div 
+            key="no-projects"
+            className="ProjectGrid__no-projects"
+          >
+            No projects
+          </div>
+        )}
       </Grid>
     </div>
   );

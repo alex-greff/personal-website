@@ -1,0 +1,99 @@
+.ProjectCard {
+  width: 100%;
+
+  padding: 1rem 0;
+
+  background-color: color-link("bg-project");
+
+  box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.5);
+
+  & .ProjectCard__header-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 0 1rem;
+
+    & .ProjectCard__links {
+      align-self: flex-end;
+
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+
+      & > *:not(:last-child) {
+        margin-right: 0.8rem;
+      }
+    }
+
+    & .ProjectCard__title {
+      @include font-header();
+      font-size: 2.5rem;
+      color: color-link("text-primary");
+
+      margin-bottom: 0.5rem;
+    }
+
+    & .ProjectCard__subtitle {
+      @include font-content-bold-italic();
+      font-size: 1.6rem;
+      color: color-link("text-secondary");
+
+      margin-bottom: 0.5rem;
+    }
+
+    & .ProjectCard__date {
+      @include font-content-regular();
+      font-size: 1.5rem;
+      color: color-link("text-tertiary");
+    }
+  }
+
+  & .ProjectCard__image {
+    width: 100%;
+
+    margin: 2rem 0;
+
+    // This stops some weird hidden image overflow from blocking 
+    // selection of the content under the image
+    pointer-events: none;
+  }
+
+  & .ProjectCard__content {
+    width: 100%;
+  }
+
+  & .ProjectCard__tags {
+    margin-top: 1rem;
+
+    & .ProjectCard__tag-title {
+      @include font-content-bold();
+      font-size: 1.5rem;
+      color: color-link("text-primary");
+    }
+
+    & .ProjectCard__tag-list {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+
+      & > *:not(:last-child) {
+        margin-right: 0.7rem;
+      }
+
+      & .ProjectCard__tag-item {
+        @include font-content-regular();
+        font-size: 1.4rem;
+        color: color-link("text-tertiary");
+      }
+    }
+  }
+
+  & .ProjectCard__content, & .ProjectCard__tags {
+    padding: 0 5rem;
+
+    @include respond(phone) {
+      padding: 0 2rem;
+    }
+  } 
+}

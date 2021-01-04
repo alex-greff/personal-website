@@ -1,4 +1,45 @@
 .ProjectLayout {
   color: color-link("text-primary");
   background-color: color-link("bg-primary");
+
+  & .ProjectLayout__content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & .ProjectLayout__back-button {
+      @include reset-anchor();
+
+      align-self: flex-start;
+
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      cursor: pointer;
+
+      & .ProjectLayout__back-icon {
+        width: 3rem;
+        height: 100%;
+      }
+
+      & .ProjectLayout__back-text {
+        @include font-content-bold();
+        font-size: 1.7rem;
+      }
+
+      & .ProjectLayout__back-icon, & .ProjectLayout__back-text {
+        color: color-link("text-primary");
+
+        transition: color 0.3s;
+      }
+
+      &:hover {
+        & .ProjectLayout__back-icon, & .ProjectLayout__back-text {
+          color: color-link("accent");
+        }
+      }
+    }
+  }
 }

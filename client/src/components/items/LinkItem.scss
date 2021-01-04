@@ -1,0 +1,17 @@
+.LinkItem {
+  @include reset-anchor();
+
+  color: color-link("text-primary");
+  cursor: pointer;
+
+  transition: color 0.3s;
+
+  & > svg {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  &:hover {
+    color: color-link("accent");
+  }
+}
