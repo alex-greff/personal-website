@@ -1,6 +1,6 @@
 import * as Constants from "@/constants";
-import ScrollReveal, { sync } from "scrollreveal";
 import Color from "color";
+import {} from "scrollreveal";
 
 export enum Breakpoint {
   phone = 0,
@@ -29,12 +29,6 @@ export const getBreakpoint = (width: number): Breakpoint => {
   }
 };
 
-/* Converts a location hash to its corresponding section id tag. */
-export const hashToSectionId = (hash: string) => {
-  hash = hash.replace("#", "").replace("/", "");
-  return `${Constants.SECTION_PREFIX}_${hash}`;
-};
-
 export const srConfig = (delay = 200, viewFactor = 0.25) => ({
   origin: "bottom",
   distance: "20px",
@@ -52,7 +46,11 @@ export const srConfig = (delay = 200, viewFactor = 0.25) => ({
 });
 
 export const isSSR = typeof window === "undefined";
-// export const sr = (typeof window === 'undefined') ? null : ScrollReveal();
+
+// A hack to import scroll reveal properly with SSR
+export const sr =
+  // @ts-ignore
+  typeof window !== `undefined` ? require("scrollreveal").default() : null;
 
 export enum PageType {
   ROOT,
@@ -185,7 +183,8 @@ export const dateSortArray = (
         // Sort by name
         return `${nameA}`.localeCompare(nameB);
       }
-    } else { // end-dates
+    } else {
+      // end-dates
       if (endDateA && endDateB) {
         // Case 1a: end dates are the same
         if (endDateA.getTime() === endDateB.getTime()) {
@@ -301,7 +300,7 @@ export function getFormattedEndDate(endDate: Date | null, showDay = false) {
 /**
  * Converts the given rem value to its corresponding pixel length.
  */
-export function remToPixel(rem: number) {    
+export function remToPixel(rem: number) {
   const BASE_FONT_SIZE = 10;
   return rem * BASE_FONT_SIZE;
 }

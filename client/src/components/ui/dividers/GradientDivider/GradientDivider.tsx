@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { forwardRef } from "react";
 import { BaseProps } from "@/types";
 import "./GradientDivider.scss";
 import classnames from "classnames";
@@ -11,7 +11,7 @@ export interface Props extends BaseProps {
   style?: Omit<React.CSSProperties, "width" | "height">;
 }
 
-const GradientDivider: FunctionComponent<Props> = (props) => {
+const GradientDivider = forwardRef<HTMLDivElement, Props>((props, ref) => {
   const { orientation, length, thickness, gradientFade } = props;
 
   const sizingStyles =
@@ -21,6 +21,7 @@ const GradientDivider: FunctionComponent<Props> = (props) => {
 
   return (
     <div
+      ref={ref}
       className={classnames(
         "GradientDivider",
         props.className,
@@ -31,7 +32,7 @@ const GradientDivider: FunctionComponent<Props> = (props) => {
       id={props.id}
     ></div>
   );
-};
+});
 
 GradientDivider.defaultProps = {
   orientation: "horizontal",

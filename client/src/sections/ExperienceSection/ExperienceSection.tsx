@@ -4,6 +4,7 @@ import { BaseProps } from "@/types";
 import classnames from "classnames";
 import FullPageSection from "@/components/wrappers/FullPageSection/FullPageSection";
 import * as Utilities from "@/utilities";
+import { sr, srConfig } from "@/utilities";
 import { graphql, useStaticQuery } from "gatsby";
 
 import ContentWrapper from "@/components/wrappers/ContentWrapper/ContentWrapper";
@@ -34,6 +35,9 @@ const ExperienceSection: FunctionComponent<Props> = (props) => {
     }
   `);
 
+  const titleRef = useRef(null);
+  const dividerRef = useRef(null);
+
   const timelineData = useMemo<TimelineItemData[]>(() => {
     const experiencesData = query.allMdx.edges as any[];
 
@@ -61,6 +65,13 @@ const ExperienceSection: FunctionComponent<Props> = (props) => {
     return timelineData;
   }, [query.allMdx]);
 
+  // Scroll revealing
+  useEffect(() => {
+    const refs = [ titleRef, dividerRef ];
+    for (const currRef of refs)
+      sr?.reveal(currRef.current!, srConfig());
+  }, []);
+
   return (
     <FullPageSection
       className={classnames("ExperienceSection", props.className)}
@@ -69,10 +80,11 @@ const ExperienceSection: FunctionComponent<Props> = (props) => {
     >
       <ContentWrapper wideness="wide">
         <div className="ExperienceSection__content">
-          <div className="ExperienceSection__title">
+          <div className="ExperienceSection__title" ref={titleRef}>
             Experience &#38; Education
           </div>
           <GradientDivider
+            ref={dividerRef}
             className="ExperienceSection__divider"
             gradientFade="left-right"
             length="80rem"
@@ -80,16 +92,9 @@ const ExperienceSection: FunctionComponent<Props> = (props) => {
           <Timeline
             className="ExperienceSection__timeline"
             timelineData={timelineData}
+            scrollAnimate={true}
           />
         </div>
-        {/* <div
-          data-sal="entrance-up"
-          style={{
-            "--sal-duration": "1s"
-          }}
-        >
-          Experience Section
-        </div> */}
       </ContentWrapper>
     </FullPageSection>
   );

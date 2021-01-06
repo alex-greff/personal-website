@@ -1,8 +1,9 @@
-import React, { FunctionComponent, useMemo, useRef, useState } from "react";
+import React, { FunctionComponent, useMemo, useRef, useState, useEffect } from "react";
 import { BaseProps, ProjectItem } from "@/types";
 import "./ProjectGrid.scss";
 import classnames from "classnames";
 import * as Utilities from "@/utilities";
+import { sr, srConfig } from "@/utilities";
 import { CSSGrid, SpringGrid, layout, measureItems } from "react-stonecutter";
 import useThrottledResizeObserver from "@/hooks/useThrottledResizeObserver";
 import useWindowSize from "@/hooks/useWindowSize";
@@ -18,24 +19,37 @@ const RESIZE_TROTTLE = 100;
 
 const Grid = measureItems(CSSGrid, { measureImages: true });
 
-const projectCategoryItems: SelectionItem[] = projectCategories.map((category) => {
-  return { id: category, display: category };
-});
+const projectCategoryItems: SelectionItem[] = projectCategories.map(
+  (category) => {
+    return { id: category, display: category };
+  }
+);
 
 export interface Props extends BaseProps {
   projectItems: ProjectItem[];
+  scrollAnimate?: boolean;
 }
 
 const ProjectGrid: FunctionComponent<Props> = (props) => {
-  const { projectItems } = props;
+  const { projectItems, scrollAnimate } = props;
 
   const rootRef = useRef<HTMLDivElement>(null);
+  const selectionRef = useRef(null);
   const { height: rootHeight, width: rootWidth } = useThrottledResizeObserver(
     RESIZE_TROTTLE,
     rootRef
   );
   const breakpoint = useBreakpoint();
   const [categoryIdx, setCategoryIdx] = useState(0);
+
+  // Scroll revealing
+  useEffect(() => {
+    if (scrollAnimate) {
+      const refs = [ selectionRef ];
+      for (const currRef of refs)
+        sr?.reveal(currRef.current!, srConfig());
+    }
+  }, []);
 
   const sortedProjectItems = useMemo<ProjectItem[]>(() => {
     return Utilities.dateSortArray(
@@ -50,14 +64,12 @@ const ProjectGrid: FunctionComponent<Props> = (props) => {
   const filteredProjectItems = useMemo<ProjectItem[]>(() => {
     const currCategory = projectCategories[categoryIdx];
 
-    if (currCategory === projectCategoryAll) 
-      return sortedProjectItems;
-    
+    if (currCategory === projectCategoryAll) return sortedProjectItems;
+
     const filteredProjectItems = sortedProjectItems.filter((item) => {
       return item.categories.includes(currCategory);
     });
     return filteredProjectItems;
-
   }, [sortedProjectItems, categoryIdx]);
 
   const handleCategoryChange = (item: SelectionItem, idx: number) => {
@@ -67,7 +79,7 @@ const ProjectGrid: FunctionComponent<Props> = (props) => {
   const isMobile = breakpoint <= Utilities.Breakpoint.phone;
   const hasProjects = filteredProjectItems.length > 0;
 
-  const numCols = (hasProjects) ? isMobile ? 1 : 2 : 1;
+  const numCols = hasProjects ? (isMobile ? 1 : 2) : 1;
   const gutterHeight = isMobile ? 15 : 20;
   const gutterWidth = isMobile ? 15 : 20;
   const availableWidth = rootWidth - gutterWidth * (numCols - 1);
@@ -81,6 +93,7 @@ const ProjectGrid: FunctionComponent<Props> = (props) => {
       ref={rootRef}
     >
       <SelectableList
+        ref={selectionRef}
         className="ProjectGrid__category-filter"
         items={projectCategoryItems}
         selectedIdx={categoryIdx}
@@ -98,19 +111,22 @@ const ProjectGrid: FunctionComponent<Props> = (props) => {
         gutterHeight={gutterHeight}
         gutterWidth={gutterWidth}
       >
-        {(filteredProjectItems.length > 0) ? filteredProjectItems.map((item, idx) => (
-          <div
-            key={`project-${item.title}`}
-            className="ProjectGrid__item-wrapper"
-            style={{ width: `${colWidth}px` }}
-          >
-            <ProjectGridItem projectItem={item} key={idx} />
-          </div>
-        )) : (
-          <div 
-            key="no-projects"
-            className="ProjectGrid__no-projects"
-          >
+        {filteredProjectItems.length > 0 ? (
+          filteredProjectItems.map((item, idx) => (
+            <div
+              key={`project-${item.title}`}
+              className="ProjectGrid__item-wrapper"
+              style={{ width: `${colWidth}px` }}
+            >
+              <ProjectGridItem
+                projectItem={item}
+                key={idx}
+                scrollAnimate={scrollAnimate}
+              />
+            </div>
+          ))
+        ) : (
+          <div key="no-projects" className="ProjectGrid__no-projects">
             No projects
           </div>
         )}
@@ -119,6 +135,8 @@ const ProjectGrid: FunctionComponent<Props> = (props) => {
   );
 };
 
-ProjectGrid.defaultProps = {} as Partial<Props>;
+ProjectGrid.defaultProps = {
+  scrollAnimate: false,
+} as Partial<Props>;
 
 export default ProjectGrid;

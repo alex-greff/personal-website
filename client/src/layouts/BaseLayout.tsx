@@ -4,7 +4,8 @@ import React, {
   FunctionComponent,
   useContext,
   useEffect,
-  useRef
+  useRef,
+  useState
 } from "react";
 import "./BaseLayout.scss";
 import { Helmet } from "react-helmet";
@@ -26,6 +27,7 @@ const BaseLayoutInternal: FunctionComponent = (props) => {
   const { children } = props;
   const { siteState, setSiteState } = useContext(SiteContext);
   const osRef = useRef<OverlayScrollbarsComponent>(null);
+  const [autoscrollTimer, setAutoscrollTimer] = useState<number | null>(null);
 
   // ----------------------------
   // --- Scrollbar Management ---
@@ -33,19 +35,10 @@ const BaseLayoutInternal: FunctionComponent = (props) => {
 
   // Set scroll position to initial section
   useEffect(() => {
-    if (siteState.loadStatus >= LoadStatus.FADING) {
-      const pageType = Utilities.getPageType(window.location.pathname);
-
-      // Set the initial location of the page
-      if (pageType === Utilities.PageType.ROOT) {
-        const targetQuery = `#${Utilities.hashToSectionId(
-          window.location.hash
-        )}`;
-        const targetEl = document.querySelector(targetQuery) as HTMLElement;
-        if (targetEl) {
-          osRef.current?.osInstance()!.scroll({ el: targetEl }, 0);
-        }
-      }
+    if (siteState.loadStatus == LoadStatus.LOADING) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
     }
   }, [siteState.loadStatus]);
 
@@ -54,17 +47,15 @@ const BaseLayoutInternal: FunctionComponent = (props) => {
     const pageType = Utilities.getPageType(location.pathname);
 
     if (pageType === Utilities.PageType.ROOT) {
-      // Delay hack because it doesn't work when running instantly
+      // Disable smooth scrolling so the initial location change is instant
+      document.documentElement.classList.add("disable-smooth-scroll");
+
       setTimeout(() => {
-        const targetQuery = `#${Utilities.hashToSectionId(location.hash)}`;
-        const targetEl = document.querySelector(targetQuery) as HTMLElement;
-        if (targetEl) {
-          osRef.current?.osInstance()!.scroll({ el: targetEl }, 0);
-        }
+        document.documentElement.classList.remove("disable-smooth-scroll");
       }, 0);
+
     } else if (pageType === Utilities.PageType.PROJECT) {
-      // Scroll to top
-      osRef.current?.osInstance()?.scroll({ y: 0 });
+
     }
   }, RouteWatcherMode.PATHNAME);
 
@@ -73,28 +64,22 @@ const BaseLayoutInternal: FunctionComponent = (props) => {
     const pageType = Utilities.getPageType(window.location.pathname);
 
     if (pageType === Utilities.PageType.ROOT) {
-      const targetQuery = `#${Utilities.hashToSectionId(location.hash)}`;
-      const targetEl = document.querySelector(targetQuery)! as HTMLElement;
+      if (autoscrollTimer)
+        clearTimeout(autoscrollTimer);
 
-      if (targetEl) {
-        const osInstance = osRef.current?.osInstance();
+      // Set autoscrolling
+      setSiteState((prevState) =>
+        update(prevState, { autoScrolling: { $set: true } })
+      );
 
-        // Set autoscrolling
+      const newTimer = setTimeout(() => {
+        // Unset autoscrolling
         setSiteState((prevState) =>
-          update(prevState, { autoScrolling: { $set: true } })
+          update(prevState, { autoScrolling: { $set: false } })
         );
+      }, 1000);
 
-        // Cancel any already running scrolls and start the new one
-        osInstance?.scrollStop();
-        osInstance?.scroll({ el: targetEl }, 500, "easeOutQuad", () => {
-          window.location.hash = location.hash;
-
-          // Unset autoscrolling
-          setSiteState((prevState) =>
-            update(prevState, { autoScrolling: { $set: false } })
-          );
-        });
-      }
+      setAutoscrollTimer(newTimer);
     }
   }, RouteWatcherMode.HASH);
 
@@ -129,42 +114,18 @@ const BaseLayoutInternal: FunctionComponent = (props) => {
   return (
     <>
       <Loader />
-      <OverlayScrollbarsComponent
-        className="BaseLayout__overlay-container"
-        ref={osRef}
-        options={{
-          scrollbars: {
-            autoHide: "leave",
-          },
-          callbacks: {
-            onScroll: (args) => onScroll(args),
-          },
-          // Disable scrolling when the navbar mobile dropdown is open
-          overflowBehavior: {
-            x:
-              siteState.isMobile && siteState.mobileDropdownOpen
-                ? "hidden"
-                : "scroll",
-            y:
-              siteState.isMobile && siteState.mobileDropdownOpen
-                ? "hidden"
-                : "scroll",
-          },
-        }}
-      >
-        <div id="BaseLayout">
-          <NavBar />
-          <div
-            className="BaseLayout__content"
-            style={{
-              marginTop: `${siteState.navHeight}px`,
-            }}
-          >
-            {children}
-          </div>
-          <FooterSection />
+      <div id="BaseLayout">
+        <NavBar />
+        <div
+          className="BaseLayout__content"
+          style={{
+            marginTop: `${siteState.navHeight}px`,
+          }}
+        >
+          {children}
         </div>
-      </OverlayScrollbarsComponent>
+        <FooterSection />
+      </div>
     </>
   );
 };

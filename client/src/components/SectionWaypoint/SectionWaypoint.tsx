@@ -41,8 +41,8 @@ const SectionWaypoint: FunctionComponent<Props> = (props) => {
     ) {
       const waypoint = name;
 
-      // Update the window hash whenever we enter a full page section
-      window.location.hash = `#${waypoint}`;
+      // Update the hash without triggering the hash change event
+      history.replaceState(null, document.title, document.location.pathname + '#' + waypoint);
 
       setSiteState((prevState) =>
         update(prevState, { currentWaypoint: { $set: waypoint } })

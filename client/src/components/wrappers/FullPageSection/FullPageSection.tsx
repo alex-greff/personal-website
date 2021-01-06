@@ -33,7 +33,7 @@ const FullPageSection: FunctionComponent<Props> = (props) => {
     accounts for the navbar */}
       <div
         className="FullPageSection__id-dummy"
-        id={Utilities.hashToSectionId(name)}
+        id={name}
         style={{
           top: `-${siteState.navHeight}px`,
           height: `${siteState.navHeight}px`,

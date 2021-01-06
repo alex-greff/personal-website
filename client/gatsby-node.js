@@ -91,6 +91,10 @@ exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
             test: /scrollreveal/,
             use: loaders.null(),
           },
+          {
+            test: /animejs/,
+            use: loaders.null(),
+          },
         ],
       },
     });

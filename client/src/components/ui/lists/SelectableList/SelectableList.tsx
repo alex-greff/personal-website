@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useRef, useEffect, useState } from "react";
+import React, { FunctionComponent, useRef, useEffect, useState, forwardRef } from "react";
 import { BaseProps } from "@/types";
 import "./SelectableList.scss";
 import classnames from "classnames";
@@ -33,7 +33,7 @@ export interface Props extends BaseProps {
   onClick?: (item: SelectionItem, idx: number) => unknown;
 }
 
-const SelectableList: FunctionComponent<Props> = (props) => {
+const SelectableList = forwardRef<HTMLDivElement, Props>((props, ref) => {
   const { items, orientation, alignItems, selectedIdx, onClick } = props;
   const { ref: rootRef, height: rootHeight } = useThrottledResizeObserver(50);
   const cursorRef = useRef<HTMLDivElement>(null);
@@ -156,22 +156,24 @@ const SelectableList: FunctionComponent<Props> = (props) => {
   };
 
   return (
-    <div
-      className={classnames("SelectableList", props.className, orientation)}
-      style={props.style}
-      id={props.id}
-      ref={rootRef}
-    >
+    <div ref={ref} className="SelectableList__container">
       <div
-        className="SelectableList__items"
-        style={{ justifyContent: alignItems }}
+        className={classnames("SelectableList", props.className, orientation)}
+        style={props.style}
+        id={props.id}
+        ref={rootRef}
       >
-        {items.map((item, idx) => renderSelectableItem(item, idx))}
+        <div
+          className="SelectableList__items"
+          style={{ justifyContent: alignItems }}
+        >
+          {items.map((item, idx) => renderSelectableItem(item, idx))}
+        </div>
+        <div className="SelectableList__cursor" ref={cursorRef}></div>
       </div>
-      <div className="SelectableList__cursor" ref={cursorRef}></div>
     </div>
   );
-};
+});
 
 SelectableList.defaultProps = {
   selectedIdx: 0,

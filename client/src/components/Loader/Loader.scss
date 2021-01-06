@@ -1,9 +1,9 @@
 #Loader {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   height: 100vh;
-  width: 100vw;
+  width: 100%;
 
   background-color: rgb(58, 58, 58);
   z-index: 99;

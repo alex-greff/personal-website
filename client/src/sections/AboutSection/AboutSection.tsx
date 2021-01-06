@@ -4,6 +4,7 @@ import { BaseProps, LinkItem, SkillItem } from "@/types";
 import classnames from "classnames";
 import FullPageSection from "@/components/wrappers/FullPageSection/FullPageSection";
 import * as Utilities from "@/utilities";
+import { sr, srConfig } from "@/utilities";
 import { graphql, useStaticQuery } from "gatsby";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { MDXProvider } from "@mdx-js/react";
@@ -53,11 +54,24 @@ const AboutSection: FunctionComponent<Props> = (props) => {
     }
   `);
 
+  const profilePicRef = useRef(null);
+  const headerRef = useRef(null);
+  const bioRef = useRef(null);
+  const aboutRef = useRef(null);
+  const skillsRef = useRef(null);
+
   const profileImageData = getImage(query.profileImage);
   const aboutData = query.allMdx.edges[0].node;
 
   const links: LinkItem[] = aboutData.frontmatter.links;
   const skills: SkillItem[] = aboutData.frontmatter.skills;
+
+  // Scroll revealing
+  useEffect(() => {
+    const refs = [ profilePicRef, headerRef, bioRef, aboutRef, skillsRef ];
+    for (const currRef of refs)
+      sr?.reveal(currRef.current!, srConfig());
+  }, []);
 
   return (
     <FullPageSection
@@ -67,12 +81,12 @@ const AboutSection: FunctionComponent<Props> = (props) => {
     >
       <ContentWrapper wideness="thin" centered={true}>
         <div className="AboutSection__main-content">
-          <div className="AboutSection__profile-pic-container">
+          <div className="AboutSection__profile-pic-container" ref={profilePicRef}>
             <div className="AboutSection__profile-pic-subcontainer">
               <GatsbyImage image={profileImageData!} alt="Profile Image" />
             </div>
           </div>
-          <div className="AboutSection__header-container">
+          <div className="AboutSection__header-container" ref={headerRef}>
             <div className="AboutSection__header-subcontainer">
               <div className="AboutSection__title">About Me</div>
               <div className="AboutSection__links">
@@ -90,38 +104,31 @@ const AboutSection: FunctionComponent<Props> = (props) => {
               gradientFade="left-right"
             />
           </div>
-          <div className="AboutSection__bio">{aboutData.frontmatter.bio}</div>
+          <div className="AboutSection__bio" ref={bioRef}>
+            {aboutData.frontmatter.bio}
+          </div>
         </div>
 
-        <div className="AboutSection__about-content">
+        <div className="AboutSection__about-content" ref={aboutRef}>
           <MDXProvider components={shortcodes}>
             <MDXRenderer>{aboutData.body}</MDXRenderer>
           </MDXProvider>
         </div>
 
-        <div className="AboutSection__skills">
+        <div className="AboutSection__skills" ref={skillsRef}>
           <div className="AboutSection__skill-title">
             Skills and Technologies:
           </div>
           <div className="AboutSection__skill-list">
             {skills.map((skill, idx) => (
-              <SkillDisplay 
-                key={`skill-${idx}`} 
+              <SkillDisplay
+                key={`skill-${idx}`}
                 className="AboutSection__skill-item"
-                skill={skill} 
+                skill={skill}
               />
             ))}
           </div>
         </div>
-
-        {/* <div
-          data-sal="entrance-up"
-          style={{
-            "--sal-duration": "1s"
-          }}
-        >
-          About Section
-        </div> */}
       </ContentWrapper>
     </FullPageSection>
   );

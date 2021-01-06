@@ -1,8 +1,9 @@
-import React, { FunctionComponent, useMemo } from "react";
+import React, { FunctionComponent, useMemo, useRef, useEffect } from "react";
 import { BaseProps } from "@/types";
 import "./Timeline.scss";
 import classnames from "classnames";
 import * as Utilities from "@/utilities";
+import { sr, srConfig } from "@/utilities";
 import useWindowSize from "@/hooks/useWindowSize";
 
 import TimelineItem from "@/components/visualization/Timeline/TimelineItem/TimelineItem";
@@ -23,6 +24,7 @@ export interface Props extends BaseProps {
   backboneExtension?: string;
   backboneFadeStart?: string;
   timelineData: TimelineItemData[];
+  scrollAnimate?: boolean;
 }
 
 const Timeline: FunctionComponent<Props> = (props) => {
@@ -33,7 +35,10 @@ const Timeline: FunctionComponent<Props> = (props) => {
     backboneWidth,
     backboneExtension,
     backboneFadeStart,
+    scrollAnimate
   } = props;
+
+  const itemRefs = useRef<HTMLDivElement[]>([]);
 
   const windowSize = useWindowSize();
 
@@ -47,6 +52,14 @@ const Timeline: FunctionComponent<Props> = (props) => {
     ).reverse();
   }, [timelineData]);
 
+  // Scroll reveal
+  useEffect(() => {
+    if (scrollAnimate) {
+      for (const itemEl of itemRefs.current)
+        sr?.reveal(itemEl, srConfig());
+    }
+  }, []);
+
   const numRows = sortedTimelineData.length;
 
   const isMobile = (Utilities.getBreakpoint(windowSize.width!) <= Utilities.Breakpoint.tabPort);
@@ -54,10 +67,12 @@ const Timeline: FunctionComponent<Props> = (props) => {
   const renderItem = (
     itemData: TimelineItemData,
     rowNum: number,
-    side: "left" | "right"
+    side: "left" | "right",
+    idx: number
   ) => {
     return (
       <TimelineItem
+        ref={(el) => itemRefs.current[idx] = el!}
         key={rowNum}
         side={side}
         className={`Timeline__item Timeline__item-${side}`}
@@ -90,8 +105,8 @@ const Timeline: FunctionComponent<Props> = (props) => {
       ></div>
       {sortedTimelineData.map((item, idx) => {
         if (isMobile)
-          return renderItem(item, idx + 1, "right");
-        return renderItem(item, idx + 1, idx % 2 == 0 ? "right" : "left");
+          return renderItem(item, idx + 1, "right", idx);
+        return renderItem(item, idx + 1, idx % 2 == 0 ? "right" : "left", idx);
       })}
     </div>
   );
@@ -103,6 +118,7 @@ Timeline.defaultProps = {
   backboneWidth: "4px",
   backboneExtension: "40px",
   backboneFadeStart: "60px",
+  scrollAnimate: false
 } as Partial<Props>;
 
 export default Timeline;

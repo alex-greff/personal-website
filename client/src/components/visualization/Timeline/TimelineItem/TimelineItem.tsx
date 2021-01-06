@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { forwardRef } from "react";
 import { BaseProps } from "@/types";
 import "./TimelineItem.scss";
 import classnames from "classnames";
@@ -16,7 +16,7 @@ export interface Props extends BaseProps {
   side: "right" | "left";
 }
 
-const TimelineItem: FunctionComponent<Props> = (props) => {
+const TimelineItem = forwardRef<HTMLDivElement, Props>((props, ref) => {
   const {
     backboneGap,
     backboneWidth,
@@ -34,6 +34,7 @@ const TimelineItem: FunctionComponent<Props> = (props) => {
 
   return (
     <div
+      ref={ref}
       className={classnames("TimelineItem", props.className, `side-${side}`)}
       style={{
         ...props.style,
@@ -63,7 +64,7 @@ const TimelineItem: FunctionComponent<Props> = (props) => {
       </div>
     </div>
   );
-};
+});
 
 TimelineItem.defaultProps = {
   accentWidth: "0.5rem",

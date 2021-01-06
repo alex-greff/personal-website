@@ -41,6 +41,7 @@ const ProjectLayout: FunctionComponent<Props> = ({ data: { mdx } }) => {
     <FullPageSection
       className="ProjectLayout"
       accountForNav={true}
+      accountForFooter={true}
       name="project-info"
       updateHash={false}
     >

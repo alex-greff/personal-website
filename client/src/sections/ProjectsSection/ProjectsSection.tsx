@@ -1,9 +1,10 @@
-import React, { FunctionComponent, useMemo } from "react";
+import React, { FunctionComponent, useMemo, useRef, useEffect } from "react";
 import "./ProjectsSection.scss";
 import { BaseProps, ProjectItem } from "@/types";
 import classnames from "classnames";
 import FullPageSection from "@/components/wrappers/FullPageSection/FullPageSection";
 import * as Utilities from "@/utilities";
+import { sr, srConfig } from "@/utilities";
 import { Link } from "gatsby";
 import { graphql, useStaticQuery } from "gatsby";
 
@@ -46,6 +47,9 @@ const ProjectsSection: FunctionComponent<Props> = (props) => {
     }
   `);
 
+  const titleRef = useRef(null);
+  const dividerRef = useRef(null);
+
   const projectItems = useMemo<ProjectItem[]>(() => {
     const projectRawData = query.allMdx.edges as any[];
 
@@ -79,6 +83,13 @@ const ProjectsSection: FunctionComponent<Props> = (props) => {
     return projectItems;
   }, [query.allMdx]);
 
+  // Scroll revealing
+  useEffect(() => {
+    const refs = [ titleRef, dividerRef ];
+    for (const currRef of refs)
+      sr?.reveal(currRef.current!, srConfig());
+  }, []);
+
   return (
     <FullPageSection
       className={classnames("ProjectsSection", props.className)}
@@ -87,8 +98,9 @@ const ProjectsSection: FunctionComponent<Props> = (props) => {
     >
       <ContentWrapper wideness="normal">
         <div className="ProjectsSection__content">
-          <div className="ProjectsSection__title">Projects</div>
+          <div className="ProjectsSection__title" ref={titleRef}>Projects</div>
           <GradientDivider
+            ref={dividerRef}
             className="ProjectsSection__divider"
             gradientFade="left-right"
             length="80rem"
@@ -96,19 +108,9 @@ const ProjectsSection: FunctionComponent<Props> = (props) => {
           <ProjectGrid
             projectItems={projectItems}
             className="ProjectsSection__project-grid"
-            
+            scrollAnimate={true}
           />
         </div>
-        {/* <div
-          data-sal="entrance-up"
-          style={{
-            "--sal-duration": "1s"
-          }}
-        >
-          Projects Section
-          <br />
-          <Link to="/projects/shabam">Shabam</Link>
-        </div> */}
       </ContentWrapper>
     </FullPageSection>
   );

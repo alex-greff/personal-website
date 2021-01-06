@@ -23,6 +23,7 @@ import ThemeToggle from "@/components/ui/toggles/ThemeToggle/ThemeToggle";
 import ResumeButton from "@/components/ui/buttons/ResumeButton/ResumeButton";
 import useLocation from "@/hooks/useLocation";
 import useRouteWatcher, { RouteWatcherMode } from "@/hooks/useRouteWatcher";
+import { useScrollPosition } from "@/hooks/useScrollPosition";
 
 const FLUSH_THRESHOLD = 0;
 
@@ -68,16 +69,17 @@ const NavBar: FunctionComponent<Props> = (props) => {
 
   const { siteState, setSiteState } = useContext(SiteContext);
   const currLocation = useLocation();
+  const scrollTop = useScrollPosition();
 
   const stateClass = useMemo(
     () =>
       getStateClass(
-        siteState.scrollAmount,
+        scrollTop,
         siteState.mobileDropdownOpen,
         currLocation.pathname
       ),
     [
-      siteState.scrollAmount,
+      scrollTop,
       siteState.mobileDropdownOpen,
       currLocation.pathname,
     ]
