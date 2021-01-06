@@ -71,6 +71,8 @@ const NavBar: FunctionComponent<Props> = (props) => {
   const currLocation = useLocation();
   const scrollTop = useScrollPosition();
 
+  const [autoscrollTimer, setAutoscrollTimer] = useState<number | null>(null);
+
   const stateClass = useMemo(
     () =>
       getStateClass(
@@ -78,11 +80,7 @@ const NavBar: FunctionComponent<Props> = (props) => {
         siteState.mobileDropdownOpen,
         currLocation.pathname
       ),
-    [
-      scrollTop,
-      siteState.mobileDropdownOpen,
-      currLocation.pathname,
-    ]
+    [scrollTop, siteState.mobileDropdownOpen, currLocation.pathname]
   );
 
   const findSectionIdx = (section: string) => {
@@ -115,12 +113,36 @@ const NavBar: FunctionComponent<Props> = (props) => {
     );
   };
 
+  const setAutoScrolling = () => {
+    const pageType = Utilities.getPageType(window.location.pathname);
+
+    if (pageType === Utilities.PageType.ROOT) {
+      if (autoscrollTimer) clearTimeout(autoscrollTimer);
+
+      // Set autoscrolling
+      setSiteState((prevState) =>
+        update(prevState, { autoScrolling: { $set: true } })
+      );
+
+      const newTimer = setTimeout(() => {
+        // Unset autoscrolling
+        setSiteState((prevState) =>
+          update(prevState, { autoScrolling: { $set: false } })
+        );
+      }, 1000);
+
+      setAutoscrollTimer(newTimer);
+    }
+  }
+
   const handleNavItemClick = (mobile = false) => {
     return (item: SelectionItem, idx: number) => {
       if (mobile) {
         toggleMobileDropdown();
       }
       setCurrSectionIdx(idx);
+
+      setAutoScrolling();
     };
   };
 

@@ -34,7 +34,6 @@ const LandingSection: FunctionComponent<Props> = (props) => {
       className={classnames("LandingSection", props.className)}
       style={props.style}
       name="home"
-      accountForNav={true}
     >
       <ContentWrapper accountForNav={true} centered={true} >
         <div className="LandingSection__name">{data.frontmatter.name}</div>

@@ -16,9 +16,6 @@ import useRouteWatcher, { RouteWatcherMode } from "@/hooks/useRouteWatcher";
 import { ThemeProvider } from "@/contexts/theme-context";
 import SiteContext, { LoadStatus, SiteProvider } from "@/contexts/site-context";
 
-import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
-import "overlayscrollbars/css/OverlayScrollbars.css";
-
 import NavBar from "@/components/nav/NavBar/NavBar";
 import FooterSection from "@/sections/FooterSection/FooterSection";
 import Loader from "@/components/Loader/Loader";
@@ -26,8 +23,6 @@ import Loader from "@/components/Loader/Loader";
 const BaseLayoutInternal: FunctionComponent = (props) => {
   const { children } = props;
   const { siteState, setSiteState } = useContext(SiteContext);
-  const osRef = useRef<OverlayScrollbarsComponent>(null);
-  const [autoscrollTimer, setAutoscrollTimer] = useState<number | null>(null);
 
   // ----------------------------
   // --- Scrollbar Management ---
@@ -59,57 +54,9 @@ const BaseLayoutInternal: FunctionComponent = (props) => {
     }
   }, RouteWatcherMode.PATHNAME);
 
-  // React to hash changes
-  useRouteWatcher((location) => {
-    const pageType = Utilities.getPageType(window.location.pathname);
-
-    if (pageType === Utilities.PageType.ROOT) {
-      if (autoscrollTimer)
-        clearTimeout(autoscrollTimer);
-
-      // Set autoscrolling
-      setSiteState((prevState) =>
-        update(prevState, { autoScrolling: { $set: true } })
-      );
-
-      const newTimer = setTimeout(() => {
-        // Unset autoscrolling
-        setSiteState((prevState) =>
-          update(prevState, { autoScrolling: { $set: false } })
-        );
-      }, 1000);
-
-      setAutoscrollTimer(newTimer);
-    }
-  }, RouteWatcherMode.HASH);
-
   // -------------------
   // --- Other Stuff ---
   // -------------------
-
-  const onScroll = (args?: UIEvent) => {
-    const target = args?.target as HTMLElement;
-
-    setSiteState((prevState) =>
-      update(prevState, {
-        scrollAmount: { $set: target.scrollTop },
-      })
-    );
-  };
-
-  const updateOsInstance = () => {
-    if (!siteState.osInstance) {
-      setSiteState((prevState) =>
-        update(prevState, {
-          osInstance: { $set: osRef.current?.osInstance()! },
-        })
-      );
-    }
-  };
-
-  useEffect(() => {
-    updateOsInstance();
-  }, []);
 
   return (
     <>
@@ -118,9 +65,10 @@ const BaseLayoutInternal: FunctionComponent = (props) => {
         <NavBar />
         <div
           className="BaseLayout__content"
-          style={{
-            marginTop: `${siteState.navHeight}px`,
-          }}
+          // TODO: remove
+          // style={{
+          //   marginTop: `${siteState.navHeight}px`,
+          // }}
         >
           {children}
         </div>

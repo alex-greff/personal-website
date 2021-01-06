@@ -1,6 +1,5 @@
 import * as Constants from "@/constants";
 import Color from "color";
-import {} from "scrollreveal";
 
 export enum Breakpoint {
   phone = 0,

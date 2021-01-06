@@ -42,7 +42,11 @@ const SectionWaypoint: FunctionComponent<Props> = (props) => {
       const waypoint = name;
 
       // Update the hash without triggering the hash change event
-      history.replaceState(null, document.title, document.location.pathname + '#' + waypoint);
+      history.replaceState(
+        null,
+        document.title,
+        document.location.pathname + "#" + waypoint
+      );
 
       setSiteState((prevState) =>
         update(prevState, { currentWaypoint: { $set: waypoint } })
