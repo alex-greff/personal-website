@@ -18,9 +18,19 @@ export interface ProjectItem {
   accentColor: string;
   categories: string[];
   tags: string[];
-  links: { type: string; link: string }[];
+  links: LinkItem[];
   mdxContent: any;
   thumbnail: any;
   thumbnailHeight?: string;
   slug: string;
+}
+
+export interface LinkItem {
+  type: string;
+  link: string;
+}
+
+export interface SkillItem {
+  type: string;
+  items: string[];
 }

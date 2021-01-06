@@ -36,7 +36,7 @@ const LandingSection: FunctionComponent<Props> = (props) => {
       name="home"
       accountForNav={true}
     >
-      <ContentWrapper accountForNav={true}>
+      <ContentWrapper accountForNav={true} centered={true} >
         <div className="LandingSection__name">{data.frontmatter.name}</div>
         <GradientDivider
           className="LandingSection__divider"

@@ -61,6 +61,8 @@
 
   & .ProjectCard__content {
     width: 100%;
+
+    @include mdx-project-content();
   }
 
   & .ProjectCard__tags {

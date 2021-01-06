@@ -8,7 +8,7 @@ import { GatsbyImage, getImage } from "gatsby-plugin-image";
 
 import { MDXProvider } from "@mdx-js/react";
 import { MDXRenderer } from "gatsby-plugin-mdx";
-import LinkItem from "@/components/items/LinkItem";
+import LinkIcon from "@/components/link/LinkIcon";
 
 const DEFAULT_THUMBNAIL_HEIGHT = "200px";
 
@@ -39,7 +39,7 @@ const ProjectCard: FunctionComponent<Props> = (props) => {
       <div className="ProjectCard__header-content">
         <div className="ProjectCard__links">
           {projectItem.links.map((link, idx) => (
-            <LinkItem key={`link-${idx}`} iconType={link.type} to={link.link} />
+            <LinkIcon key={`link-${idx}`} link={link} />
           ))}
         </div>
         <div className="ProjectCard__title">{projectItem.title}</div>

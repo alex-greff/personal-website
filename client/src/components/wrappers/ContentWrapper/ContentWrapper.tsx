@@ -8,10 +8,11 @@ interface Props extends BaseProps {
   style?: Omit<React.CSSProperties, "marginBottom">;
   wideness?: "wide" | "normal" | "thin";
   accountForNav?: boolean;
+  centered?: boolean;
 }
 
 const ContentWrapper: FunctionComponent<Props> = (props) => {
-  const { accountForNav, wideness } = props;
+  const { accountForNav, wideness, centered } = props;
   const { siteState } = useContext(SiteContext);
 
   return (
@@ -19,6 +20,7 @@ const ContentWrapper: FunctionComponent<Props> = (props) => {
       className={classnames("ContentWrapper", props.className, `wideness-${wideness}`)}
       style={{ 
         marginBottom: (accountForNav) ? `${siteState.navHeight}px` : 0,
+        justifyContent: (centered) ? "center" : "flex-start",
         ...props.style,
       }}
       id={props.id}
@@ -31,7 +33,8 @@ const ContentWrapper: FunctionComponent<Props> = (props) => {
 };
 
 ContentWrapper.defaultProps = {
-  wideness: "normal"
+  wideness: "normal",
+  centered: false
 } as Partial<Props>;
 
 export default ContentWrapper;

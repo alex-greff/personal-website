@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
-import { BaseProps } from "@/types";
-import "./LinkItem.scss";
+import { BaseProps, LinkItem } from "@/types";
+import "./LinkIcon.scss";
 import classnames from "classnames";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "gatsby";
@@ -41,10 +41,9 @@ const ICON_MAPPINGS = {
 
 export interface Props extends BaseProps {
   style?: Omit<React.CSSProperties, "width" | "height">;
-  iconType: string;
-  to: string;
   newTab?: boolean;
   size?: string;
+  link: LinkItem;
 }
 
 const getIconMapping = (iconType: string) => {
@@ -52,17 +51,17 @@ const getIconMapping = (iconType: string) => {
   return (iconMapping) ? iconMapping : ICON_MAPPINGS["default"];
 };
 
-const LinkItem: FunctionComponent<Props> = (props) => {
-  const { iconType, to, newTab, size } = props;
+const LinkIcon: FunctionComponent<Props> = (props) => {
+  const { link, newTab, size } = props;
 
-  const icon = getIconMapping(iconType);
+  const icon = getIconMapping(link.type);
 
   return (
     <a
-      className={classnames("LinkItem", props.className)}
+      className={classnames("LinkIcon", props.className)}
       style={{...props.style, width: size, height: size }}
       id={props.id}
-      href={to}
+      href={link.link}
       // href='mailto:kjcoco13@gmail.com'
       target={newTab ? "_blank" : "_self"}
     >
@@ -71,9 +70,9 @@ const LinkItem: FunctionComponent<Props> = (props) => {
   );
 };
 
-LinkItem.defaultProps = {
+LinkIcon.defaultProps = {
   newTab: true,
   size: "2rem"
 } as Partial<Props>;
 
-export default LinkItem;
+export default LinkIcon;

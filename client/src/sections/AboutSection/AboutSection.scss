@@ -120,4 +120,28 @@
       }
     }
   }
+
+  & .AboutSection__about-content {
+    margin-top: 2rem;
+    width: 100%;
+
+    @include mdx-about-content();
+  }
+
+  & .AboutSection__skills {
+    margin-top: 2rem;
+    width: 100%;
+
+    & .AboutSection__skill-title {
+      @include font-content-bold();
+      color: color-link("text-primary");
+      font-size: 2rem;
+    }
+
+    & .AboutSection__skill-list {
+      & > *:not(:last-child) {
+        margin-bottom: 1rem;
+      }
+    }
+  }
 }
