@@ -26,6 +26,7 @@ const FullPageSection: FunctionComponent<Props> = (props) => {
       className={classnames("FullPageSection", props.className)}
       style={{
         ...props.style,
+        marginTop: `${navMod}px`,
         minHeight: `calc(100vh - ${footerMod}px - ${navMod}px)`,
       }}
     >

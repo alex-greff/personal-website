@@ -3,9 +3,27 @@ import React, { FunctionComponent, useContext, useEffect } from "react";
 import SiteContext from "@/contexts/site-context";
 import { SizeMeProps, withSize } from "react-sizeme";
 import update from "immutability-helper";
+import { graphql, useStaticQuery } from "gatsby";
 
 export const FooterSection: FunctionComponent<SizeMeProps> = ({ size }) => {
   const { setSiteState } = useContext(SiteContext);
+
+  const query = useStaticQuery(graphql`
+    query {
+      allMdx(filter: { fields: { collection: { eq: "about" } } }) {
+        edges {
+          node {
+            frontmatter {
+              name
+            }
+          }
+        }
+      }
+    }
+  `);
+
+  const aboutData = query.allMdx.edges[0].node;
+  const name = aboutData.frontmatter.name;
 
   useEffect(() => {
     setSiteState((prevState) =>
@@ -16,7 +34,7 @@ export const FooterSection: FunctionComponent<SizeMeProps> = ({ size }) => {
     );
   }, [size]);
 
-  return <div className="FooterSection">Footer</div>;
+  return <div className="FooterSection">Designed and built by {name}</div>;
 };
 
 export default withSize({

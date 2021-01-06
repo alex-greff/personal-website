@@ -1,6 +1,11 @@
 .FooterSection {
   width: 100vw;
 
+  padding: 1rem 2rem;
+
   color: color-link("text-footer");
   background-color: color-link("bg-footer");
+  font-size: 1.5rem;
+
+  text-align: center;
 }
