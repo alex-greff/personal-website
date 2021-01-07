@@ -34,3 +34,5 @@ export interface SkillItem {
   type: string;
   items: string[];
 }
+
+export type Theme = "theme-light" | "theme-dark";

@@ -23,7 +23,7 @@ import ThemeToggle from "@/components/ui/toggles/ThemeToggle/ThemeToggle";
 import ResumeButton from "@/components/ui/buttons/ResumeButton/ResumeButton";
 import useLocation from "@/hooks/useLocation";
 import useRouteWatcher, { RouteWatcherMode } from "@/hooks/useRouteWatcher";
-import { useScrollPosition } from "@/hooks/useScrollPosition";
+import useScrollPosition from "@/hooks/useScrollPosition";
 
 const FLUSH_THRESHOLD = 0;
 
