@@ -5,9 +5,10 @@ import classnames from "classnames";
 import FullPageSection from "@/components/wrappers/FullPageSection/FullPageSection";
 import * as Utilities from "@/utilities";
 import { graphql, useStaticQuery } from "gatsby";
+import { Parallax, Background } from "react-parallax";
 
-import ContentWrapper from "@/components/wrappers/ContentWrapper/ContentWrapper";
 import GradientDivider from "@/components/ui/dividers/GradientDivider/GradientDivider";
+import BarBackground from "@/components/backgrounds/BarBackground";
 
 export interface Props extends Omit<BaseProps, "id"> {}
 
@@ -35,40 +36,38 @@ const LandingSection: FunctionComponent<Props> = (props) => {
       style={props.style}
       name="home"
     >
-      <ContentWrapper accountForNav={true} centered={true} >
-        <div className="LandingSection__name">{data.frontmatter.name}</div>
-        <GradientDivider
-          className="LandingSection__divider"
-          orientation="horizontal"
-          length="70rem"
-        />
-        <div className="LandingSection__descriptive-words-list">
-          {data.frontmatter.descriptive_words.map(
-            (word: string, idx: number) => {
-              const firstItem = idx === 0;
-              return (
-                <React.Fragment key={idx}>
-                  {firstItem ? null : (
-                    <div className="LandingSection__word-divider"></div>
-                  )}
-                  <div className="LandingSection__descriptive-word">{word}</div>
-                </React.Fragment>
-              );
-            }
-          )}
+      <Parallax strength={500} className="LandingSection__parallax">
+        <div className="LandingSection__content">
+          <div className="LandingSection__name">{data.frontmatter.name}</div>
+          <GradientDivider
+            className="LandingSection__divider"
+            orientation="horizontal"
+            length="70rem"
+          />
+          <div className="LandingSection__descriptive-words-list">
+            {data.frontmatter.descriptive_words.map(
+              (word: string, idx: number) => {
+                const firstItem = idx === 0;
+                return (
+                  <React.Fragment key={idx}>
+                    {firstItem ? null : (
+                      <div className="LandingSection__word-divider"></div>
+                    )}
+                    <div className="LandingSection__descriptive-word">{word}</div>
+                  </React.Fragment>
+                );
+              }
+            )}
+          </div>
         </div>
-      </ContentWrapper>
 
-      {/* TODO: remove */}
-      {/* <div
-        data-sal="entrance-up"
-        style={{
-          "--sal-duration": "1s",
-        }}
-        // ref={revealRef}
-      >
-        Landing Section
-      </div> */}
+        <Background className="LandingSection__paralax-bg">
+          <BarBackground
+            className="LandingSection__background"
+            basePosition="left"
+          />
+        </Background>
+      </Parallax>
     </FullPageSection>
   );
 };

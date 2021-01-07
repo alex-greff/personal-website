@@ -23,9 +23,8 @@ const ProjectGridItem: FunctionComponent<Props> = (props) => {
   // Scroll revealing
   useEffect(() => {
     if (scrollAnimate) {
-      const refs = [ contentRef ];
-      for (const currRef of refs)
-        sr?.reveal(currRef.current!, srConfig());
+      const refs = [contentRef];
+      for (const currRef of refs) sr?.reveal(currRef.current!, srConfig());
     }
   }, []);
 
@@ -43,18 +42,25 @@ const ProjectGridItem: FunctionComponent<Props> = (props) => {
         },
       }}
     >
-      <div className="ProjectGridItem__content" ref={contentRef}>
-        <div className="ProjectGridItem__image-container">
-          <GatsbyImage
-            className="ProjectGridItem__image"
-            image={thumbnailImageData!}
-            alt={`${projectItem.title}-thumbnail`}
-            style={{height: projectItem.thumbnailHeight || DEFAULT_THUMBNAIL_HEIGHT}}
-          />
-        </div>
-        <div className="ProjectGridItem__info-container">
-          <div className="ProjectGridItem__title">
-            {projectItem.title}
+      {/* Note: the super-container is for the scroll animation effect so it
+       doesn't interfere with the hover translation effect */}
+      <div
+        className="ProjectGridItem__content-super-container"
+        ref={contentRef}
+      >
+        <div className="ProjectGridItem__content">
+          <div className="ProjectGridItem__image-container">
+            <GatsbyImage
+              className="ProjectGridItem__image"
+              image={thumbnailImageData!}
+              alt={`${projectItem.title}-thumbnail`}
+              style={{
+                height: projectItem.thumbnailHeight || DEFAULT_THUMBNAIL_HEIGHT,
+              }}
+            />
+          </div>
+          <div className="ProjectGridItem__info-container">
+            <div className="ProjectGridItem__title">{projectItem.title}</div>
           </div>
         </div>
       </div>
@@ -63,7 +69,7 @@ const ProjectGridItem: FunctionComponent<Props> = (props) => {
 };
 
 ProjectGridItem.defaultProps = {
-  scrollAnimate: false
+  scrollAnimate: false,
 } as Partial<Props>;
 
 export default ProjectGridItem;

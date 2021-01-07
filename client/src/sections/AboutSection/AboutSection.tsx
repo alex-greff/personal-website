@@ -54,7 +54,9 @@ const AboutSection: FunctionComponent<Props> = (props) => {
     }
   `);
 
-  const profilePicRef = useRef(null);
+  const titleRef = useRef(null);
+  const linksRef = useRef(null);
+  const dividerRef = useRef(null);
   const headerRef = useRef(null);
   const bioRef = useRef(null);
   const aboutRef = useRef(null);
@@ -68,9 +70,16 @@ const AboutSection: FunctionComponent<Props> = (props) => {
 
   // Scroll revealing
   useEffect(() => {
-    const refs = [ profilePicRef, headerRef, bioRef, aboutRef, skillsRef ];
-    for (const currRef of refs)
-      sr?.reveal(currRef.current!, srConfig());
+    const refs = [
+      titleRef,
+      linksRef,
+      dividerRef,
+      headerRef,
+      bioRef,
+      aboutRef,
+      skillsRef,
+    ];
+    for (const currRef of refs) sr?.reveal(currRef.current!, srConfig());
   }, []);
 
   return (
@@ -81,21 +90,24 @@ const AboutSection: FunctionComponent<Props> = (props) => {
     >
       <ContentWrapper wideness="thin" centered={true}>
         <div className="AboutSection__main-content">
-          <div className="AboutSection__profile-pic-container" ref={profilePicRef}>
+          <div className="AboutSection__profile-pic-container">
             <div className="AboutSection__profile-pic-subcontainer">
               <GatsbyImage image={profileImageData!} alt="Profile Image" />
             </div>
           </div>
           <div className="AboutSection__header-container" ref={headerRef}>
             <div className="AboutSection__header-subcontainer">
-              <div className="AboutSection__title">About Me</div>
-              <div className="AboutSection__links">
+              <div className="AboutSection__title" ref={titleRef}>
+                About Me
+              </div>
+              <div className="AboutSection__links" ref={linksRef}>
                 {links.map((link, idx) => (
                   <LinkIcon key={`link-${idx}`} link={link} />
                 ))}
               </div>
             </div>
             <GradientDivider
+              ref={dividerRef}
               className="AboutSection__divider AboutSection__divider-desktop"
               gradientFade="right"
             />

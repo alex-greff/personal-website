@@ -14,13 +14,14 @@
 .theme-light {
   --bg-landing: #{rgb-str(#F8F9FF)};
   --bg-primary: #{rgb-str(#FFFFFF)};
-  --bg-footer: #{rgb-str(#F8F9FF)};
+  --bg-footer: #{rgb-str(#eaecf3)};
   --bg-experience: #{rgb-str(#FFFFFF)};
   --bg-project: #{rgb-str(#FFFFFF)};
+  --bg-nav: #{rgb-str(#F8F9FF)};
 
   --text-primary: #{rgb-str(#151515)};
-  --text-secondary: #{rgb-str(#767676)};
-  --text-tertiary: #{rgb-str(#606060)};
+  --text-secondary: #{rgb-str(#5c5c5c)};
+  --text-tertiary: #{rgb-str(#616161)};
   --text-footer: #{rgb-str(#8C8C8C)};
   --text-hover: #{rgb-str(#1d3033)};
   --text-disabled: #{rgb-str(#464646)};
@@ -41,14 +42,17 @@
   --scrollbar-track: #{rgb-str(#3b3b3b)};
   --scrollbar-thumb: #{rgb-str(#494949)};
   --scrollbar-hover: #{rgb-str(#575757)};
+
+  --bars-color: #{rgb-str(#3e8bff)};
 }
 
 .theme-dark {
-  --bg-landing: #{rgb-str(#2F3037)};
+  --bg-landing: #{rgb-str(#212124)};
   --bg-primary: #{rgb-str(#232323)};
   --bg-footer: #{rgb-str(#414141)};
   --bg-experience: #{rgb-str(#464646)};
   --bg-project: #{rgb-str(#393939)};
+  --bg-nav: #{rgb-str(#232323)};
 
   --text-primary: #{rgb-str(#FFFFFF)};
   --text-secondary: #{rgb-str(#cecece)};
@@ -73,4 +77,6 @@
   --scrollbar-track: #{rgb-str(#3b3b3b)};
   --scrollbar-thumb: #{rgb-str(#494949)};
   --scrollbar-hover: #{rgb-str(#575757)};
+
+  --bars-color: #{rgb-str(#1e78ff)};
 }

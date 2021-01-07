@@ -1,0 +1,118 @@
+.BarBackground {
+  // CONFIG
+  $curve-pow: 2.5; // Power value of the power curve
+  $min-width: 1;
+  $max-width: 90;
+  $height-multiplier: 0.8; // Percentage: 0 = no height, 0.5 = half height, 1 = full height, >1 = grow
+  $screen-height-amount: 1; // O = 0% of the screen, 1 = 100% of the screen
+
+  // Note: make sure to match in the TSX file
+  $num-bars: 100;
+
+  width: 100%;
+  height: 100vh * $screen-height-amount;
+
+  overflow: hidden;
+
+  & .BarBackground__bar { 
+    position: absolute;
+
+    &.right {
+      right: 0;
+      top: 50%;
+    }
+
+    &.left {
+      left: 0;
+      top: 50%;
+    }
+
+    &.top {
+      top: 0;
+      left: 50%;
+    }
+
+    &.bottom {
+      bottom: 0;
+      left: 50%;
+    }
+  }   
+
+  $num-bars: 100;
+
+  // Generate the styling for each bar
+  @for $i from 1 through $num-bars {
+    & .BarBackground__bar-num-#{$i} {
+      // The pos of the bar on the triangle
+      // Range: 0 = ends, 1 = middle
+      $triangle-val: (1 - abs(($i/$num-bars - 0.5))/0.5); 
+      $pow-triangle-val: pow-float($triangle-val, $curve-pow);
+
+      // RANDOMNESS CONFIG
+      $transform-rand: random-num(-10, 10); //Random offset in px
+      $width-rand: random-num(0, 75) * clamp2($triangle-val, 0, 1); // Random size offset in px
+      $height-rand: random-num(-5, 5); // Random size offset in px
+
+      $theme-clr: color-link("bars-color", 0.3);
+      $them-clr-trans: color-link("bars-color", 0);
+
+      &.right, &.left {
+        width: calc(#{$min-width + $pow-triangle-val * ($max-width - $min-width)}vw + #{$width-rand}px);
+        height: calc(#{100/$num-bars * $height-multiplier * $screen-height-amount}vh + #{$height-rand}px);
+
+        transform: translateY(calc(#{(($i - 1)/$num-bars*100 - 50) * $screen-height-amount}vh + #{$transform-rand}px));
+      }
+
+      &.top, &.bottom {
+        height: calc(#{$min-width + $pow-triangle-val * ($max-width - $min-width)}vh + #{$width-rand}px);
+        width: calc(#{100/$num-bars * $height-multiplier * $screen-height-amount}vw + #{$height-rand}px);
+
+        transform: translateX(calc(#{(($i - 1)/$num-bars*100 - 50) * $screen-height-amount}vw + #{$transform-rand}px));
+      }
+
+      &.right .BarBackground__bar-fill {
+        background: linear-gradient(to right, $them-clr-trans 0%, $theme-clr 50%, $theme-clr 100%);
+      }
+
+      &.left .BarBackground__bar-fill {
+        background: linear-gradient(to left, $them-clr-trans 0%, $theme-clr 50%, $theme-clr 100%);
+      }
+
+      &.top .BarBackground__bar-fill {
+        background: linear-gradient(to top, $them-clr-trans 0%, $theme-clr 50%, $theme-clr 100%);
+      }
+
+      &.bottom .BarBackground__bar-fill {
+        background: linear-gradient(to bottom, $them-clr-trans 0%, $theme-clr 50%, $theme-clr 100%);
+      }
+
+      & .BarBackground__bar-fill {
+        width: 100%;
+        height: 100%;
+
+        opacity: #{$triangle-val};
+      }
+
+      $anim-duration: 5; // seconds
+      $anim-delay-rand: random-num(0, $anim-duration * 2);
+
+      // Run animation
+      animation-name: anim-bar-#{$i};
+      animation-direction: alternate;
+      animation-delay: #{$anim-delay-rand}s;
+      animation-duration: #{$anim-duration}s;
+      animation-iteration-count: infinite;
+      animation-timing-function: ease-in-out;
+      animation-fill-mode: both;
+
+      @keyframes anim-bar-#{$i} {
+        0% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.4;
+        }
+      }
+    }
+  }
+}

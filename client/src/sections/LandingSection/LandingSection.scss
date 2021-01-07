@@ -2,46 +2,76 @@
   color: color-link("text-primary");
   background-color: color-link("bg-landing");
 
-  & .LandingSection__name {
-    max-width: 100%;
-
-    margin-bottom: 0.3rem;
-
-    @include font-header();
-    font-size: 4rem;
-
-    letter-spacing: 0.1rem;
-
-    text-align: center;
+  & .LandingSection__parallax {
+    width: 100%;
+    height: 100%;
   }
 
-  & .LandingSection__divider {
-    width: 100% !important;
+  & .LandingSection__paralax-bg {
+    width: 100vw;
+    height: 100vh;
   }
 
-  & .LandingSection__descriptive-words-list {
+  & .LandingSection__content {
+    width: 100%;
+    height: 100vh;
+
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
 
-    margin-top: 1rem;
+    padding: 0 2rem;
 
-    & .LandingSection__word-divider {
-      align-self: stretch;
+    z-index: 1;
 
-      margin: 0.3rem 0.8rem;
-
-      width: 1px;
-      background-color: color-link("text-secondary");
-    }
-
-    & .LandingSection__descriptive-word {
-      @include font-content-regular();
-      font-size: 2.1rem;
-
-      color: color-link("text-secondary");
-
+    & .LandingSection__name {
+      max-width: 100%;
+  
+      margin-bottom: 0.3rem;
+  
+      @include font-header();
+      font-size: 4rem;
+  
+      letter-spacing: 0.1rem;
+  
       text-align: center;
     }
+  
+    & .LandingSection__divider {
+      width: 100% !important;
+    }
+  
+    & .LandingSection__descriptive-words-list {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+  
+      margin-top: 1rem;
+  
+      & .LandingSection__word-divider {
+        align-self: stretch;
+  
+        margin: 0.3rem 0.8rem;
+  
+        width: 1px;
+        background-color: color-link("text-secondary");
+      }
+  
+      & .LandingSection__descriptive-word {
+        @include font-content-regular();
+        font-size: 2.1rem;
+  
+        color: color-link("text-secondary");
+  
+        text-align: center;
+      }
+    }
+  }
+
+  & .LandingSection__background {
+    height: 120vh;
+
+    z-index: 0;
   }
 }
