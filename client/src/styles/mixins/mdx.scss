@@ -19,6 +19,11 @@
   & ul ul ul{
     margin-left: $base-indent + $incr-indent + $incr-indent;
   }
+
+  & li::marker {
+    content: "> ";
+    color: color-link("accent");
+  }
 }
 
 @mixin mdx-about-content() {
