@@ -25,6 +25,10 @@
 
     z-index: 1;
 
+    & > * {
+      will-change: transition;
+    }
+
     & .LandingSection__name {
       max-width: 100%;
   
@@ -36,10 +40,12 @@
       letter-spacing: 0.1rem;
   
       text-align: center;
+
+      will-change: transition;
     }
   
     & .LandingSection__divider {
-      width: 100% !important;
+      will-change: transition;
     }
   
     & .LandingSection__descriptive-words-list {
