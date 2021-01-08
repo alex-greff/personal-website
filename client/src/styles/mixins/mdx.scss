@@ -1,10 +1,6 @@
 @mixin mdx-base() {
-  
-
   $base-indent: 20px;
   $incr-indent: 10px;
-
-  // TODO: customize bullet points
 
   & ul{
     margin-left: $base-indent;

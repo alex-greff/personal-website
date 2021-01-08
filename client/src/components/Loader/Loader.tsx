@@ -13,7 +13,14 @@ import SiteContext, { LoadStatus } from "@/contexts/site-context";
 import update from "immutability-helper";
 import * as Constants from "@/constants";
 
+import DiamondLoader from "@/components/loaders/DiamondLoader";
+
 export interface Props extends Omit<BaseProps, "id"> {}
+
+const DURATION = 2;
+const DELAY = 0.5;
+
+const FADE_DURATION = 0.5;
 
 const Loader: FunctionComponent<Props> = (props) => {
   const { setSiteState } = useContext(SiteContext);
@@ -22,19 +29,12 @@ const Loader: FunctionComponent<Props> = (props) => {
   const [loaded, setloaded] = useState(false);
 
   const runTimeline = () => {
+    // Fade out the loader
     const tl = gsap.timeline();
     tl.to(loaderRef.current, {
-      duration: 1,
-      onComplete: () => {
-        setSiteState((prevState) =>
-          update(prevState, { loadStatus: { $set: LoadStatus.FADING } })
-        );
-      },
-    });
-    // Fade out the loader
-    tl.to(loaderRef.current, {
       opacity: 0,
-      duration: 0.3,
+      delay: DURATION + DELAY + 0.1,
+      duration: FADE_DURATION,
       onStart: () => setFading(true),
       onComplete: () => { 
         setSiteState((prevState) =>
@@ -43,7 +43,7 @@ const Loader: FunctionComponent<Props> = (props) => {
         setloaded(true); 
       },
     });
-  };
+  }
 
   useEffect(() => {
     runTimeline();
@@ -56,7 +56,10 @@ const Loader: FunctionComponent<Props> = (props) => {
       id="Loader"
       ref={loaderRef}
     >
-      Loading...
+      <DiamondLoader
+        duration={DURATION}
+        delay={DELAY}
+      />
     </div>
   );
 };

@@ -1,0 +1,44 @@
+.DiamondLoader {
+  $diamond-size: 40px;
+
+  position: relative;
+
+  width: 2 * $diamond-size;
+  height: 2 * $diamond-size;
+
+  & .DiamondLoader__diamond {
+    width: $diamond-size;
+    height: $diamond-size;
+
+    clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+    background-color: color-link("loader-accent");
+
+    position: absolute;
+
+    z-index: 3;
+
+    &.top {
+      top: 0;
+      left: 50%;
+      transform: translate3D(-50%, 0, 0);
+    }
+
+    &.bottom {
+      bottom: 0;
+      left: 50%;
+      transform: translate3D(-50%, 0, 0);
+    }
+
+    &.right {
+      right: 0;
+      top: 50%;
+      transform: translate3D(0, -50%, 0);
+    }
+
+    &.left {
+      left: 0;
+      top: 50%;
+      transform: translate3D(0, -50%, 0);
+    }
+  }
+}

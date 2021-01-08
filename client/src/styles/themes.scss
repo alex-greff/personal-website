@@ -39,11 +39,14 @@
   --resume-gradient-disabled-1: #{rgb-str(#cdb5d8)};
   --resume-gradient-disabled-2: #{rgb-str(#8cbad4)};
 
-  --scrollbar-track: #{rgb-str(#3b3b3b)};
-  --scrollbar-thumb: #{rgb-str(#494949)};
-  --scrollbar-hover: #{rgb-str(#575757)};
+  --scrollbar-track: #{rgb-str(#cccccc)};
+  --scrollbar-thumb: #{rgb-str(#999999)};
+  --scrollbar-hover: #{rgb-str(rgb(161, 161, 161))};
 
   --bars-color: #{rgb-str(#3e8bff)};
+
+  --loader-bg: #{rgb-str(#ffffff)};
+  --loader-accent: #{rgb-str(#00C2FF)};
 }
 
 .theme-dark {
@@ -79,4 +82,7 @@
   --scrollbar-hover: #{rgb-str(#575757)};
 
   --bars-color: #{rgb-str(#1e78ff)};
+
+  --loader-bg: #{rgb-str(#3a3a3a)};
+  --loader-accent: #{rgb-str(#00C2FF)};
 }
