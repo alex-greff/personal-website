@@ -1,6 +1,30 @@
-@mixin mdx-base() {
+@mixin mdx-base($base-font-size) {
   $base-indent: 20px;
   $incr-indent: 10px;
+
+  font-size: $base-font-size;
+
+  color: color-link("text-primary");
+
+  h1 {
+    font-size: $base-font-size + 0.4rem;
+  }
+
+  h2 {
+    font-size: $base-font-size + 0.3rem;
+  }
+
+  h3 {
+    font-size: $base-font-size + 0.2rem;
+  }
+
+  h4 {
+    font-size: $base-font-size + 0.1rem;
+  }
+
+  h5 {
+    font-size: $base-font-size;
+  }
 
   & ul{
     margin-left: $base-indent;
@@ -23,22 +47,13 @@
 }
 
 @mixin mdx-about-content() {
-  @include mdx-base();
-
-  font-size: 1.8rem;
-  color: color-link("text-primary");
+  @include mdx-base(1.8rem);
 }
 
 @mixin mdx-timeline-content() {
-  @include mdx-base();
-
-  font-size: 1.6rem;
-  color: color-link("text-primary");
+  @include mdx-base(1.6rem);
 }
 
 @mixin mdx-project-content() {
-  @include mdx-base();
-
-  font-size: 1.8rem;
-  color: color-link("text-primary");
+  @include mdx-base(1.6rem);
 }

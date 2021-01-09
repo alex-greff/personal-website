@@ -12,6 +12,7 @@ tags:
   - Node JS
   - GraphQL
   - WebAssembly
+  - PostgreSQL
 links: [
   { type: "github", link: "github.com/alex-greff/shabam" }
 ]
@@ -19,4 +20,10 @@ thumbnail: "./thumbnail.png"
 thumbnailHeight: 250px
 ---
 
-Some stuff here
+A replica of the popular music-recognition app, Shazam, implemented from 
+scratch. The digital signal processing (DSP) of the audio is done in on the
+frontend using WebAssembly and Web Workers to make performance faster and more
+consistent. The backend is built using Node JS and GraphQL and provides a 
+powerful API interface for the client. Worker nodes are used by the backend API
+to offload audio searching and storage management. The project is containerized
+with Docker allowing for the ability to deploy with high horizontal scalability.
