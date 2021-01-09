@@ -77,19 +77,9 @@
     }
 
     & .ProjectCard__tag-list {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-
-      & > *:not(:last-child) {
-        margin-right: 0.7rem;
-      }
-
-      & .ProjectCard__tag-item {
-        @include font-content-regular();
-        font-size: 1.4rem;
-        color: color-link("text-tertiary");
-      }
+      @include font-content-regular();
+      font-size: 1.4rem;
+      color: color-link("text-tertiary");
     }
   }
 

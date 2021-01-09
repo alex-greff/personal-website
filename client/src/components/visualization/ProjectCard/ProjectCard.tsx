@@ -67,11 +67,7 @@ const ProjectCard: FunctionComponent<Props> = (props) => {
       <div className="ProjectCard__tags">
         <div className="ProjectCard__tag-title">Tags</div>
         <div className="ProjectCard__tag-list">
-          {projectItem.tags.map((tag, idx) => (
-            <div key={`tag-${tag}-${idx}`} className="ProjectCard__tag-item">
-              {tag}
-            </div>
-          ))}
+          {projectItem.tags.join(", ")}
         </div>
       </div>
     </div>
