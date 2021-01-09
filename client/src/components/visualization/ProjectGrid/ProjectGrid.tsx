@@ -120,7 +120,7 @@ const ProjectGrid: FunctionComponent<Props> = (props) => {
             >
               <ProjectGridItem
                 projectItem={item}
-                key={idx}
+                key={`grid-item-${item.title}`}
                 scrollAnimate={scrollAnimate}
               />
             </div>

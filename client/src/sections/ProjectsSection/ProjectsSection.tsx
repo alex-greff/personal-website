@@ -38,6 +38,7 @@ const ProjectsSection: FunctionComponent<Props> = (props) => {
                 }
               }
               thumbnailHeight
+              imageHeight
             }
             body
             slug
@@ -72,6 +73,7 @@ const ProjectsSection: FunctionComponent<Props> = (props) => {
           mdxContent: currRawData.body,
           thumbnail: currRawData.frontmatter.thumbnail,
           thumbnailHeight: currRawData.frontmatter.thumbnailHeight,
+          imageHeight: currRawData.frontmatter.imageHeight,
           slug: currRawData.slug
         };
 

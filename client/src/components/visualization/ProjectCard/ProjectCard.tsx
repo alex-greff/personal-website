@@ -52,9 +52,9 @@ const ProjectCard: FunctionComponent<Props> = (props) => {
       <GatsbyImage
         className="ProjectCard__image"
         image={thumbnailImageData!}
-        alt={`${projectItem.title}-thumbnail`}
+        alt={`${projectItem.title}-image`}
         style={{
-          height: projectItem.thumbnailHeight || DEFAULT_THUMBNAIL_HEIGHT,
+          height: projectItem.imageHeight || DEFAULT_THUMBNAIL_HEIGHT,
         }}
       />
 

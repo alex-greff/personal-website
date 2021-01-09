@@ -1,7 +1,9 @@
 .ProjectCard {
+  $outer-padding: 2rem;
+
   width: 100%;
 
-  padding: 1rem 0;
+  padding: $outer-padding 0;
 
   background-color: color-link("bg-project");
 
@@ -12,7 +14,7 @@
     flex-direction: column;
     align-items: center;
 
-    padding: 0 1rem;
+    padding: 0 $outer-padding;
 
     & .ProjectCard__links {
       align-self: flex-end;
@@ -95,7 +97,7 @@
     padding: 0 5rem;
 
     @include respond(phone) {
-      padding: 0 2rem;
+      padding: 0 $outer-padding;
     }
   } 
 }

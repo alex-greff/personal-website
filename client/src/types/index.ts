@@ -22,6 +22,7 @@ export interface ProjectItem {
   mdxContent: any;
   thumbnail: any;
   thumbnailHeight?: string;
+  imageHeight?: string;
   slug: string;
 }
 

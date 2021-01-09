@@ -18,12 +18,14 @@ links: [
 ]
 thumbnail: "./thumbnail.png"
 thumbnailHeight: 250px
+imageHeight: 250px
 ---
 
 A replica of the popular music-recognition app, Shazam, implemented from 
 scratch. The digital signal processing (DSP) of the audio is done in on the
-frontend using WebAssembly and Web Workers to make performance faster and more
-consistent. The backend is built using Node JS and GraphQL and provides a 
-powerful API interface for the client. Worker nodes are used by the backend API
-to offload audio searching and storage management. The project is containerized
-with Docker allowing for the ability to deploy with high horizontal scalability.
+frontend using C compiled to WebAssembly and Web Workers to make performance 
+faster and more consistent. The backend is built using Node JS and GraphQL 
+and provides a powerful API interface for the client. Worker nodes are used by 
+the backend API to offload audio searching and storage management. The project 
+is containerized with Docker allowing for the ability to deploy with high 
+horizontal scalability.

@@ -3,6 +3,6 @@ import { SelectionItem } from "@/components/ui/lists/SelectableList/SelectableLi
 
 export const SECTION_PREFIX = "section";
 
-export const projectCategories = ["All", "Web", "CTF", "Computer Graphics", "Other"];
+export const projectCategories = ["All", "Web", "Operating Systems", "Computer Graphics", "Other"];
 
 export const projectCategoryAll = "All";

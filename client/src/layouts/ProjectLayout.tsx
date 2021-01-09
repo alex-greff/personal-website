@@ -32,6 +32,7 @@ const ProjectLayout: FunctionComponent<Props> = ({ data: { mdx } }) => {
       links: mdx.frontmatter.links,
       thumbnail: mdx.frontmatter.thumbnail,
       thumbnailHeight: mdx.frontmatter.thumbnailHeight,
+      imageHeight: mdx.frontmatter.imageHeight,
       mdxContent: mdx.body,
       slug: mdx.slug,
     };
@@ -89,6 +90,7 @@ export const pageQuery = graphql`
           }
         }
         thumbnailHeight
+        imageHeight
       }
       body
       slug
