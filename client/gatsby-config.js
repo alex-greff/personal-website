@@ -16,8 +16,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Alexander Greff`,
-        short_name: `Alexander Greff is a software/web developer from Toronto, Canada currently completing his HBsc in computer science at the University of Toronto: Scarborough`,
+        name: `Alexander Greff Profile Website`,
+        short_name: `Alexander Greff`,
         start_url: `/`,
         background_color: `#232323`,
         theme_color: `#00C2FF`,
