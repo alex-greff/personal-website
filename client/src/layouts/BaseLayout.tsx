@@ -39,19 +39,12 @@ const BaseLayoutInternal: FunctionComponent = (props) => {
 
   // React to page changes
   useRouteWatcher((location) => {
-    const pageType = Utilities.getPageType(location.pathname);
+    // Disable smooth scrolling so the initial location change is instant
+    document.documentElement.classList.add("disable-smooth-scroll");
 
-    if (pageType === Utilities.PageType.ROOT) {
-      // Disable smooth scrolling so the initial location change is instant
-      document.documentElement.classList.add("disable-smooth-scroll");
-
-      setTimeout(() => {
-        document.documentElement.classList.remove("disable-smooth-scroll");
-      }, 0);
-
-    } else if (pageType === Utilities.PageType.PROJECT) {
-
-    }
+    setTimeout(() => {
+      document.documentElement.classList.remove("disable-smooth-scroll");
+    }, 0);
   }, RouteWatcherMode.PATHNAME);
 
   // -------------------
