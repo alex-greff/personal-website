@@ -46,7 +46,7 @@ const ProjectLayout: FunctionComponent<Props> = ({ data: { mdx } }) => {
       name="project-info"
       updateHash={false}
     >
-      <ContentWrapper wideness="thin">
+      <ContentWrapper wideness="normal">
         <div className="ProjectLayout__content">
           <Link to="/#projects" className="ProjectLayout__back-button">
             <KeyboardArrowLeft className="ProjectLayout__back-icon" />
