@@ -62,7 +62,10 @@ export const getPageType = (pathname: string) => {
   if (pathname === "/") return PageType.ROOT;
   else if (projectPageRegex.test(pathname)) return PageType.PROJECT;
 
-  throw "Should not reach here";
+  if (isSSR)
+    return PageType.ROOT;
+  else 
+    throw "Should not reach here";
 };
 
 interface SalConfig {

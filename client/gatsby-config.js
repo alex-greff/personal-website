@@ -3,6 +3,8 @@ const path = require('path');
 module.exports = {
   siteMetadata: {
     title: `Alexander Greff`,
+    description: `The profile website of the Alexander Greff`,
+    siteUrl: "https://alexgreff.com"
   },
   plugins: [
     "gatsby-plugin-netlify-cms",
@@ -11,6 +13,19 @@ module.exports = {
     "gatsby-plugin-sitemap",
     `gatsby-plugin-sharp`,
     "gatsby-transformer-sharp",
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `Alexander Greff`,
+        short_name: `The profile website of the Alexander Greff`,
+        start_url: `/`,
+        background_color: `#232323`,
+        theme_color: `#00C2FF`,
+        display: `standalone`,
+        icon: 'src/images/favicon.png'
+      },
+    },
+    'gatsby-plugin-offline',
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
@@ -29,7 +44,12 @@ module.exports = {
       resolve: `gatsby-plugin-sass`,
       options: {
         implementation: require('sass'),
-        data: `@import "${__dirname}/src/styles/global.scss";`,
+        // data: `@import "${__dirname}/src/styles/global.scss";`,
+        data: `@import "./src/styles/global.scss";`,
+        // includePaths: [
+        //   require('path').resolve(__dirname, 'node_modules')
+        // ],
+        webpackImporter: false,
       }
     },
     {

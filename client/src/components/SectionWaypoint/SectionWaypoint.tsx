@@ -25,7 +25,9 @@ export interface Props {
 const SectionWaypoint: FunctionComponent<Props> = (props) => {
   const { name, disable, triggerLocation } = props;
   const { siteState, setSiteState } = useContext(SiteContext);
-  const [initPage] = useState(Utilities.getPageType(window.location.pathname));
+  const [initPage] = useState(
+    Utilities.getPageType(!Utilities.isSSR ? window.location.pathname : "")
+  );
 
   const onWaypointEnter = () => {
     // Only register a section entrance when:
@@ -37,7 +39,9 @@ const SectionWaypoint: FunctionComponent<Props> = (props) => {
       !disable &&
       siteState.loadStatus >= LoadStatus.COMPLETED &&
       !siteState.autoScrolling &&
-      Utilities.getPageType(window.location.pathname) === initPage
+      Utilities.getPageType(
+        !Utilities.isSSR ? window.location.pathname : ""
+      ) === initPage
     ) {
       const waypoint = name;
 

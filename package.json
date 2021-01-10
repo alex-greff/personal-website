@@ -6,19 +6,15 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "build:client": "docker exec personal_website_client npm run build",
-
         "rm-services:dev-client": "docker-compose -f docker-compose-dev.yml rm -f client",
         "start:dev": "docker-compose -f docker-compose-dev.yml up --build",
         "start:dev--recreate-client": "npm run rm-services:dev-client && npm run start:dev",
         "restart:dev-client": "docker-compose -f docker-compose-dev.yml restart client",
-
         "rm-services:dev-prod-client": "docker-compose -f docker-compose-dev-prod.yml rm -f client",
         "start:dev-prod": "docker-compose -f docker-compose-dev-prod.yml up --build",
         "start:dev-prod--recreate-client": "npm run rm-services:dev-prod-client && npm run start:dev",
         "restart:dev-prod-client": "docker-compose -f docker-compose-dev-prod.yml restart client",
-
         "shell:client": "docker exec -it personal_website_client sh",
-
         "stop:dev": "docker-compose -f docker-compose-dev.yml down"
     },
     "repository": {

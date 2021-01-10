@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { globalHistory } from "@reach/router";
+import * as Utilities from "@/utilities";
 
 export type RouteChangeCallback = (
   nextLocation: Location,
@@ -17,7 +18,7 @@ export default function useRouteWatcher(
   mode = RouteWatcherMode.ALL
 ) {
   const getInitialRouteData = () => {
-    return {...window.location};
+    return (!Utilities.isSSR) ? {...window.location} : {} as any;
   };
 
   const [prevLocation, _setPrevLocation] = useState<Location>(

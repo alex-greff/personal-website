@@ -1,17 +1,20 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
+import * as Utilities from "@/utilities";
 
 export default function useScrollPosition() {
-  const [scrollTop, setScrollTop] = useState(window.pageYOffset);
+  const [scrollTop, setScrollTop] = useState(
+    !Utilities.isSSR ? window.pageYOffset : 0
+  );
 
   useEffect(() => {
     const onScroll = (e: Event) => {
-      setScrollTop(window.pageYOffset);
-    }
+      setScrollTop(!Utilities.isSSR ? window.pageYOffset : 0);
+    };
 
-    window.addEventListener("scroll", onScroll);
+    if (!Utilities.isSSR) window.addEventListener("scroll", onScroll);
 
     return () => {
-      window.removeEventListener("scroll", onScroll);
+      if (!Utilities.isSSR) window.removeEventListener("scroll", onScroll);
     };
   }, []);
 

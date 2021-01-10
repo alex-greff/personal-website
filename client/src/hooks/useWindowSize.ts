@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { throttle } from "throttle-debounce";
+import * as Utilities from "@/utilities";
 
 // Source: https://usehooks.com/useWindowSize/
 
@@ -23,19 +24,23 @@ export default function useWindowSize(throttleWait = 500) {
     // Handler to call on window resize
     function handleResize() {
       setWindowSizeTrottled({
-        width: window.innerWidth,
-        height: window.innerHeight,
+        width: !Utilities.isSSR ? window.innerWidth : 0,
+        height: !Utilities.isSSR ? window.innerHeight : 0,
       })
     }
 
     // Add event listener
-    window.addEventListener("resize", handleResize);
+    if (!Utilities.isSSR)
+      window.addEventListener("resize", handleResize);
 
     // Call handler right away so state gets updated with initial window size
     handleResize();
 
     // Remove event listener on cleanup
-    return () => window.removeEventListener("resize", handleResize);
+    return () => {
+      if (!Utilities.isSSR)
+        window.removeEventListener("resize", handleResize);
+    }
   }, [setWindowSizeTrottled]); 
 
   return windowSize;

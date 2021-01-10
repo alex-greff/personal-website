@@ -7,3 +7,4 @@ RUN npm install -g gatsby-cli
 RUN npm install
 COPY . .
 CMD ["npm", "run", "develop"]
+# CMD ["tail", "-f", "/dev/null"]

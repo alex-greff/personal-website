@@ -13,7 +13,6 @@ import update from "immutability-helper";
 import classnames from "classnames";
 import * as Utilities from "@/utilities";
 import useThrottledResizeObserver from "@/hooks/useThrottledResizeObserver";
-import { navigate } from "gatsby";
 
 import SelectableList, {
   SelectionItem,
@@ -85,7 +84,7 @@ const NavBar: FunctionComponent<Props> = (props) => {
 
   const findSectionIdx = (section: string) => {
     // Handle if we are on the projects page
-    const pathname = window.location.pathname;
+    const pathname = !Utilities.isSSR ? window.location.pathname : "";
     if (Utilities.getPageType(pathname) === Utilities.PageType.PROJECT) {
       section = "projects";
     }
@@ -98,7 +97,10 @@ const NavBar: FunctionComponent<Props> = (props) => {
   };
 
   const findInitSectionIdx = () => {
-    return findSectionIdx(window.location.hash.replace("#", ""));
+    const section = !Utilities.isSSR
+      ? window.location.hash.replace("#", "")
+      : "";
+    return findSectionIdx(section);
   };
 
   const [currSectionIdx, setCurrSectionIdx] = useState<number>(
@@ -114,7 +116,8 @@ const NavBar: FunctionComponent<Props> = (props) => {
   };
 
   const setAutoScrolling = () => {
-    const pageType = Utilities.getPageType(window.location.pathname);
+    const page = !Utilities.isSSR ? window.location.pathname : "";
+    const pageType = Utilities.getPageType(page);
 
     if (pageType === Utilities.PageType.ROOT) {
       if (autoscrollTimer) clearTimeout(autoscrollTimer);
@@ -133,7 +136,7 @@ const NavBar: FunctionComponent<Props> = (props) => {
 
       setAutoscrollTimer(newTimer);
     }
-  }
+  };
 
   const handleNavItemClick = (mobile = false) => {
     return (item: SelectionItem, idx: number) => {
