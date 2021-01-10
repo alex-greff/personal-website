@@ -33,7 +33,7 @@ const Loader: FunctionComponent<Props> = (props) => {
     const tl = gsap.timeline();
     tl.to(loaderRef.current, {
       opacity: 0,
-      delay: DURATION + DELAY + 0.1,
+      delay: DURATION + DELAY - 0.6,
       duration: FADE_DURATION,
       onStart: () => setFading(true),
       onComplete: () => { 

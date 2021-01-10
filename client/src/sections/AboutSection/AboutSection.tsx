@@ -61,6 +61,7 @@ const AboutSection: FunctionComponent<Props> = (props) => {
   const bioRef = useRef(null);
   const aboutRef = useRef(null);
   const skillsRef = useRef(null);
+  const profilePicRef = useRef(null);
 
   const profileImageData = getImage(query.profileImage);
   const aboutData = query.allMdx.edges[0].node;
@@ -78,6 +79,7 @@ const AboutSection: FunctionComponent<Props> = (props) => {
       bioRef,
       aboutRef,
       skillsRef,
+      profilePicRef
     ];
     for (const currRef of refs) sr?.reveal(currRef.current!, srConfig());
   }, []);
@@ -91,7 +93,10 @@ const AboutSection: FunctionComponent<Props> = (props) => {
       <ContentWrapper wideness="thin" centered={true}>
         <div className="AboutSection__main-content">
           <div className="AboutSection__profile-pic-container">
-            <div className="AboutSection__profile-pic-subcontainer">
+            <div
+              className="AboutSection__profile-pic-subcontainer"
+              ref={profilePicRef}
+            >
               <GatsbyImage image={profileImageData!} alt="Profile Image" />
             </div>
           </div>
