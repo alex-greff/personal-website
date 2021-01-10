@@ -54,6 +54,7 @@ export const sr =
 export enum PageType {
   ROOT,
   PROJECT,
+  NOT_FOUND
 }
 
 export const getPageType = (pathname: string) => {
@@ -62,10 +63,7 @@ export const getPageType = (pathname: string) => {
   if (pathname === "/") return PageType.ROOT;
   else if (projectPageRegex.test(pathname)) return PageType.PROJECT;
 
-  if (isSSR)
-    return PageType.ROOT;
-  else 
-    throw "Should not reach here";
+  return PageType.NOT_FOUND;
 };
 
 interface SalConfig {

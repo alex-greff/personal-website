@@ -1,4 +1,10 @@
-import React, { FunctionComponent, useRef, useEffect, useState, forwardRef } from "react";
+import React, {
+  FunctionComponent,
+  useRef,
+  useEffect,
+  useState,
+  forwardRef,
+} from "react";
 import { BaseProps } from "@/types";
 import "./SelectableList.scss";
 import classnames from "classnames";
@@ -8,6 +14,7 @@ import useThrottledResizeObserver from "@/hooks/useThrottledResizeObserver";
 import SelectableListItem from "./SelectableListItem/SelectableListItem";
 
 const CURSOR_ANIM_OFFSET = 30;
+const DEFAULT_WIDTH = 10;
 
 export type SelectionItemID = string | number;
 
@@ -38,24 +45,49 @@ const SelectableList = forwardRef<HTMLDivElement, Props>((props, ref) => {
   const { ref: rootRef, height: rootHeight } = useThrottledResizeObserver(50);
   const cursorRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<HTMLElement[]>([]);
-  const [currSelectedIdx, setCurrSelectedIdx] = useState<number>(
-    props.selectedIdx!
-  );
+  const [currSelectedIdx, setCurrSelectedIdx] = useState<number>(selectedIdx!);
   const [cursorState, setCursorState] = useState<CursorState>({
     width: 0,
     top: 0,
     left: 0,
   });
 
-  // Update the cursor's location everytime the root element's height changes
+  // Update the cursor's location every time the root element's height changes
   useEffect(() => {
     changeSelection(currSelectedIdx, false);
   }, [rootHeight]);
 
   // Updates the location of the cursor
   const changeSelection = (newSelectedIdx: number, animate = true) => {
-    const targetElem = itemRefs.current[newSelectedIdx];
+    const targetElem =
+      newSelectedIdx >= 0 ? itemRefs.current[newSelectedIdx] : null;
     const cursorElem = cursorRef.current!;
+
+    if (targetElem == null) {
+      if (!animate) {
+        gsap.set(cursorElem, {
+          width: DEFAULT_WIDTH,
+          opacity: 0,
+        });
+      } else {
+        const tl = gsap.timeline();
+        tl.to(cursorElem, {
+          duration: 0.3,
+          left: cursorElem.offsetLeft + CURSOR_ANIM_OFFSET,
+          opacity: 0,
+        });
+      }
+
+      // Update state
+      setCursorState({
+        width: DEFAULT_WIDTH,
+        top: cursorElem.offsetTop,
+        left: cursorElem.offsetLeft + CURSOR_ANIM_OFFSET,
+      });
+      setCurrSelectedIdx(newSelectedIdx);
+
+      return;
+    }
 
     const newWidth = targetElem.offsetWidth;
     const newTop = targetElem.offsetHeight + targetElem.offsetTop;
@@ -133,7 +165,7 @@ const SelectableList = forwardRef<HTMLDivElement, Props>((props, ref) => {
     setCurrSelectedIdx(newSelectedIdx);
   };
 
-  // // Update the cursor location everytime the selection changes
+  // // Update the cursor location every time the selection changes
   useEffect(() => {
     if (selectedIdx != currSelectedIdx) {
       changeSelection(selectedIdx!);
@@ -176,7 +208,7 @@ const SelectableList = forwardRef<HTMLDivElement, Props>((props, ref) => {
 });
 
 SelectableList.defaultProps = {
-  selectedIdx: 0,
+  // selectedIdx: 0,
   orientation: "horizontal",
   useLink: false,
   alignItems: "start",

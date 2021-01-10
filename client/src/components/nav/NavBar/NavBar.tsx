@@ -40,7 +40,7 @@ const ITEMS: SelectionItem[] = [
   { id: "projects", display: "Projects", href: "/#projects" },
 ];
 
-const RESIZE_TROTTLE = 100;
+const RESIZE_THROTTLE = 100;
 
 interface Props extends Omit<BaseProps, "id"> {}
 
@@ -64,7 +64,7 @@ const NavBar: FunctionComponent<Props> = (props) => {
   const {
     height: contentHeight,
     width: contentWidth,
-  } = useThrottledResizeObserver(RESIZE_TROTTLE, contentRef);
+  } = useThrottledResizeObserver(RESIZE_THROTTLE, contentRef);
 
   const { siteState, setSiteState } = useContext(SiteContext);
   const currLocation = useLocation();
@@ -88,10 +88,8 @@ const NavBar: FunctionComponent<Props> = (props) => {
     if (Utilities.getPageType(pathname) === Utilities.PageType.PROJECT) {
       section = "projects";
     }
-
-    const sectionIdx = Math.max(
-      0,
-      ITEMS.findIndex((item) => item.href?.replace("/", "") === `#${section}`)
+    const sectionIdx = ITEMS.findIndex(
+      (item) => item.href?.replace("/", "") === `#${section}`
     );
     return sectionIdx;
   };
@@ -100,7 +98,8 @@ const NavBar: FunctionComponent<Props> = (props) => {
     const section = !Utilities.isSSR
       ? window.location.hash.replace("#", "")
       : "";
-    return findSectionIdx(section);
+    const idx = findSectionIdx(section);
+    return idx;
   };
 
   const [currSectionIdx, setCurrSectionIdx] = useState<number>(
@@ -169,7 +168,10 @@ const NavBar: FunctionComponent<Props> = (props) => {
   useEffect(() => {
     // Do no update current section idx if an autoscrolling operation is running
     // (since it already set the section index)
-    if (!siteState.autoScrolling) {
+    const currPage = Utilities.getPageType(
+      !Utilities.isSSR ? location.pathname : ""
+    );
+    if (!siteState.autoScrolling && currPage === Utilities.PageType.ROOT) {
       const sectionIdx = findSectionIdx(siteState.currentWaypoint);
       if (sectionIdx !== currSectionIdx) setCurrSectionIdx(sectionIdx);
     }
