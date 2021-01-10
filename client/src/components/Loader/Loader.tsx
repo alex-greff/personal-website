@@ -17,7 +17,7 @@ import DiamondLoader from "@/components/loaders/DiamondLoader";
 
 export interface Props extends Omit<BaseProps, "id"> {}
 
-const DURATION = 2;
+const DURATION = 2.2;
 const DELAY = 0.5;
 
 const FADE_DURATION = 0.5;
@@ -33,7 +33,7 @@ const Loader: FunctionComponent<Props> = (props) => {
     const tl = gsap.timeline();
     tl.to(loaderRef.current, {
       opacity: 0,
-      delay: DURATION + DELAY - 0.6,
+      delay: DURATION + DELAY - 0.2,
       duration: FADE_DURATION,
       onStart: () => setFading(true),
       onComplete: () => { 
