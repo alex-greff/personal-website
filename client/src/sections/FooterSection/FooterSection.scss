@@ -1,11 +1,25 @@
 .FooterSection {
+  display: inline-block;
+
   width: 100vw;
 
   padding: 1rem 2rem;
 
-  color: color-link("text-footer");
   background-color: color-link("bg-footer");
   font-size: 1.5rem;
 
   text-align: center;
+
+  & .FooterSection__content {
+    @include reset-anchor();
+
+    color: color-link("text-footer");
+    cursor: pointer;
+
+    transition: color 0.3s;
+
+    &:hover {
+      color: color-link("text-footer", 0.8);
+    }
+  }
 }

@@ -15,6 +15,7 @@ export const FooterSection: FunctionComponent<SizeMeProps> = ({ size }) => {
           node {
             frontmatter {
               name
+              repoLink
             }
           }
         }
@@ -24,6 +25,7 @@ export const FooterSection: FunctionComponent<SizeMeProps> = ({ size }) => {
 
   const aboutData = query.allMdx.edges[0].node;
   const name = aboutData.frontmatter.name;
+  const repoLink = aboutData.frontmatter.repoLink;
 
   useEffect(() => {
     setSiteState((prevState) =>
@@ -34,7 +36,15 @@ export const FooterSection: FunctionComponent<SizeMeProps> = ({ size }) => {
     );
   }, [size]);
 
-  return <div className="FooterSection">Designed and built by {name}</div>;
+  return <div className="FooterSection">
+    <a
+      className="FooterSection__content"
+      href={repoLink}
+      target="_blank"
+    >
+      Designed and built by {name}
+    </a>
+  </div>;
 };
 
 export default withSize({

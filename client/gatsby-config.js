@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
   siteMetadata: {
     title: `Alexander Greff`,
-    description: `The profile website of the Alexander Greff`,
+    description: `Alexander Greff is a software/web developer from Toronto, Canada currently completing his HBsc in computer science at the University of Toronto: Scarborough`,
     siteUrl: "https://alexgreff.com"
   },
   plugins: [
@@ -17,7 +17,7 @@ module.exports = {
       resolve: `gatsby-plugin-manifest`,
       options: {
         name: `Alexander Greff`,
-        short_name: `The profile website of the Alexander Greff`,
+        short_name: `Alexander Greff is a software/web developer from Toronto, Canada currently completing his HBsc in computer science at the University of Toronto: Scarborough`,
         start_url: `/`,
         background_color: `#232323`,
         theme_color: `#00C2FF`,
@@ -44,11 +44,7 @@ module.exports = {
       resolve: `gatsby-plugin-sass`,
       options: {
         implementation: require('sass'),
-        // data: `@import "${__dirname}/src/styles/global.scss";`,
         data: `@import "./src/styles/global.scss";`,
-        // includePaths: [
-        //   require('path').resolve(__dirname, 'node_modules')
-        // ],
         webpackImporter: false,
       }
     },
