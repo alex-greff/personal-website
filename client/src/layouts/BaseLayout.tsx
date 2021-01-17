@@ -1,16 +1,8 @@
 // Note: this component should be treated like App
 
-import React, {
-  FunctionComponent,
-  useContext,
-  useEffect,
-  useRef,
-  useState
-} from "react";
+import React, { FunctionComponent, useContext, useEffect } from "react";
 import "./BaseLayout.scss";
 import { Helmet } from "react-helmet";
-import update from "immutability-helper";
-import * as Utilities from "@/utilities";
 import useRouteWatcher, { RouteWatcherMode } from "@/hooks/useRouteWatcher";
 
 import { ThemeProvider } from "@/contexts/theme-context";
@@ -56,15 +48,7 @@ const BaseLayoutInternal: FunctionComponent = (props) => {
       <Loader />
       <div id="BaseLayout">
         <NavBar />
-        <div
-          className="BaseLayout__content"
-          // TODO: remove
-          // style={{
-          //   marginTop: `${siteState.navHeight}px`,
-          // }}
-        >
-          {children}
-        </div>
+        <div className="BaseLayout__content">{children}</div>
         <FooterSection />
       </div>
     </>
@@ -76,8 +60,6 @@ const BaseLayout: FunctionComponent = ({ children }) => {
     <>
       <Helmet>
         <html className="global-theme" />
-        {/* TODO: get from data */}
-        {/* <title>Alexander Greff</title>  */}
       </Helmet>
       <ThemeProvider>
         <SiteProvider>

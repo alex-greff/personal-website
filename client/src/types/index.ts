@@ -1,5 +1,3 @@
-export type ThemeID = "theme-light" | "theme-dark";
-
 export interface BaseProps {
   className?: string;
   style?: React.CSSProperties;

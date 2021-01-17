@@ -1,12 +1,12 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
-import { Theme, ThemeID } from "@/types";
+import { Theme } from "@/types";
 import { defaultTheme } from "@/constants/themes";
 import useTheme from "@/hooks/useTheme";
 
 const THEME_CHANGE_DURATION = 200;
 
 interface ThemeContextValue {
-  theme: ThemeID | null;
+  theme: Theme | null;
   switchTheme: (newTheme: Theme) => void;
 };
 
@@ -16,7 +16,6 @@ const ThemeContext = React.createContext<ThemeContextValue>({
 });
 
 export const ThemeProvider: FunctionComponent = ({ children }) => {
-  // const [theme, setTheme] = useLocalStorage("theme", null);
   const { theme, setTheme } = useTheme();
 
   const [firstTime, setFirstTime] = useState<Boolean>(true);

@@ -1,7 +1,7 @@
-import { ThemeID } from "@/types";
+import { Theme } from "@/types";
 
 interface ThemeOption {
-  id: ThemeID;
+  id: Theme;
   name: string;
 }
 
