@@ -7,6 +7,7 @@ import * as Utilities from "@/utilities";
 import { sr, srConfig } from "@/utilities";
 import { Link } from "gatsby";
 import { graphql, useStaticQuery } from "gatsby";
+import "datejs";
 
 import ContentWrapper from "@/components/wrappers/ContentWrapper/ContentWrapper";
 import GradientDivider from "@/components/ui/dividers/GradientDivider/GradientDivider";
@@ -62,9 +63,9 @@ const ProjectsSection: FunctionComponent<Props> = (props) => {
         const currProjectItem: ProjectItem = {
           title: currRawData.frontmatter.title,
           subtitle: currRawData.frontmatter.subtitle,
-          startDate: new Date(currRawData.frontmatter.startDate),
+          startDate: Date.parse(currRawData.frontmatter.startDate),
           endDate: currRawData.frontmatter.endDate
-            ? new Date(currRawData.frontmatter.endDate)
+            ? Date.parse(currRawData.frontmatter.endDate)
             : null,
           accentColor: currRawData.frontmatter.accentColor,
           categories: currRawData.frontmatter.categories,

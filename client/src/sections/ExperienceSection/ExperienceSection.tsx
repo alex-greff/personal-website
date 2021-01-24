@@ -6,6 +6,7 @@ import FullPageSection from "@/components/wrappers/FullPageSection/FullPageSecti
 import * as Utilities from "@/utilities";
 import { sr, srConfig } from "@/utilities";
 import { graphql, useStaticQuery } from "gatsby";
+import "datejs";
 
 import ContentWrapper from "@/components/wrappers/ContentWrapper/ContentWrapper";
 import GradientDivider from "@/components/ui/dividers/GradientDivider/GradientDivider";
@@ -49,9 +50,9 @@ const ExperienceSection: FunctionComponent<Props> = (props) => {
         const currTimelineData: TimelineItemData = {
           title: currData.frontmatter.title,
           subtitle: currData.frontmatter.subtitle,
-          startDate: new Date(currData.frontmatter.startDate),
+          startDate: Date.parse(currData.frontmatter.startDate),
           endDate: currData.frontmatter.endDate
-            ? new Date(currData.frontmatter.endDate)
+            ? Date.parse(currData.frontmatter.endDate)
             : null,
           accentColor: currData.frontmatter.accentColor,
           mdxContent: currData.body,

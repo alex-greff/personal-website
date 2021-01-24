@@ -248,7 +248,7 @@ export const dateSortArray = (
  * @param date The date object.
  * @param showDay Show the day.
  */
-export function getFormattedDate(date: Date, showDay = false) {
+export function getFormattedDate(date: Date, showDay = false): string {
   const month_names = [
     "January",
     "Feburary",
@@ -264,14 +264,19 @@ export function getFormattedDate(date: Date, showDay = false) {
     "December",
   ];
 
-  const day = date.getDate();
   const month_index = date.getMonth();
   const month = month_names[month_index];
   const year = date.getFullYear();
 
+  if (month === 'undefined' || isNaN(year)) {
+    return date.toString();
+  }
+
   if (!showDay) {
     return `${month} ${year}`;
   }
+
+  const day = date.getDate();
 
   return `${month} ${day}, ${year}`;
 }

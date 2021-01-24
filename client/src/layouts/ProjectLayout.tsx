@@ -4,6 +4,7 @@ import { graphql, Link, PageProps } from "gatsby";
 import FullPageSection from "@/components/wrappers/FullPageSection/FullPageSection";
 import ContentWrapper from "@/components/wrappers/ContentWrapper/ContentWrapper";
 import { ProjectItem } from "@/types";
+import "datejs";
 
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 
@@ -21,10 +22,10 @@ const ProjectLayout: FunctionComponent<Props> = ({ data: { mdx } }) => {
       title: mdx.frontmatter.title,
       subtitle: mdx.frontmatter.subtitle,
       startDate: mdx.frontmatter.startDate
-        ? new Date(mdx.frontmatter.startDate)
+        ? Date.parse(mdx.frontmatter.startDate)
         : null,
       endDate: mdx.frontmatter.endDate
-        ? new Date(mdx.frontmatter.endDate)
+        ? Date.parse(mdx.frontmatter.endDate)
         : null,
       accentColor: mdx.frontmatter.accentColor,
       tags: mdx.frontmatter.tags,
