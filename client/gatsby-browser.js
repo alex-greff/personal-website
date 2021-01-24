@@ -6,7 +6,5 @@
 exports.onInitialClientRender = () => {
   window.addEventListener('load', () => {
     document.querySelector("#___gatsby").classList.remove("preload");
-
-    document.querySelector("#___loader-preload").classList.add("loaded");
   });
 }

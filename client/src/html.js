@@ -17,7 +17,6 @@ export default function HTML(props) {
         {props.headComponents}
       </head>
       <body {...props.bodyAttributes}>
-        <div id="___loader-preload"></div>
         {props.preBodyComponents}
         <div
           key={`body`}
