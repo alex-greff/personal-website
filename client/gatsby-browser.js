@@ -3,8 +3,10 @@
 // References:
 // - https://www.gatsbyjs.com/docs/custom-html/
 // https://curtistimson.co.uk/post/gatsbyjs/add-body-class-gatsbyjs-fouc/
-exports.onClientEntry = () => {
+exports.onInitialClientRender = () => {
   window.addEventListener('load', () => {
     document.querySelector("#___gatsby").classList.remove("preload");
+
+    document.querySelector("#___loader-preload").classList.add("loaded");
   });
 }
