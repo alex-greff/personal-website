@@ -49,7 +49,7 @@ const Timeline: FunctionComponent<Props> = (props) => {
       "title",
       "startDate",
       "endDate"
-    ).reverse();
+    );
   }, [timelineData]);
 
   // Scroll reveal
