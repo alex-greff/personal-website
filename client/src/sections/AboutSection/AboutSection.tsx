@@ -26,8 +26,7 @@ const AboutSection: FunctionComponent<Props> = (props) => {
       profileImage: file(relativePath: { eq: "profile-picture.png" }) {
         childImageSharp {
           gatsbyImageData(
-            maxWidth: 2048
-            layout: FLUID
+            width: 2048
             placeholder: TRACED_SVG
           )
         }

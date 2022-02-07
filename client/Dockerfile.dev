@@ -1,10 +1,11 @@
-FROM node:alpine
+FROM node:14-alpine
 WORKDIR /app
 RUN apk add --no-cache git autoconf automake libtool make tiff jpeg \
-                       zlib zlib-dev pkgconf nasm file gcc musl-dev
+                       zlib zlib-dev pkgconf nasm file gcc musl-dev g++ python3
 COPY ./package*.json ./
 RUN npm install -g gatsby-cli
 RUN npm install
+RUN npm rebuild bcrypt --build-from-source
 COPY . .
 CMD ["npm", "run", "develop"]
 # CMD ["tail", "-f", "/dev/null"]

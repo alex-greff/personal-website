@@ -84,8 +84,7 @@ export const pageQuery = graphql`
         thumbnail {
           childImageSharp {
             gatsbyImageData(
-              maxWidth: 2048
-              layout: FLUID
+              width: 2048
               placeholder: TRACED_SVG
             )
           }

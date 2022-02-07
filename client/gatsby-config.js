@@ -44,7 +44,10 @@ module.exports = {
       resolve: `gatsby-plugin-sass`,
       options: {
         implementation: require('sass'),
-        data: `@import "./src/styles/global.scss";`,
+        additionalData : `
+          @use 'sass:math';
+          @import "./src/styles/global.scss";
+        `,
         webpackImporter: false,
       }
     },
