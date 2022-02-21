@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
       context: ./client
     ports: 
-      - "3050:8080"
+      - "3050:80"
     container_name: personal_website_client
     volumes: 
       - ./client:/app
