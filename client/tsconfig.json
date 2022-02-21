@@ -24,7 +24,6 @@
       "@/*": ["src/*"]
     },
     "experimentalDecorators": true,
-    "types": ["resize-observer-browser"],
   },
   "include": [
     "src"

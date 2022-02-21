@@ -25,15 +25,13 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       value: collection,
     });
 
-    console.log("> collection:", collection); // TODO: remove
-
     // Only add the slug if called for
     if (SLUG_COLLECTIONS.includes(collection)) {
       // Construct the slug
       const slugBase = createFilePath({ node, getNode });
       const slug = `${collection}${slugBase}`;
 
-      console.log("- slug:", slug); // TODO: remove
+      console.log("- slug:", slug);
       
       // Create slug field
       createNodeField({
