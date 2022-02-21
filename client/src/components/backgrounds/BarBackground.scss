@@ -45,7 +45,7 @@
     & .BarBackground__bar-num-#{$i} {
       // The pos of the bar on the triangle
       // Range: 0 = ends, 1 = middle
-      $triangle-val: (1 - abs(($i/$num-bars - 0.5))/0.5); 
+      $triangle-val: (1 - math.div(abs((math.div($i, $num-bars) - 0.5)), 0.5));
       $pow-triangle-val: pow-float($triangle-val, $curve-pow);
 
       // RANDOMNESS CONFIG
@@ -58,16 +58,16 @@
 
       &.right, &.left {
         width: calc(#{$min-width + $pow-triangle-val * ($max-width - $min-width)}vw + #{$width-rand}px);
-        height: calc(#{100/$num-bars * $height-multiplier * $screen-height-amount}vh + #{$height-rand}px);
+        height: calc(#{math.div(100, $num-bars) * $height-multiplier * $screen-height-amount}vh + #{$height-rand}px);
 
-        transform: translateY(calc(#{(($i - 1)/$num-bars*100 - 50) * $screen-height-amount}vh + #{$transform-rand}px));
+        transform: translateY(calc(#{(math.div(($i - 1), $num-bars)*100 - 50) * $screen-height-amount}vh + #{$transform-rand}px));
       }
 
       &.top, &.bottom {
         height: calc(#{$min-width + $pow-triangle-val * ($max-width - $min-width)}vh + #{$width-rand}px);
-        width: calc(#{100/$num-bars * $height-multiplier * $screen-height-amount}vw + #{$height-rand}px);
+        width: calc(#{math.div(100, $num-bars) * $height-multiplier * $screen-height-amount}vw + #{$height-rand}px);
 
-        transform: translateX(calc(#{(($i - 1)/$num-bars*100 - 50) * $screen-height-amount}vw + #{$transform-rand}px));
+        transform: translateX(calc(#{(math.div(($i - 1), $num-bars)*100 - 50) * $screen-height-amount}vw + #{$transform-rand}px));
       }
 
       &.right .BarBackground__bar-fill {

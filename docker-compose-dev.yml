@@ -7,9 +7,14 @@ services:
       context: ./client
     ports: 
       - "3050:8080"
+      - "30522:30522"
     container_name: personal_website_client
     volumes: 
       - /app/node_modules
       - ./client:/app
     environment: 
       - CHOKIDAR_USEPOLLING=true
+      # Fixes the internal development server port (rather than it being random)
+      # so we can expose it from the container
+      # Source: https://www.reddit.com/r/gatsbyjs/comments/krifvb/gatsby_randomize_socketio_port_breaking_vagrant/
+      - INTERNAL_STATUS_PORT=30522

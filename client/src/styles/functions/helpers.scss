@@ -24,7 +24,7 @@
 }
 
 @function exp-maclaurin($x, $n) {
-  @return (pow-float($x, $n) / factorial($n));
+  @return math.div(pow-float($x, $n), factorial($n));
 }
 
 @function exp($value) {
@@ -32,7 +32,7 @@
 }
 
 @function ln-maclaurin($x, $n) {
-  @return (pow-float(-1, $n + 1) / $n) * (pow-float($x - 1, $n));
+  @return (math.div(pow-float(-1, $n + 1), $n)) * (pow-float($x - 1, $n));
 }
 
 @function ln($value) {
@@ -43,7 +43,7 @@
     $ten-exp: $ten-exp + 1;
   }
   
-  @return summation(ln-maclaurin, $value / pow-float(10, $ten-exp), 1, 100) + $ten-exp * $ln-ten;
+  @return summation(ln-maclaurin, math.div($value, pow-float(10, $ten-exp)), 1, 100) + $ten-exp * $ln-ten;
 }
 
 // --------------------
