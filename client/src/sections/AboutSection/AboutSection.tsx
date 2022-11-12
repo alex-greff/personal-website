@@ -27,7 +27,7 @@ const AboutSection: FunctionComponent<Props> = (props) => {
         childImageSharp {
           gatsbyImageData(
             width: 2048
-            placeholder: TRACED_SVG
+            placeholder: BLURRED
           )
         }
       }

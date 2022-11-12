@@ -35,7 +35,7 @@ const ProjectsSection: FunctionComponent<Props> = (props) => {
               }
               thumbnail {
                 childImageSharp {
-                  gatsbyImageData(width: 2048, placeholder: TRACED_SVG)
+                  gatsbyImageData(width: 2048, placeholder: BLURRED)
                 }
               }
               thumbnailHeight
