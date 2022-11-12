@@ -45,7 +45,7 @@ module.exports = {
       options: {
         implementation: require('sass'),
         additionalData : `
-          @use 'sass:math';
+          @use 'sass:math' as math;
           @import "./src/styles/global.scss";
         `,
         webpackImporter: false,

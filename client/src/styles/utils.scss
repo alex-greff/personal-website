@@ -31,7 +31,7 @@
     @warn "$index: #{quote($index)} is not a number for `remove-nth`.";
   } @else if $index == 0 {
     @warn "List index 0 must be a non-zero integer for `remove-nth`.";
-  } @else if abs($index) > length($list) {
+  } @else if math.abs($index) > length($list) {
     @warn "List index is #{$index} but list is only #{length($list)} item long for `remove-nth`.";
   } @else {
     $result: ();

@@ -25,7 +25,7 @@
 // Generates a random number between $min and $max
 @function random-num($min, $max) {
   $rand: random();
-  $randomNum: $min + floor($rand * (($max - $min) + 1));
+  $randomNum: $min + math.floor($rand * (($max - $min) + 1));
 
   @return $randomNum;
 }
@@ -33,7 +33,7 @@
 
 // Clamps $number between $min and $max
 @function clamp2($number, $min, $max) {
-  @return min(max($number, $min), $max);
+  @return math.min(math.max($number, $min), $max);
 }
 
 // Computes $number ^ $exp
@@ -56,7 +56,7 @@
 // Computes $number ^ $exp
 // Note: $exponent can be a float/integer
 @function pow-float($number, $exponent) {
-  @if (round($exponent) != $exponent) {
+  @if (math.round($exponent) != $exponent) {
     @return exp($exponent * ln($number));
   }
     
