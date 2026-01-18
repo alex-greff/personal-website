@@ -12,6 +12,6 @@
     "naumovs.color-highlight",
     "graphql.vscode-graphql",
     "wayou.vscode-todo-highlight",
-    "silvenon.mdx"
+    "unifiedjs.vscode-mdx"
   ]
 }
